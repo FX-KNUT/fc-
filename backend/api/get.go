@@ -2,6 +2,6 @@ package api
 
 import "fmt"
 
-func get() {
+func Get() {
 	fmt.Println("testing - get")
 }

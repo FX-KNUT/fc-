@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+
+	"./api"
 )
 
 // testing
@@ -12,6 +14,8 @@ func main() {
 	if is_result_test {
 		fmt.Println("Good to go!")
 	}
+	api.Get()
+	api.Post()
 }
 
 func test(_c_test chan bool) {
