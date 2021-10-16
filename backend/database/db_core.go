@@ -2,13 +2,21 @@ package db
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
+
+	_ "github.com/go-sql-driver/mysql" // mysql driver
 )
 
 // CONSTANT VARIABLES
 
 const CONST_DBMS_NAME__DRIVER string = "mysql"
-const CONST_DBMS_NAME__SOURCE string = "something" // should be fixed right after I finish researching about DB logic relavant with Golang
+const CONST_DBMS_CONNECT_DB__USERID string = "root"
+const CONST_DBMS_CONNECT_DB__USERPW string = "tlsdlwhd123."
+const CONST_DBMS_CONNECT_DB__METHOD string = "tcp"
+const CONST_DBMS_CONNECT_DB__IP string = "127.0.0.1"
+const CONST_DBMS_CONNECT_DB__PORT int = 3310
+const CONST_DBMS_CONNECT_DB__CONTEXT string = "fc"
 
 func Init() {
 	fn_open__db()
@@ -20,7 +28,15 @@ func Init() {
 
 func fn_open__db() {
 
-	db, err_db_open := sql.Open(CONST_DBMS_NAME__DRIVER, CONST_DBMS_NAME__SOURCE)
+	db, err_db_open := sql.Open(CONST_DBMS_NAME__DRIVER, fmt.Sprintf(
+			"%s:%s@%s(%s:%d)/%s",
+			CONST_DBMS_CONNECT_DB__USERID,
+			CONST_DBMS_CONNECT_DB__USERPW,
+			CONST_DBMS_CONNECT_DB__METHOD,
+			CONST_DBMS_CONNECT_DB__IP,
+			CONST_DBMS_CONNECT_DB__PORT,
+			CONST_DBMS_CONNECT_DB__CONTEXT,
+		))
 
 	// fn_set_db_config(db)
 

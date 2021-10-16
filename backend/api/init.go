@@ -20,7 +20,7 @@ func Init() {
 	c_is_ready_GET := make(chan bool)
 	c_is_ready_POST := make(chan bool)
 
-	r := gin.Default()
+	r := gin.Default() // router
 
 	go Get(c_is_ready_GET, r)
 	go Post(c_is_ready_POST, r)

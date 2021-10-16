@@ -2,6 +2,7 @@ package main
 
 import (
 	"./api"
+	db "./database"
 )
 
 func main() {
@@ -9,6 +10,6 @@ func main() {
 }
 
 func fn_main_init() {
-	// go db.Init()
+	go db.Init()
 	api.Init()
 }
