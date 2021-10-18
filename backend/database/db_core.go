@@ -3,10 +3,12 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	"log"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql" // mysql driver
 )
+
+var db *sql.DB
 
 // CONSTANT VARIABLES
 
@@ -28,7 +30,7 @@ func Init() {
 
 func fn_open__db() {
 
-	db, err_db_open := sql.Open(CONST_DBMS_NAME__DRIVER, fmt.Sprintf(
+	db, _ = sql.Open(CONST_DBMS_NAME__DRIVER, fmt.Sprintf(
 			"%s:%s@%s(%s:%d)/%s",
 			CONST_DBMS_CONNECT_DB__USERID,
 			CONST_DBMS_CONNECT_DB__USERPW,
@@ -38,28 +40,42 @@ func fn_open__db() {
 			CONST_DBMS_CONNECT_DB__CONTEXT,
 		))
 
-	// fn_set_db_config(db)
+	fn_set_db_config(db)
 
-	if err_db_open != nil {
-		log.Fatal(err_db_open)
-	}
+	// insert, err := db.Query("INSERT INTO table_name VALUES('some_field_name')") // returns *sql.Rows, error
+	// defer insert.Close()
+
 
 	// sql.Conn(ctx)
 
 	// fn_begin_tx(ctx context.Context, opts *TxOptions)
 
-	defer db.Close()
+	fmt.Println("DB is successfully opened. // backend/database/db_core.go")
 
 }
 
-// func fn_set_db_config(db *sql.DB) {
+func fn_set_db_config(db *sql.DB) {
 
-// 	// simple examples of using library - sql
-// 	db.SetConnMaxLifetime(time.Minute * 3)
-// 	db.SetMaxOpenConns(10)
-// 	db.SetMaxIdleConns(10)
+	// simple examples of using library - sql
+	db.SetConnMaxLifetime(time.Minute * 3)
+	db.SetConnMaxIdleTime(10)
+	db.SetMaxOpenConns(10)
+	db.SetMaxIdleConns(10)
 
-// }
+}
+
+func Fn_access_db() *sql.DB {
+	return db
+}
+
+func Fn_close_db(close_db chan<- bool) {
+	err := db.Close()
+	if err != nil {
+		close_db <- false
+		return
+	}
+	close_db <- true
+}
 
 /* fn_open__db --> *************************/
 
