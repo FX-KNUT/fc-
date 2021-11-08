@@ -1,4 +1,4 @@
-import Layout from "../components/Layout/Layout";
+import Layout from "../components/Reusable/t_fx__layout";
 import "../styles/globals.scss";
 
 function MyApp({ Component, pageProps }) {
