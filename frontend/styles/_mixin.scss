@@ -1,0 +1,25 @@
+@import "./variable";
+
+// mediaquery
+@mixin mobile {
+  @media screen and (max-width: $breakpoint_mobile) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (min-width: calc($breakpoint_mobile + 1)) and (max-width: $breakpoint_tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: calc($breakpoint_tablet + 1)) {
+    @content;
+  }
+}
+
+// darkmode
+@mixin mode {
+  @content;
+}
