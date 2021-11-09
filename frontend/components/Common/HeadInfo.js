@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-const HeadInfo = () => {
+const headInfo = () => {
   return (
     <div>
       <Head>
@@ -13,4 +13,4 @@ const HeadInfo = () => {
   );
 };
 
-export default HeadInfo;
+export default headInfo;

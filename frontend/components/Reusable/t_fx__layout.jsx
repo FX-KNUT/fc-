@@ -1,11 +1,9 @@
-import Header from "../Common/Header";
-import HeadInfo from "../Common/HeadInfo";
+import HeadInfo from "../Common/headinfo";
 
 const t_fx__layout = ({ children }) => {
   return (
     <>
       <HeadInfo></HeadInfo>
-      <Header></Header>
       <div>{children}</div>
     </>
   );
