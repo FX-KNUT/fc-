@@ -1,9 +1,11 @@
 package entity
 
 type User struct {
-	id        string `json:"id" binding:"required"`
-	nickname  string `json:"nickname" binding:"required"`
-	hashed_pw string `json:"hashed_pw" binding:"required"`
-	email     string `json:"email" binding:"required"`
-	balance   int    `json:"balance" binding:"required"`
+	Id        string `json:"id" binding:"required"`
+	Nickname  string `json:"nickname" binding:"required"`
+	Hashed_pw string `json:"hashed_pw" binding:"required"`
+	Email     string `json:"email" binding:"required"`
+	Balance   int    `json:"balance"`
 }
+
+type Users []User

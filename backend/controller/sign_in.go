@@ -2,15 +2,20 @@ package controller
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 
+	db "../database"
+	"./logic"
 	"github.com/gin-gonic/gin"
 )
 
 func Fn_sign_in(c *gin.Context) error {
 	
 	var err_wrong__ID error = errors.New("wrong id comes from client while executing Fn_sign_up")
-	var err_wrong__PW error = errors.New("wrong id comes from client while executing Fn_sign_up")
+	var err_wrong__pw error = errors.New("wrong id comes from client while executing Fn_sign_up")
+	var err_wrong__user error = errors.New("wrong user info comes from client while executing Fn_sign_up")
+	var err_wrong__hashing error = errors.New("error comes within server while hashing pw on Fn_sign_up")
 
 	id := c.Query("id")
 	pw := c.Query("pw")
@@ -22,50 +27,36 @@ func Fn_sign_in(c *gin.Context) error {
 		return err_wrong__ID
 	}
 
-	// if len(hashed_pw) != 36 {
-	if len(pw) < 8 || len(pw) > 20 {
+	if len(pw) != 36 {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "정보가 잘못 입력되었습니다.",
+			"message": "클라이언트 단에서 해싱이 잘못 된 것 같습니다. 비밀번호가 36자가 아닙니다.",
 		})
-		return err_wrong__PW
+		return err_wrong__pw
 	}
+
+	pw, err := logic.Fn_hashing(pw)
+
+	if err != nil {
+		c.JSON(http.StatusBadGateway, gin.H{
+			"message": "서버 단에서 비밀번호를 해싱하는 중에 문제가 생겼습니다",
+		})
+		return err_wrong__hashing
+	}
+
+	fmt.Println(pw)
+
+	user, err := db.Fn_select_user_by_ID_and_PW(id, pw)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "일치하는 회원 정보가 없습니다.",
+		})
+		return err_wrong__user
+	}
+
 	c.JSON(http.StatusOK, gin.H{
-		"id": id,
-		"nickname": "testtest",
-		"email": "testtest@ut.ac.kr",
-		"balance": 200,
-		"당신의 아이피는 해킹되었다": c.ClientIP(),
+		"user": user,
 	})
 
 	return nil
 }
-
-// func Fn_sign_in(id string, hashed_pw string) (entity.User, error) {
-// 	database := db.Fn_access_db()
-// 	// query := fmt.Sprintf("SELECT ID, NAME, NICKNAME, HASHED_PW, EMAIL FROM USER WHERE (ID = %s) AND (HASHED_PW = %s);", id, hashed_pw)
-
-// 	// query := "SELECT id FROM users"
-
-// 	// var user_info string
-
-// 	// err := db.QueryRow(query).Scan(&user_info)
-
-// 	// if err != nil {
-// 	// 	panic(err.Error())
-// 	// }
-
-// 	// fmt.Println(user_info)
-
-// 	query := "SELECT id FROM users"
-
-// 	var user string
-
-// 	err := database.QueryRow(query).Scan(&user)
-// 	if err != nil {
-// 		panic(err.Error())
-// 	}
-
-// 	fmt.Println(user)
-
-// 	return entity.User{}, err
-// }
