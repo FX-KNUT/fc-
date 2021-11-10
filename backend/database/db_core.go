@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 	"fmt"
+	"os"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql" // mysql driver
@@ -30,7 +31,7 @@ func Init() {
 
 func fn_open__db() {
 
-	db, _ = sql.Open(CONST_DBMS_NAME__DRIVER, fmt.Sprintf(
+	db, err := sql.Open(CONST_DBMS_NAME__DRIVER, fmt.Sprintf(
 			"%s:%s@%s(%s:%d)/%s",
 			CONST_DBMS_CONNECT_DB__USERID,
 			CONST_DBMS_CONNECT_DB__USERPW,
@@ -40,15 +41,12 @@ func fn_open__db() {
 			CONST_DBMS_CONNECT_DB__CONTEXT,
 		))
 
+	if err != nil {
+		fmt.Printf("Error occurred while opening DB, error - %s", err)
+		os.Exit(1)
+	}
+
 	fn_set_db_config(db)
-
-	// insert, err := db.Query("INSERT INTO table_name VALUES('some_field_name')") // returns *sql.Rows, error
-	// defer insert.Close()
-
-
-	// sql.Conn(ctx)
-
-	// fn_begin_tx(ctx context.Context, opts *TxOptions)
 
 	fmt.Println("DB is successfully opened. // backend/database/db_core.go")
 
@@ -82,8 +80,8 @@ func Fn_close_db(close_db chan<- bool) {
 /*********************************************************************************/
 /* <!----- fn_validate_blocks ***************/
 
-func fn_validate_blocks() {
+// func fn_validate_blocks() {
 
-}
+// }
 
 /* fn_validate_blocks --> *******************/
