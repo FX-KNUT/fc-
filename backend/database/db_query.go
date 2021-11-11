@@ -47,12 +47,6 @@ func Fn_select_user_by_ID(id string) bool {
 	query := fmt.Sprintf("SELECT id from users where id = '%s'", id)
 
 	err := db.QueryRow(query).Scan(&ret_id)
-
-	fmt.Println("please : ", ret_id)
-
-	fmt.Println("id: ", id)
-
-	fmt.Println(query)
 	
 	return err != nil
 }
@@ -88,8 +82,6 @@ func Fn_insert_user(user entity.User) error {
 							user.Id, user.Nickname, user.Hashed_pw, user.Email, user.Balance)
 
 	_, err := db.Query(query)
-
-	fmt.Print(query)
 
 	if err == nil {
 		return err
