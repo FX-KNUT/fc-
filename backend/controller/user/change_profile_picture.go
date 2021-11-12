@@ -14,20 +14,22 @@ type Form_File struct {
 }
 
 func (f Form_File) Fn_change_profile_picture(c *gin.Context) error {
-	// <form action="/change_profile_picture" method="post" name="change_profile_picture">
-	//	~~~~~~~~~~~
-	// </form>
-
 	err := c.ShouldBind(&f)
 
+	var str_bad_request string = "잘못된 요청입니다."
+	var str_uploaded string = "업로드 되었습니다."
+
+	// If an error occurs, Don't store it on server and return the function with the error
 	if err != nil {
-		c.String(http.StatusBadRequest, "잘못된 요청입니다.")
+		c.String(http.StatusBadRequest, str_bad_request)
 		return err
 	}
 
-	c.String(http.StatusOK, "업로드 되었습니다.")
+	c.String(http.StatusOK, str_uploaded)
 
-	c.SaveUploadedFile(f.file, fmt.Sprintf("/asset/user/profile_picture/%s", f.id))
+	path :=  fmt.Sprintf("/asset/user/profile_picture/%s", f.id)
+
+	c.SaveUploadedFile(f.file, path)
 
 	return nil
 }
