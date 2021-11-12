@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net/http"
 
-	db "../database"
-	entity "../entity"
-	logic "./logic"
+	db "../../database"
+	entity "../../entity"
+	logic "../logic"
 
 	"github.com/gin-gonic/gin"
 )
@@ -31,31 +31,23 @@ func Fn_sign_up(c *gin.Context) error {
 	}
 
 	if len(user.Id) < 4 || len(user.Id) > 18 {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "유효하지 않은 정보가 있습니다.",
-		})
+		c.String(http.StatusBadRequest, "유효하지 않은 정보가 있습니다.")
 		return err_wrong__ID
 	}
 
 	if len(user.Hashed_pw) != 36 {
-		c.JSON(http.StatusBadGateway, gin.H{
-			"message": "유효하지 않은 정보가 있습니다.",
-		})
+		c.String(http.StatusBadGateway, "유효하지 않은 정보가 있습니다.")
 		fmt.Println(errors.New("error occured at Fn_sign_up on sign_up"))
 		return err_wrong__pw
 	}
 
 	if len(user.Nickname) < 2 || len(user.Nickname) > 12 {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "유효하지 않은 정보가 있습니다.",
-		})
+		c.String(http.StatusBadRequest, "유효하지 않은 정보가 있습니다.")
 		return err_wrong__nickname
 	}
 
 	if len(user.Email) > 48 {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "유효하지 않은 정보가 있습니다.",
-		})
+		c.String(http.StatusBadRequest, "유효하지 않은 정보가 있습니다.")
 		return err_wrong__email
 	}
 
@@ -64,24 +56,18 @@ func Fn_sign_up(c *gin.Context) error {
 	user.Hashed_pw, err = logic.Fn_hashing(user.Hashed_pw)
 
 	if err != nil {
-		c.JSON(http.StatusBadGateway, gin.H{
-			"message": "Error occurred while hashing on server, sorry.",
-		})
+		c.String(http.StatusBadGateway, "Error occurred while hashing on server, sorry.")
 		return err
 	}
 
 	err = db.Fn_insert_user(user)
 
 	if err != nil {
-		c.JSON(http.StatusBadGateway, gin.H{
-			"message": "Error occured while inserting user information on server, sorry.",
-		})
+		c.String(http.StatusBadGateway, "Error occured while inserting user information on server, sorry.",)
 		return err
 	}
 	
-	c.JSON(http.StatusOK, gin.H{
-		"message": "ok",
-	})
+	c.String(http.StatusOK, "ok")
 
 	return nil
 }
@@ -94,9 +80,7 @@ func Fn_check_ID(c *gin.Context) error {
 	id := c.Query("id")
 
 	if len(id) < 4 || len(id) > 18 {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "정보가 잘못 입력되었습니다.",
-		})
+		c.String(http.StatusBadRequest, "정보가 잘못 입력되었습니다.")
 		return err_ID__invalid_size
 	}
 

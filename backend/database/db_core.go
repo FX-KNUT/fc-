@@ -23,7 +23,7 @@ const CONST_DBMS_CONNECT_DB__CONTEXT string = "fc"
 
 func Init() {
 	fn_open__db()
-	fn_validate_blocks()
+	// fn_validate_blocks()
 }
 
 /*********************************************************************************/

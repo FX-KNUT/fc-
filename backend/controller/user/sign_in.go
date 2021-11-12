@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	db "../database"
-	"./logic"
+	db "../../database"
+	logic "../logic"
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,25 +21,19 @@ func Fn_sign_in(c *gin.Context) error {
 	pw := c.Query("pw")
 
 	if len(id) < 4 || len(id) > 12 {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "정보가 잘못 입력되었습니다.",
-		})
+		c.String(http.StatusBadRequest, "정보가 잘못 입력되었습니다.")
 		return err_wrong__ID
 	}
 
 	if len(pw) != 36 {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "클라이언트 단에서 해싱이 잘못 된 것 같습니다. 비밀번호가 36자가 아닙니다.",
-		})
+		c.String(http.StatusBadRequest, "클라이언트 단에서 해싱이 잘못 된 것 같습니다. 비밀번호가 36자가 아닙니다.")
 		return err_wrong__pw
 	}
 
 	pw, err := logic.Fn_hashing(pw)
 
 	if err != nil {
-		c.JSON(http.StatusBadGateway, gin.H{
-			"message": "서버 단에서 비밀번호를 해싱하는 중에 문제가 생겼습니다",
-		})
+		c.String(http.StatusBadGateway, "서버 단에서 비밀번호를 해싱하는 중에 문제가 생겼습니다")
 		return err_wrong__hashing
 	}
 
@@ -48,9 +42,7 @@ func Fn_sign_in(c *gin.Context) error {
 	user, err := db.Fn_select_user_by_ID_and_PW(id, pw)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "일치하는 회원 정보가 없습니다.",
-		})
+		c.String(http.StatusBadRequest, "일치하는 회원 정보가 없습니다.")
 		return err_wrong__user
 	}
 
