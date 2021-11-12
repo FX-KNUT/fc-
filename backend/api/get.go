@@ -3,20 +3,20 @@ package api
 import (
 	"fmt"
 
-	ctrl "../controller"
+	ctrl_user "../controller/user"
 
 	"github.com/gin-gonic/gin"
 )
 
 func fn_REST_sign_in(c *gin.Context) {
-	err := ctrl.Fn_sign_in(c)
+	err := ctrl_user.Fn_sign_in(c)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 }
 
 func fn_REST_check_id(c *gin.Context) {
-	err := ctrl.Fn_check_ID(c)
+	err := ctrl_user.Fn_check_ID(c)
 	if err != nil {
 		fmt.Println(err.Error())
 	}

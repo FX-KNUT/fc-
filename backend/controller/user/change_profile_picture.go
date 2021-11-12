@@ -1,4 +1,4 @@
-package controller
+package controller_user
 
 import (
 	"fmt"
@@ -13,7 +13,10 @@ type Form_File struct {
 	file *multipart.FileHeader `form:"file" binding:"required"`
 }
 
-func (f Form_File) Fn_change_profile_picture(c *gin.Context) error {
+func Fn_change_profile_picture(c *gin.Context) error {
+
+	var f Form_File
+
 	err := c.ShouldBind(&f)
 
 	var str_bad_request string = "잘못된 요청입니다."
