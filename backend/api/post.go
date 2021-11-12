@@ -14,8 +14,16 @@ func fn_REST_post__signup(c *gin.Context) {
 	}
 }
 
+func fn_REST_post__profile_picture(c *gin.Context) {
+	err := ctrl.Fn_change_profile_picture(c)
+	if err != nil {
+		fmt.Print(err.Error())
+	}
+}
+
 // core
 func Post(c chan<- bool, r *gin.Engine) {
 	go r.POST("/signup", fn_REST_post__signup)
+	go r.POST("/change_profile_picture", fn_REST_post__profile_picture)
 	c <- true
 }
