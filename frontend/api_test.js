@@ -1,7 +1,6 @@
-const { default: axios } = require("axios");
+/* 이 파일은 해싱, 로그인, 회원가입, checkid 로직만 있는 파일입니다. 나중에 컴포넌트가 만들어지면 로직만 가져다가 붙일거예요. */
 
-const { SALT, HASH_LENGTH, IP, URL__CHECKID, URL__SIGNIN, URL__SIGNUP } =
-  process.env;
+const { default: axios } = require("axios");
 
 const id = `test`;
 const pw = `testtest1.`;
@@ -9,8 +8,8 @@ const nickname = `testtest`;
 const email = `testtest@ut.ac.kr`;
 
 const fn_hashing = (pw) => {
-  const missing = HASH_LENGTH - pw.length; // 36-pw개수 = 빈 부분 채우기
-  let temp = pw + SALT.substr(0, missing); // SALT.substr(0)
+  const missing = process.env.NEXT_PUBLIC_HASH_LENGTH - pw.length; // 36-pw개수 = 빈 부분 채우기
+  let temp = pw + process.env.NEXT_PUBLIC_SALT.substr(0, missing); // process.env.NEXT_PUBLIC_SALT.substr(0)
   temp = temp
     .split("")
     .map((t, idx) => {
@@ -24,7 +23,7 @@ const fn_hashing = (pw) => {
 };
 
 const fn_REST__signin = async () => {
-  const url = IP + URL__SIGNIN;
+  const url = process.env.NEXT_PUBLIC_IP + process.env.NEXT_PUBLIC_URL__SIGNIN;
   try {
     const res = await axios.get(url, { params: { id, pw: fn_hashing(pw) } });
 
@@ -35,7 +34,7 @@ const fn_REST__signin = async () => {
 };
 
 const fn_REST__signup = async () => {
-  const url = IP + URL__SIGNUP;
+  const url = process.env.NEXT_PUBLIC_IP + process.env.NEXT_PUBLIC_URL__SIGNUP;
   try {
     const res = await axios.post(url, {
       id,
@@ -50,13 +49,13 @@ const fn_REST__signup = async () => {
 };
 
 const fn_REST__checkid = async () => {
-  const url = IP + URL__CHECKID;
+  const url = process.env.NEXT_PUBLIC_IP + process.env.NEXT_PUBLIC_URL__CHECKID;
   const res = await axios.get(url, { params: { id } });
   console.log(res.data);
 };
 
 const fn__clg = () => {
-  console.log(IP);
+  console.log(process.env.NEXT_PUBLIC_IP);
 };
 
 fn_REST__signin();
