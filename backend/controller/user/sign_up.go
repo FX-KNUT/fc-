@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net/http"
 
-	db "../../database"
-	entity "../../entity"
-	logic "../logic"
+	logic "github.com/FX-KNUT/fc-/backend/controller/logic"
+	db "github.com/FX-KNUT/fc-/backend/database"
+	entity "github.com/FX-KNUT/fc-/backend/entity"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,13 +19,13 @@ func Fn_sign_up(c *gin.Context) error {
 	var err_wrong__pw error = errors.New("wrong pw comes from client while executing Fn_sign_up")
 	var err_wrong__nickname error = errors.New("wrong nickname comes from client while executing Fn_sign_up")
 	var err_wrong__email error = errors.New("wrong email comes from client while executing Fn_sign_up")
-	
+
 	err := c.ShouldBindJSON(&user)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "유효하지 않은 정보가 있습니다.",
-			"error": err.Error(),
+			"error":   err.Error(),
 		})
 		return err
 	}
@@ -63,10 +63,10 @@ func Fn_sign_up(c *gin.Context) error {
 	err = db.Fn_insert_user(user)
 
 	if err != nil {
-		c.String(http.StatusBadGateway, "Error occured while inserting user information on server, sorry.",)
+		c.String(http.StatusBadGateway, "Error occured while inserting user information on server, sorry.")
 		return err
 	}
-	
+
 	c.String(http.StatusOK, "ok")
 
 	return nil
@@ -87,14 +87,14 @@ func Fn_check_ID(c *gin.Context) error {
 	if !db.Fn_select_user_by_ID(id) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "중복된 ID입니다",
-			"id": id,
+			"id":      id,
 		})
 		return err_ID__duplicated
 	}
 
 	c.JSON(http.StatusOK, gin.H{
 		"message": "중복된 ID가 없습니다",
-		"id": id,
+		"id":      id,
 	})
 	return nil
 }

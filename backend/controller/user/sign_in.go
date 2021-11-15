@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"net/http"
 
-	db "../../database"
-	logic "../logic"
+	logic "github.com/FX-KNUT/fc-/backend/controller/logic"
+	db "github.com/FX-KNUT/fc-/backend/database"
 	"github.com/gin-gonic/gin"
 )
 
 func Fn_sign_in(c *gin.Context) error {
-	
+
 	var err_wrong__ID error = errors.New("wrong id comes from client while executing Fn_sign_up")
 	var err_wrong__pw error = errors.New("wrong id comes from client while executing Fn_sign_up")
 	var err_wrong__user error = errors.New("wrong user info comes from client while executing Fn_sign_up")

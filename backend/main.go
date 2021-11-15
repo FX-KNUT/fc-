@@ -1,8 +1,8 @@
 package main
 
 import (
-	"./api"
-	db "./database"
+	"github.com/FX-KNUT/fc-/backend/api"
+	db "github.com/FX-KNUT/fc-/backend/database"
 )
 
 func main() {

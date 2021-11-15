@@ -3,7 +3,7 @@ package api
 import (
 	"fmt"
 
-	ctrl_user "../controller/user"
+	ctrl_user "github.com/FX-KNUT/fc-/backend/controller/user"
 
 	"github.com/gin-gonic/gin"
 )
