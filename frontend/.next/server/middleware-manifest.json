@@ -1,0 +1,43 @@
+{
+  "sortedMiddleware": [
+    "/",
+    "/about"
+  ],
+  "clientInfo": [
+    [
+      "/",
+      true
+    ],
+    [
+      "/about",
+      true
+    ]
+  ],
+  "middleware": {
+    "/about": {
+      "env": [],
+      "files": [
+        "server/middleware-ssr-runtime.js",
+        "server/middleware-build-manifest.js",
+        "server/middleware-react-loadable-manifest.js",
+        "server/pages/about.js"
+      ],
+      "name": "pages/about",
+      "page": "/about",
+      "regexp": "^/about$"
+    },
+    "/": {
+      "env": [],
+      "files": [
+        "server/middleware-ssr-runtime.js",
+        "server/middleware-build-manifest.js",
+        "server/middleware-react-loadable-manifest.js",
+        "server/pages/index.js"
+      ],
+      "name": "pages/index",
+      "page": "/",
+      "regexp": "^/$"
+    }
+  },
+  "version": 1
+}

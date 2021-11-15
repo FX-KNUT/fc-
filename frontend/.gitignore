@@ -4,13 +4,12 @@
 /node_modules
 /.pnp
 .pnp.js
-.env.local
 
 # testing
 /coverage
 
 # next.js
-/.next/
+# /.next/
 /out/
 
 # production
