@@ -3,7 +3,7 @@ package db
 import (
 	"fmt"
 
-	"../entity"
+	"github.com/FX-KNUT/fc-/backend/entity"
 )
 
 // Select
@@ -47,10 +47,9 @@ func Fn_select_user_by_ID(id string) bool {
 	query := fmt.Sprintf("SELECT id from users where id = '%s'", id)
 
 	err := db.QueryRow(query).Scan(&ret_id)
-	
+
 	return err != nil
 }
-
 
 // 요청 아이디 및 비밀번호와 일치하는 유저 확인 후 존재 시 유저 정보 리턴. 로그인에 사용
 func Fn_select_user_by_ID_and_PW(id string, pw string) (entity.User, error) {
@@ -70,16 +69,15 @@ func Fn_select_user_by_ID_and_PW(id string, pw string) (entity.User, error) {
 	return user, nil
 }
 
-
 // Insert
 
-// 유저 정보 데이터베이스 내 users 테이블에 삽입. 회원 가입에 사용 
+// 유저 정보 데이터베이스 내 users 테이블에 삽입. 회원 가입에 사용
 func Fn_insert_user(user entity.User) error {
 
 	db := Fn_access_db()
 
 	query := fmt.Sprintf("INSERT INTO users VALUES('%s', '%s', '%s', '%s', %d)",
-							user.Id, user.Nickname, user.Hashed_pw, user.Email, user.Balance)
+		user.Id, user.Nickname, user.Hashed_pw, user.Email, user.Balance)
 
 	_, err := db.Query(query)
 
