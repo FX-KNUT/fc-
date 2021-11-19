@@ -1,10 +1,12 @@
 package entity
 
-import "time"
+import (
+	"github.com/jinzhu/gorm"
+)
 
 type Message struct {
-	Image      string    `json:"image"`
-	Author     string    `json:"author" binding:"required"`
-	Content    string    `json:"content" binding:"required"`
-	Created_at time.Time `json:"created_at" binding:"required"`
+	gorm.Model
+	UserId  int    `gorm:"column:user_id"   json:"post_id"   binding:"require"`
+	Content string `gorm:"column:content"   json:"content"   binding:"require"`
+	Target  int    `gorm:"column:target_id" json:"target_id" binding:"require"`
 }
