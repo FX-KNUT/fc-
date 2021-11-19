@@ -1,22 +1,15 @@
 package entity
 
 type Block struct {
-	index         int
-	hash          string
-	previous_hash string
-	txs           []Tx
-	owner         string
-	nonce         string
-	created_date  string
-	reward        int
+	Index         int
+	Hash          string
+	Previous_hash string
+	Tx_Ref_ID     int
+	Owner         string
+	Nonce         string
+	Birth_date    string
+	Difficulty    int
+	Reward        int
 }
 
-type Blockchain struct {
-	blocks []Block
-}
-
-type Tx struct {
-	from   string
-	to     string
-	amount int
-}
+type Blockchain []Block
