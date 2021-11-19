@@ -2,7 +2,6 @@ package entity
 
 type Post struct { // 공지사항, FAQ, QnA
 	Message
-	PostId        int    `gorm:"column:post_id" 	 			json:"post_id" 	 			 binding:"require"`
 	BoardId       int    `gorm:"column:board_id"   		  json:"board_id"   		 binding:"require"`
 	Title         string `gorm:"column:title" 		 			json:"title" 		 			 binding:"require"`
 	ViewCount     int    `gorm:"column:view_count" 		  json:"view_count" 		 binding:"require"`
