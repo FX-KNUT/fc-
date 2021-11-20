@@ -28,7 +28,6 @@ type Block_controller interface {
 	GetLatestIndex() (int, error)
 	UpdateBlock(Block) error
 	SaveBlock(Block) error
-	DeleteBlock(Block) error
 	CalculateHash() (string, error)
 }
 
@@ -83,16 +82,6 @@ func (b *struct_block_controller) UpdateBlock(block Block) error {
 
 	return nil
 	
-}
-func (b *struct_block_controller) DeleteBlock(block Block) error {
-
-	err := b.DeleteBlock(block)
-
-	if err != nil {
-		return errors.New(ERR_DELETE_BLOCK)
-	}
-
-	return nil
 }
 
 func CalculateHash() (string, error) {

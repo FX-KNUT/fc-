@@ -81,9 +81,5 @@ func Fn_insert_user(user entity.User) error {
 
 	_, err := db.Query(query)
 
-	if err == nil {
-		return err
-	}
-
-	return nil
+	return err
 }
