@@ -1,4 +1,4 @@
-package ctrl_blcok
+package ctrl_block
 
 type Block_Controller interface {
 	CreateBlock() Block, error
