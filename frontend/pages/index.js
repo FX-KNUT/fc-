@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Card from "../components/Reusable/t_fx__card";
 import Modal from "../components/Reusable/t_fx__modal";
+import Expandable from "../components/Reusable/t_fx__expandable";
 
 export default function Home() {
   const [is_show, set_is_show] = useState(false);
@@ -24,8 +25,27 @@ export default function Home() {
       };
     }
   };
+
+  const bq = (
+    <>
+      <ul>
+        <li>block</li>
+        <li>quote</li>
+      </ul>
+      <style jsx>{`
+        ul {
+          padding: 0 2rem;
+          margin: 0;
+        }
+        li {
+          margin: 0;
+        }
+      `}</style>
+    </>
+  );
+
   return (
-    <div id="root">
+    <main>
       <h1>Welcome to Fc</h1>
       <button onClick={() => set_is_show(true)}>Open modal</button>
       <Card>
@@ -51,17 +71,19 @@ export default function Home() {
       </form>
 
       <Modal is_show={is_show} fn_on_close={fn_on_close}>
-        <div>
-          <input type="color" />
-          <input type="color" />
-          <input type="color" />
-          <input type="color" />
-          <input type="color" />
-          <input type="color" />
-          <input type="color" />
-          <input type="color" />
-        </div>
+        <div>asd</div>
       </Modal>
-    </div>
+
+      <Card>
+        <Expandable _str_title="Expandable" _obj_blockquote={bq}>
+          <div>
+            Sunt nostrud enim fugiat velit consequat ad nisi adipisicing irure
+            eu irure irure. Sit labore laborum ut sit magna et. Anim enim
+            laboris excepteur cupidatat consequat officia duis duis ipsum aliqua
+            cillum. Esse labore voluptate duis ut labore culpa qui voluptate.
+          </div>
+        </Expandable>
+      </Card>
+    </main>
   );
 }

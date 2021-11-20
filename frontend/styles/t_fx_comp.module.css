@@ -1,3 +1,5 @@
+/* @import "./_variable.scss"; */
+
 .comp_card {
   padding: 1rem;
 }
@@ -11,7 +13,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: black;
 }
 
 .comp_modal_content {
@@ -33,4 +35,55 @@
   cursor: pointer;
   font-size: 1.25rem;
   font-weight: 700;
+}
+
+.comp_expandable {
+}
+.comp_expandable_title_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+  padding: 0 1rem;
+}
+.comp_expandable_title {
+  font-size: 2rem;
+  border: 1px solid red;
+}
+.comp_expandable_down_arrow {
+  border: 1px solid blue;
+}
+.comp_expandable_down_arrow {
+  cursor: pointer;
+}
+.comp_expandable_detail_wrapper {
+  padding: 1rem;
+  border: 1px solid purple;
+}
+.active_arrow {
+  transition: 1s cubic-bezier(0.17, 0.78, 0.4, 0.95);
+  transform: rotate(0.5turn);
+}
+.active_detail {
+  transition: 1s cubic-bezier(0.17, 0.78, 0.4, 0.95);
+}
+.comp_expandable_detail_title {
+  font-size: 1.5rem;
+  border: 1px solid green;
+}
+.comp_expandable_detail_blockquote_wrapper {
+  border: 1px solid yellowgreen;
+  padding: 0 1rem;
+  margin: 1rem 0;
+}
+.comp_expandable_detail_blockquote {
+  border: 1px solid yellow;
+  border-left: 3px solid blue;
+}
+.comp_expandable_detail_blockquote blockquote {
+  margin: 0.5rem;
+}
+.comp_expandable_detail_detail {
+  padding: 0.5rem;
+  border: 1px solid goldenrod;
 }
