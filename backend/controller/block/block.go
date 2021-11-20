@@ -7,10 +7,10 @@ import (
 	"github.com/FX-KNUT/fc-/backend/service"
 )
 
-const ERR_GET__BLOCK 			string	= "Error while getting a block by index: block.go in controller"
+const ERR_GET__BLOCK 			string	= "Error while getting a block by Idx: block.go in controller"
 const ERR_GET__ALL_BLOCK 		string	= "Error while getting whole blocks: block.go in controller"
 const ERR_GET__LATEST__BLOCK 	string	= "Error while getting the latest block: block.go in controller"
-const ERR_GET__LATEST__INDEX 	string	= "Error while getting the latest index of block: block.go in controller"
+const ERR_GET__LATEST__Idx 	string	= "Error while getting the latest Idx of block: block.go in controller"
 const ERR_UPDATE_BLOCK 		 	string 	= "Error while updating a block: block.go in controller"
 const ERR_SAVE_BLOCK		 	string	= "Error while saving a block: block.go in controller"
 const ERR_DELETE_BLOCK			string	= "Error while deleting a block: block.go in controller"
@@ -25,16 +25,16 @@ type Block_controller interface {
 	GetBlock(int) (Block, error)
 	GetAllBlocks() ([]Block, error)
 	GetLatestBlock() (Block, error)
-	GetLatestIndex() (int, error)
+	GetLatestIdx() (int, error)
 	UpdateBlock(Block) error
 	SaveBlock(Block) error
 	CalculateHash() (string, error)
 }
 
-func (b *struct_block_controller) GetBlock(index int) (Block, error) {
+func (b *struct_block_controller) GetBlock(Idx int) (Block, error) {
 	block := Block{}
 
-	block, err := b.GetBlock(index)
+	block, err := b.GetBlock(Idx)
 	if err != nil {
 		return block, errors.New(ERR_GET__BLOCK)
 	}
@@ -62,14 +62,14 @@ func (b *struct_block_controller) GetLatestBlock() (Block, error) {
 	return block, nil
 }
 
-func (b *struct_block_controller) GetLatestIndex() (int, error) {
-	var index int
-	index, err := b.GetLatestIndex()
+func (b *struct_block_controller) GetLatestIdx() (int, error) {
+	var Idx int
+	Idx, err := b.GetLatestIdx()
 	if err != nil {
-		return -1, errors.New(ERR_GET__LATEST__INDEX)
+		return -1, errors.New(ERR_GET__LATEST__Idx)
 	}
 
-	return index, nil
+	return Idx, nil
 
 }
 
