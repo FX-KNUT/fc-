@@ -1,6 +1,6 @@
 package ctrl_block
 
-import "../../entity"
+import "github.com/FX-KNUT/fc-/backend/entity"
 
 type Block entity.Block
 
@@ -26,7 +26,7 @@ func (b *Block_Controller) CreateBlock() (Block, error) {
 }
 
 func (b *Block_Controller) GetBlock(index Block.Index) (Block, error) {
-	
+
 }
 
 func (b *Block_Controller) GetAllBlocks() ([]Block, error) {
@@ -42,7 +42,7 @@ func (b *Block_Controller) GetLatestIndex() (Block.Index, error) {
 }
 
 func (b *Block_Controller) UpdateBlock(block Block) error {
-	
+
 }
 
 func (b *Block_Controller) SaveBlock(block Block) error {
@@ -50,5 +50,5 @@ func (b *Block_Controller) SaveBlock(block Block) error {
 }
 
 func (b *Block_Controller) DeleteBlock(block BLock) error {
-	
+
 }

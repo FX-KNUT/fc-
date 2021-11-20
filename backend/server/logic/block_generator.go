@@ -1,8 +1,8 @@
 package logic_server
 
 import (
-	service "../../service/block"
-	entity_block "../../entity/block.go"
+	service "github.com/FX-KNUT/fc-/backend/service"
+	entity "github.com/FX-KNUT/fc-/backend/entity"
 )
 
 const INTERVAL_GENERATE_BLOCK int = time.Minute * 10
