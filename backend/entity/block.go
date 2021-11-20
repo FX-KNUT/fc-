@@ -6,7 +6,7 @@ type Block struct {
 	Previous_hash string
 	Tx_Ref_ID     int
 	Owner         string
-	Nonce         string
+	Nonce         int
 	Birth_date    string
 	Difficulty    int
 	Reward        int
