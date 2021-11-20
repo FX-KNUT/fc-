@@ -1,26 +1,25 @@
 package logic_server
 
 import (
-	service "github.com/FX-KNUT/fc-/backend/service"
-	entity "github.com/FX-KNUT/fc-/backend/entity"
+	"time"
 )
 
-const INTERVAL_GENERATE_BLOCK int = time.Minute * 10
+const INTERVAL_GENERATE_BLOCK time.Duration = (time.Minute * 10)
 
-var ERR_GETTING_LATEST_BLOCK error = "Error occured while getting the lastest index of Block"
+const ERR_GETTING_LATEST_BLOCK string = "Error occured while getting the lastest index of Block"
 
-func generate_block() {
+// func generate_block() {
 
-	index, err := service.GetLatestIndex()
+// 	index, err := service.GetLatestIndex()
 
-	if err != nil {
-		log.Fatalln(ERR_GETTING_LATEST_BLOCK)
-	}
+// 	if err != nil {
+// 		log.Fatalln(ERR_GETTING_LATEST_BLOCK)
+// 	}
 
-	// var block entity_block.Block = {
+// 	// var block entity_block.Block = {
 		
-	// }
-}
+// 	// }
+// }
 
 func Block_generator(c chan<- bool) {
 	interval := INTERVAL_GENERATE_BLOCK
@@ -31,14 +30,14 @@ func Block_generator(c chan<- bool) {
 		for {
 			select {
 				case <-ticker.C:
-					generate_block()
+					// generate_block()
 					
 				case <-clear:
 					ticker.Stop()
 					return
 			}
 		}
-	}
+	}()
 	
 	c <- true
 }
