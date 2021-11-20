@@ -12,6 +12,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+const USER_DEFAULT_BALANCE int = 10000
+
 func Fn_sign_up(c *gin.Context) error {
 	var user entity.User
 
@@ -51,7 +53,7 @@ func Fn_sign_up(c *gin.Context) error {
 		return err_wrong__email
 	}
 
-	user.Balance = 10000
+	user.Balance = USER_DEFAULT_BALANCE
 
 	user.Hashed_pw, err = logic.Fn_hashing(user.Hashed_pw)
 

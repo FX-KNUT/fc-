@@ -7,7 +7,7 @@ type Block struct {
 	Tx_Ref_ID     int
 	Owner         string
 	Nonce         int
-	Birth_date    string
+	Created_at    string
 	Difficulty    int
 	Reward        int
 }

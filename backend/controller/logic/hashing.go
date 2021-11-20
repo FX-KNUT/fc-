@@ -1,4 +1,4 @@
-package logic
+package logic_hashing
 
 import (
 	"golang.org/x/crypto/bcrypt"

@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/FX-KNUT/fc-/backend/api"
 	db "github.com/FX-KNUT/fc-/backend/database"
+	server "github.com/FX-KNUT/fc-/backend/server"
 )
 
 func main() {
@@ -11,6 +12,7 @@ func main() {
 
 func fn_main_init() {
 	go db.Init()
+	go server.Init()
 	api.Init()
 }
 

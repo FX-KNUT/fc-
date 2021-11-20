@@ -1,24 +1,14 @@
-package ctrl_block
+package service
 
-import "../../entity"
-
-type Block entity.Block
-
-type Block_Controller interface {
-	CreateBlock() (Block, error)
-	GetBlock(index Block.Index) (Block, error)
-	GetAllBlocks() ([]Block, error)
-	GetLatestBlock() (Block, error)
-	GetLatestIndex() (Block.Index, error)
+type Block_Service interface {
+	CreateBlock() Block, error
+	GetBlock(index Block.Index) Block, error
+	GetAllBlocks() []Block, error
+	GetLatestBlock() Block, error
+	GetLatestIndex() Block.Index, error
 	UpdateBlock(block Block) error
 	SaveBlock(block Block) error
 	DeleteBlock(block Block) error
-}
-
-func GenerateBlock() Block_Controller {
-	return Block_Controller{
-		service: Block_Service,
-	}
 }
 
 func (b *Block_Controller) CreateBlock() (Block, error) {
@@ -46,7 +36,9 @@ func (b *Block_Controller) UpdateBlock(block Block) error {
 }
 
 func (b *Block_Controller) SaveBlock(block Block) error {
-	return service.SaveBlock(block)
+	query := fmt.Sprintf("INSERT INTO BLOCK VALUES (%d, '%s', '%s', %d, '%s', '%d', '%s', '%d', '%d')",
+							block.Index, block.Hash, block.Previous_hash, block.Tx_Ref_ID,
+							block.Owner, block.Nonce, block.Created_at, block.Difficulty, block.Reward)
 }
 
 func (b *Block_Controller) DeleteBlock(block BLock) error {
