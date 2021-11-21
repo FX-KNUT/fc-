@@ -8,14 +8,14 @@ import (
 
 func Fn_hashing(s *string) (string, error) {
 	if s == nil {
-		return errors.New("fn:Fn_hashsing")
+		panic(errors.New("fn:Fn_hashsing"))
 	}
 
 	sBytes := []byte(*s)
 
 	hashedBytes, err := bcrypt.GenerateFromPassword(sBytes, bcrypt.DefaultCost)
 	if err != nil {
-		return err
+		panic(err)
 	}
 
 	*s = string(hashedBytes[:])
