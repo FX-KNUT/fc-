@@ -29,7 +29,6 @@ require (
 	github.com/FX-KNUT/fc-/backend/controller/user v0.0.0-00010101000000-000000000000 // indirect
 	github.com/FX-KNUT/fc-/backend/entity v0.0.0-00010101000000-000000000000 // indirect
 	github.com/FX-KNUT/fc-/backend/server/logic v0.0.0-00010101000000-000000000000 // indirect
-	github.com/FX-KNUT/fc-/backend/service v0.0.0-00010101000000-000000000000 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/gin-gonic/gin v1.7.4 // indirect
 	github.com/go-playground/locales v0.13.0 // indirect

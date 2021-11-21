@@ -14,21 +14,21 @@ type struct_block_service struct {
 }
 
 type Block_service interface {
-	GetBlock(index int) (Block, error)
+	GetBlock(Idx int) (Block, error)
 	GetAllBlocks() ([]Block, error)
 	GetLatestBlock() (Block, error)
-	GetLatestIndex() (int, error)
+	GetLatestIdx() (int, error)
 	UpdateBlock(block Block) error
 	SaveBlock(block Block) error
 }
 
-func (s *struct_block_service) GetBlock(index int) (Block, error) {
+func (s *struct_block_service) GetBlock(Idx int) (Block, error) {
 
 	var block Block
 
 	db := db.Fn_access_db()
 
-	query := fmt.Sprintf("SELECT * FROM BLOCK WHERE Index == %d", index)
+	query := fmt.Sprintf("SELECT * FROM BLOCK WHERE Block_index == %d", Idx)
 
 	err := db.QueryRow(query).Scan(&block)
 
@@ -57,8 +57,8 @@ func (s *struct_block_service) GetAllBlocks() ([]Block, error) {
 	}
 
 	for rows.Next() {
-		err = rows.Scan(&block.Index, &block.Hash, &block.Previous_hash, &block.Tx_Ref_ID,
-			&block.Owner, &block.Nonce, &block.Created_at, &block.Difficulty, &block.Reward)
+		err = rows.Scan(&block.Block_index, &block.Block_hash, &block.Block_previous_hash, &block.Block_tx_ref_ID,
+			&block.Block_owner, &block.Block_nonce, &block.Block_created_at, &block.Block_difficulty, &block.Block_reward)
 		if err != nil {
 			return blocks, err
 		}
@@ -73,7 +73,7 @@ func (s *struct_block_service) GetLatestBlock() (Block, error) {
 
 	db := db.Fn_access_db()
 
-	query := fmt.Sprintf("SELECT * FROM BLOCK ORDER BY Index desc limit 1")
+	query := fmt.Sprintf("SELECT * FROM BLOCK ORDER BY Block_index desc limit 1")
 
 	err := db.QueryRow(query).Scan(&block)
 
@@ -84,29 +84,29 @@ func (s *struct_block_service) GetLatestBlock() (Block, error) {
 	return block, nil
 }
 
-func (s *struct_block_service) GetLatestIndex() (int, error) {
-	var index int
+func (s *struct_block_service) GetLatestIdx() (int, error) {
+	var Idx int
 
 	db := db.Fn_access_db()
 
-	query := fmt.Sprintf("SELECT MAX(Index) FROM BLOCK")
+	query := fmt.Sprintf("SELECT MAX(Block_index) FROM BLOCK")
 
-	err := db.QueryRow(query).Scan(&index)
+	err := db.QueryRow(query).Scan(&Idx)
 
 	if err != nil {
 		return -1, err
 	}
 
-	return index, nil
+	return Idx, nil
 }
 
 func (s *struct_block_service) UpdateBlock(block Block) error {
 
 	db := db.Fn_access_db()
 
-	query := fmt.Sprintf("UPDATE BLOCK SET Hash = '%s', Previous_hash = '%s' Tx_Ref_ID = %d, Owner = '%s', Nonce = %d, Created_at = '%s', Difficulty = %d, Reward = %d WHERE INDEX == %d",
-		block.Hash, block.Previous_hash, block.Tx_Ref_ID, block.Owner,
-		block.Nonce, block.Created_at, block.Difficulty, block.Reward, block.Index)
+	query := fmt.Sprintf("UPDATE BLOCK SET Block_hash = '%s', Block_previous_hash = '%s' Block_tx_ref_ID = %d, Block_owner = '%s', Block_nonce = %d, Block_created_at = '%s', Block_difficulty = %d, Block_reward = %d WHERE Block_index == %d",
+		block.Block_hash, block.Block_previous_hash, block.Block_tx_ref_ID, block.Block_owner,
+		block.Block_nonce, block.Block_created_at, block.Block_difficulty, block.Block_reward, block.Block_index)
 
 	_, err := db.Query(query)
 
@@ -118,8 +118,8 @@ func (s *struct_block_service) SaveBlock(block Block) error {
 	db := db.Fn_access_db()
 
 	query := fmt.Sprintf("INSERT INTO BLOCK VALUES (%d, '%s', '%s', %d, '%s', '%d', '%s', '%d', '%d')",
-		block.Index, block.Hash, block.Previous_hash, block.Tx_Ref_ID,
-		block.Owner, block.Nonce, block.Created_at, block.Difficulty, block.Reward)
+		block.Block_index, block.Block_hash, block.Block_previous_hash, block.Block_tx_ref_ID,
+		block.Block_owner, block.Block_nonce, block.Block_created_at, block.Block_difficulty, block.Block_reward)
 
 	_, err := db.Query(query)
 
