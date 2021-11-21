@@ -32,14 +32,14 @@ func Init() {
 func fn_open__db() {
 
 	db, err := sql.Open(CONST_DBMS_NAME__DRIVER, fmt.Sprintf(
-			"%s:%s@%s(%s:%d)/%s",
-			CONST_DBMS_CONNECT_DB__USERID,
-			CONST_DBMS_CONNECT_DB__USERPW,
-			CONST_DBMS_CONNECT_DB__METHOD,
-			CONST_DBMS_CONNECT_DB__IP,
-			CONST_DBMS_CONNECT_DB__PORT,
-			CONST_DBMS_CONNECT_DB__CONTEXT,
-		))
+		"%s:%s@%s(%s:%d)/%s",
+		CONST_DBMS_CONNECT_DB__USERID,
+		CONST_DBMS_CONNECT_DB__USERPW,
+		CONST_DBMS_CONNECT_DB__METHOD,
+		CONST_DBMS_CONNECT_DB__IP,
+		CONST_DBMS_CONNECT_DB__PORT,
+		CONST_DBMS_CONNECT_DB__CONTEXT,
+	))
 
 	if err != nil {
 		fmt.Printf("Error occurred while opening DB, error - %s", err)

@@ -58,7 +58,7 @@ func (s *struct_block_service) GetAllBlocks() ([]Block, error) {
 
 	for rows.Next() {
 		err = rows.Scan(&block.Index, &block.Hash, &block.Previous_hash, &block.Tx_Ref_ID,
-							&block.Owner, &block.Nonce, &block.Created_at, &block.Difficulty, &block.Reward)
+			&block.Owner, &block.Nonce, &block.Created_at, &block.Difficulty, &block.Reward)
 		if err != nil {
 			return blocks, err
 		}

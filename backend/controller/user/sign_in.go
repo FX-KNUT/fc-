@@ -30,7 +30,7 @@ func Fn_sign_in(c *gin.Context) error {
 		return err_wrong__pw
 	}
 
-	pw, err := logic.Fn_hashing(pw)
+	pw, err := logic.Fn_hashing(&pw)
 
 	if err != nil {
 		c.String(http.StatusBadGateway, "서버 단에서 비밀번호를 해싱하는 중에 문제가 생겼습니다")

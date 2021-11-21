@@ -55,7 +55,7 @@ func Fn_sign_up(c *gin.Context) error {
 
 	user.Balance = USER_DEFAULT_BALANCE
 
-	user.Hashed_pw, err = logic.Fn_hashing(user.Hashed_pw)
+	user.Hashed_pw, err = logic.Fn_hashing(&user.Hashed_pw)
 
 	if err != nil {
 		c.String(http.StatusBadGateway, "Error occurred while hashing on server, sorry.")
