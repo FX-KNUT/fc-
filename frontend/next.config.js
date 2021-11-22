@@ -13,4 +13,14 @@ module.exports = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+
+  // svg
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"],
+    });
+
+    return config;
+  },
 };

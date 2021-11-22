@@ -1,5 +1,5 @@
 import Layout from "../components/Reusable/t_fx__layout";
-import Header from "../components/Common/header";
+import Header from "../components/Common/Header/header.jsx";
 import Footer from "../components/Common/footer";
 import "../styles/globals.scss";
 

@@ -1,8 +1,13 @@
 // mediaquery
-$breakpoint_mobile: 767px; // min ~ max: 767
+$breakpoint_mobile: 359px; // min ~ max: 359
 $breakpoint_tablet: 1023px; // min: 768 ~ max: 1023
 
 // color
 $blue: hsl(240, 100%, 50%);
 $black: hsl(0, 0%, 0%);
 $white: hsl(0, 0%, 100%);
+$default_sns: hsl(2, 26%, 39%);
+$default_bg: hsl(20, 30%, 92%);
+$default_input: hsla(20, 30%, 98%, 40%);
+$default_color__gnb: hsl(39, 30%, 59%);
+$default_color__logo: hsl(9, 20%, 50%);
