@@ -20,3 +20,4 @@ Using Language / Skill /Tool
 ## SKill
 
 ## Tool
+[![Figma](https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=Figma&logoColor=white)]()
