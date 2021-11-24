@@ -13,11 +13,10 @@ Team member
 - Min Gyeongho : Frontend developer
 - Yang Hamin : Planning and design
 
-Using Language / Skill /Tool
+Using Language /Tool
 ====
 ## Language 
 [![CSS](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white)]()
-## SKill
 
 ## Tool
 [![Figma](https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=Figma&logoColor=white)]()
