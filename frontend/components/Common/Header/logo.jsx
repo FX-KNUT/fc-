@@ -13,7 +13,7 @@ const logo = () => {
           <Search />
         </div>
       </div>
-      <h1>Logo</h1>
+      <h1 className={styles.logo}>Logo</h1>
       <div className={styles.session_wrapper}>
         <div>
           <Login />

@@ -1,0 +1,38 @@
+@import "./variable";
+
+.footer {
+  font-size: 12px;
+  padding: 1em 3.25rem;
+  border: 1px solid $default_color__footer_border;
+  background-color: $default_color__footer_bg;
+
+  .contact_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid white;
+    height: 30px;
+    .contact {
+      display: flex;
+      div {
+        &:last-child {
+          margin-left: 2.5rem;
+        }
+      }
+    }
+    .sns_wrapper {
+      display: flex;
+      align-items: center;
+      div {
+        margin-left: 14px;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+  .copyright {
+    height: 31px;
+    display: flex;
+    align-items: center;
+  }
+}

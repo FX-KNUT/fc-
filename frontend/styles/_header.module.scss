@@ -32,6 +32,7 @@
     stroke: $default_color__logo;
 
     .search_wrapper {
+      flex: 1;
       display: flex;
       align-items: center;
       position: relative;
@@ -49,10 +50,17 @@
         right: 4px;
       }
     }
+    .logo {
+      flex: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
     .session_wrapper {
+      flex: 1;
       display: flex;
-      justify-content: space-between;
+      justify-content: right;
       align-items: center;
 
       div {
