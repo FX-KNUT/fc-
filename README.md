@@ -13,7 +13,7 @@ Team member
 - Min Gyeongho : Frontend developer
 - Yang Hamin : Planning and design
 
-Using Language /Tool
+Using Language / Tool / Library
 ====
 ## Language 
 [![CSS](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white)]()
@@ -22,3 +22,6 @@ Using Language /Tool
 ## Tool
 [![Figma](https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=Figma&logoColor=white)]()
 [![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=Next.js&logoColor=white)]()
+
+## Library
+[![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white)]()
