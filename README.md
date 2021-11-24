@@ -21,3 +21,4 @@ Using Language /Tool
 
 ## Tool
 [![Figma](https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=Figma&logoColor=white)]()
+[![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=Next.js&logoColor=white)]()
