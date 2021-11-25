@@ -1,4 +1,4 @@
-import down_arrow from "../../public/down_arrow.svg";
+import Down_arrow from "../../public/down_arrow.svg";
 import Image from "next/image";
 import styles from "../../styles/t_fx_comp.module.css";
 import { useEffect, useState } from "react";
@@ -17,16 +17,15 @@ const T_fx__expandable = ({ _str_title, _obj_blockquote, children }) => {
     <div className={styles.comp_expandable}>
       <div className={styles.comp_expandable_title_wrapper}>
         <h3 className={styles.comp_expandable_title}>{_str_title}</h3>
-        <Image
-          alt="down_arrow"
-          src={down_arrow}
-          width="50"
-          height="50"
+        {/* <Image alt="down_arrow" width="50" height="50"></Image> */}
+        <Down_arrow
+          width="24px"
+          height="24px"
           className={`${styles.comp_expandable_down_arrow} ${
             is_switch_arrow && styles.active_arrow
           }`}
           onClick={on_click_arrow}
-        ></Image>
+        />
       </div>
       {is_show_detail && (
         <section
