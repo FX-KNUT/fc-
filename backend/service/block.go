@@ -7,24 +7,26 @@ import (
 	"github.com/FX-KNUT/fc-/backend/entity"
 )
 
-type Block entity.Block
-
 type struct_block_service struct {
 	blocks []entity.Block
 }
 
 type Block_service interface {
-	GetBlock(Idx int) (Block, error)
-	GetAllBlocks() ([]Block, error)
-	GetLatestBlock() (Block, error)
-	GetLatestIdx() (int, error)
-	UpdateBlock(block Block) error
-	SaveBlock(block Block) error
+	GetBlock(int) (entity.Block, error)
+	GetAllBlocks() ([]entity.Block, error)
+	GetLatestBlock() (entity.Block, error)
+	GetLatestIndex() (int, error)
+	UpdateBlock(entity.Block) error
+	SaveBlock(entity.Block) error
 }
 
-func (s *struct_block_service) GetBlock(Idx int) (Block, error) {
+func New__Block() Block_service {
+	return &struct_block_service{}
+}
 
-	var block Block
+func (s *struct_block_service) GetBlock(Idx int) (entity.Block, error) {
+
+	var block entity.Block
 
 	db := db.Fn_access_db()
 
@@ -33,16 +35,16 @@ func (s *struct_block_service) GetBlock(Idx int) (Block, error) {
 	err := db.QueryRow(query).Scan(&block)
 
 	if err != nil {
-		return Block{}, err
+		return entity.Block{}, err
 	}
 
 	return block, nil
 }
 
-func (s *struct_block_service) GetAllBlocks() ([]Block, error) {
+func (s *struct_block_service) GetAllBlocks() ([]entity.Block, error) {
 
-	var block Block
-	var blocks []Block
+	var block entity.Block
+	var blocks []entity.Block
 
 	db := db.Fn_access_db()
 
@@ -68,8 +70,8 @@ func (s *struct_block_service) GetAllBlocks() ([]Block, error) {
 	return blocks, nil
 }
 
-func (s *struct_block_service) GetLatestBlock() (Block, error) {
-	var block Block
+func (s *struct_block_service) GetLatestBlock() (entity.Block, error) {
+	var block entity.Block
 
 	db := db.Fn_access_db()
 
@@ -78,13 +80,13 @@ func (s *struct_block_service) GetLatestBlock() (Block, error) {
 	err := db.QueryRow(query).Scan(&block)
 
 	if err != nil {
-		return Block{}, err
+		return entity.Block{}, err
 	}
 
 	return block, nil
 }
 
-func (s *struct_block_service) GetLatestIdx() (int, error) {
+func (s *struct_block_service) GetLatestIndex() (int, error) {
 	var Idx int
 
 	db := db.Fn_access_db()
@@ -100,7 +102,7 @@ func (s *struct_block_service) GetLatestIdx() (int, error) {
 	return Idx, nil
 }
 
-func (s *struct_block_service) UpdateBlock(block Block) error {
+func (s *struct_block_service) UpdateBlock(block entity.Block) error {
 
 	db := db.Fn_access_db()
 
@@ -113,7 +115,7 @@ func (s *struct_block_service) UpdateBlock(block Block) error {
 	return err
 }
 
-func (s *struct_block_service) SaveBlock(block Block) error {
+func (s *struct_block_service) SaveBlock(block entity.Block) error {
 
 	db := db.Fn_access_db()
 
