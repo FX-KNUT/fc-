@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"log"
 	"time"
 
@@ -11,9 +12,14 @@ import (
 type Post entity.Post
 type News entity.News
 
+type Struct_post_service struct {
+	Post
+}
+
 type Interface_post_servcie interface {
 	CreatePost(Post) error
 	CreateNewsPost(News) error
+	GetAllPostsinPage([]Post, error)
 	GetAllPosts() ([]Post, error)
 	GetAllNewsPosts() ([]News, error)
 	GetBestAllNewsPosts() ([]News, error)
@@ -28,6 +34,21 @@ type Interface_post_servcie interface {
 	DeletePosts([]Post) error
 	DeleteNewsPosts([]News) error
 }
+
+
+func (s Struct_post_service) CreatePost(p Post) error {
+	conn := db.Fn_access_db()
+
+	q := fmt.Sprintf("INSERT INTO %s VALUES (%d, %d, '%s', '%s', %d, %d, %s)",
+		p.Message_Target, p.Message_ID, p.Message_UserID, p.Post_Title, p.Message_Content, p.Post_ViewCount, p.Post_LikeCount, 
+		time.Now().Format("2006-01-02 15:04:05"))
+	
+	result, err := conn.Exec(q)
+	if err != nil {
+		
+	}
+}
+
 
 func CreatePost(post Post) error {
 	conn := db.Fn_access_db()

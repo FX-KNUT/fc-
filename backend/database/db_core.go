@@ -13,13 +13,13 @@ var db *sql.DB
 
 // CONSTANT VARIABLES
 
-const CONST_DBMS_NAME__DRIVER string = "mysql"
-const CONST_DBMS_CONNECT_DB__USERID string = "root"
-const CONST_DBMS_CONNECT_DB__USERPW string = "tlsdlwhd123."
-const CONST_DBMS_CONNECT_DB__METHOD string = "tcp"
-const CONST_DBMS_CONNECT_DB__IP string = "127.0.0.1"
-const CONST_DBMS_CONNECT_DB__PORT int = 3310
-const CONST_DBMS_CONNECT_DB__CONTEXT string = "fc"
+const CONST_DBMS_NAME__DRIVER string = os.Getenv("DBMS_NAME__DRIVER")
+const CONST_DBMS_CONNECT_DB__USERID string = os.Getenv("DBMS_CONNECT_DB__USERID")
+const CONST_DBMS_CONNECT_DB__USERPW string = os.Getenv("DBMS_CONNECT_DB__USERPW")
+const CONST_DBMS_CONNECT_DB__METHOD string = os.Getenv("DBMS_CONNECT_DB__METHOD")
+const CONST_DBMS_CONNECT_DB__IP string = os.Getenv("DBMS_CONNECT_DB__IP")
+const CONST_DBMS_CONNECT_DB__PORT int = os.Getenv("DBMS_CONNECT_DB__PORT")
+const CONST_DBMS_CONNECT_DB__CONTEXT string = os.Getenv("DBMS_CONNECT_DB__CONTEXT")
 
 func Init() {
 	fn_open__db()

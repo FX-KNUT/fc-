@@ -7,7 +7,7 @@ import (
 )
 
 func Fn_hashing(s *string) (string, error) {
-	if s == nil {
+	if len(*s) == 0 {
 		panic(errors.New("fn:Fn_hashsing"))
 	}
 

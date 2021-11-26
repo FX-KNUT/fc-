@@ -1,13 +1,24 @@
 package main
 
 import (
+	"log"
+
 	"github.com/FX-KNUT/fc-/backend/api"
 	db "github.com/FX-KNUT/fc-/backend/database"
 	server "github.com/FX-KNUT/fc-/backend/server"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	fn_load_env_file()
 	fn_main_init()
+}
+
+func fn_load_env_file() {
+	err := godotenv.Load(".env.dev")
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 }
 
 func fn_main_init() {
