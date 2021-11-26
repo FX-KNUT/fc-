@@ -1,4 +1,4 @@
-package controller_user
+package ctrl_user
 
 import (
 	"fmt"

@@ -11,8 +11,6 @@ import (
 
 var db *sql.DB
 
-// CONSTANT VARIABLES
-
 const CONST_DBMS_NAME__DRIVER string = "mysql"
 const CONST_DBMS_CONNECT_DB__USERID string = "root"
 const CONST_DBMS_CONNECT_DB__USERPW string = "tlsdlwhd123."
