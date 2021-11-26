@@ -75,9 +75,19 @@ func (s *struct_user_service) CheckDuplicatedId(id string) error {
 
 func (s *struct_user_service) TESTING(id string) error {
 
-	// db := db.Fn_access_db()
+	var ret_id string
 
-	// fmt.Println(db)
+	db := db.Fn_access_db()
+
+	query := fmt.Sprintf("SELECT id from users where id = '%s'", id)
+
+	row := db.QueryRow(query)
+
+	err := row.Scan(&ret_id)
+
+	fmt.Println("look at me, I'am the ret_id : ", ret_id)
+	fmt.Println("look at me, I'am the err : ", err)
+	fmt.Println("look at me, I'am the db : ", db)
 	fmt.Println("id is ", id)
 	return nil
 }
