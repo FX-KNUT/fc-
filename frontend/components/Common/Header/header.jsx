@@ -8,10 +8,10 @@ const header = () => {
   return (
     <header className={styles.header}>
       <Sns></Sns>
-
       <Logo></Logo>
-
+      <hr />
       <Gnb></Gnb>
+      <hr />
     </header>
   );
 };

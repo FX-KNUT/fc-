@@ -1,4 +1,5 @@
 @import "../styles/variable";
+
 .header {
   background-color: $default_bg;
   position: sticky;
@@ -11,7 +12,9 @@
     justify-content: right;
     align-items: center;
     background-color: $default_sns;
-    fill: $white;
+    svg {
+      fill: $default_sns;
+    }
 
     div {
       margin-left: 14px;
@@ -25,40 +28,36 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid $default_sns;
-    padding: 0 3.25rem;
+    padding: 1rem $gutter;
     color: $default_color__logo;
     fill: $default_color__logo;
     stroke: $default_color__logo;
 
     .search_wrapper {
-      flex: 1;
+      width: 250px;
       display: flex;
       align-items: center;
       position: relative;
-
       input {
         width: 100%;
-        height: 25px;
         background-color: $default_input;
         border-color: $default_sns;
         outline: none;
+        padding: 0.5rem;
       }
-
       .ic_search {
         position: absolute;
         right: 4px;
       }
     }
+
     .logo {
-      flex: 2;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
     .session_wrapper {
-      flex: 1;
       display: flex;
       justify-content: right;
       align-items: center;
@@ -71,6 +70,9 @@
         .session_text {
           margin-left: 0.25rem;
         }
+        .input_color {
+          display: none;
+        }
       }
     }
   }
@@ -79,10 +81,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid $default_sns;
     a {
       margin: 1rem 2rem;
       color: $default_color__gnb;
+      // hover는 회의 후 색상 결정
+      &:hover {
+        color: $default_sns;
+      }
     }
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background-color: $default_sns;
   }
 }

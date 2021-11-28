@@ -54,6 +54,23 @@ const fn_REST_POST__ = async () => {
     console.error(e);
   }
 };
+
 // fn_REST__singup("testest", "alsrudgh1.", "testetst", "1736s@naver.com");
 
 // fn_REST_GET__checkid("test");
+
+const regex_id = /^[a-zA-Z0-9]{4,12}$/;
+const regex_pw = /^[a-zA-Z0-9]{8,20}$/;
+const regex_mail =
+  /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[a-z0-9]+[a-z0-9]*[.]{1}[a-z0-9]{1,48}$/;
+const regex_nickname = /^[A-Za-z0-9가-힣]{2,12}$/;
+const testcase_list_id = [
+  "test",
+  "kim",
+  "kim!",
+  "1234test",
+  "1312reggregegegergegergre",
+];
+testcase_list_id.map((testcase) =>
+  console.log(`${testcase} : ${regex_id.test(testcase)}`)
+);

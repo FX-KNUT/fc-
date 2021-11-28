@@ -2,37 +2,40 @@
 
 .footer {
   font-size: 12px;
-  padding: 1em 3.25rem;
+  padding: 1em $gutter;
   border: 1px solid $default_color__footer_border;
   background-color: $default_color__footer_bg;
 
-  .contact_wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid white;
-    height: 30px;
-    .contact {
+  .footer_wrapper {
+    .contact_wrapper {
       display: flex;
-      div {
-        &:last-child {
-          margin-left: 2.5rem;
+      justify-content: space-between;
+      align-items: center;
+      .contact {
+        display: flex;
+        & > div {
+          &:first-child {
+            margin-right: 2.5rem;
+          }
+        }
+      }
+      .sns_wrapper {
+        display: flex;
+        svg {
+          margin-left: 0.75rem;
+          fill: $default_color__footer_bg;
         }
       }
     }
-    .sns_wrapper {
-      display: flex;
-      align-items: center;
-      div {
-        margin-left: 14px;
-        display: flex;
-        align-items: center;
-      }
+
+    hr {
+      background-color: white;
+      border: 0;
+      height: 1px;
     }
-  }
-  .copyright {
-    height: 31px;
-    display: flex;
-    align-items: center;
+
+    .copyright {
+      display: flex;
+    }
   }
 }

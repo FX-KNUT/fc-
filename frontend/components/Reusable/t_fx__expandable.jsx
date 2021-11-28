@@ -1,5 +1,4 @@
 import Down_arrow from "../../public/down_arrow.svg";
-import Image from "next/image";
 import styles from "../../styles/t_fx_comp.module.css";
 import { useEffect, useState } from "react";
 

@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import styles from "../../styles/t_fx_comp.module.css";
-import Card from "./t_fx__card";
+import Container from "./t_fx__container";
 
 const T_fx__modal = ({ children, is_show, fn_on_close }) => {
   return (
@@ -19,7 +19,7 @@ const T_fx__modal = ({ children, is_show, fn_on_close }) => {
           >
             X
           </div>
-          <Card>{children}</Card>
+          <Container>{children}</Container>
         </div>
       </div>,
       document.getElementById("modal")
