@@ -5,23 +5,23 @@ import (
 
 	"github.com/FX-KNUT/fc-/backend/api"
 	db "github.com/FX-KNUT/fc-/backend/database"
-	server "github.com/FX-KNUT/fc-/backend/server"
+	"github.com/FX-KNUT/fc-/backend/server"
 	"github.com/joho/godotenv"
 )
 
 func main() {
 	fn_load_env_file()
-	fn_main_init()
+	fn_initialize_main()
 }
 
 func fn_load_env_file() {
-	err := godotenv.Load(".env.dev")
+	err := godotenv.Load("tmp.env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
 }
 
-func fn_main_init() {
+func fn_initialize_main() {
 	go db.Init()
 	go server.Init()
 	api.Init()

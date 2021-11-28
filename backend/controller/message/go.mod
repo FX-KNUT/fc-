@@ -1,12 +1,17 @@
-module github.com/FX-KNUT/fc-/backend/controller/user
+module github.com/FX-KNUT/fc-/backend/controller/message
 
 go 1.17
 
+replace github.com/FX-KNUT/fc-/backend/entity => ../../entity
+
+replace github.com/FX-KNUT/fc-/backend/database => ../../database
+
+replace github.com/FX-KNUT/fc-/backend/service => ../../service
+
 require (
-	github.com/FX-KNUT/fc-/backend/controller/logic v0.0.0-00010101000000-000000000000
 	github.com/FX-KNUT/fc-/backend/entity v0.0.0-00010101000000-000000000000
 	github.com/FX-KNUT/fc-/backend/service v0.0.0-00010101000000-000000000000
-	github.com/gin-gonic/gin v1.7.4
+	github.com/gin-gonic/gin v1.7.7
 )
 
 require (
@@ -23,15 +28,7 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421 // indirect
 	github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742 // indirect
 	github.com/ugorji/go/codec v1.1.7 // indirect
-	golang.org/x/crypto v0.0.0-20211108221036-ceb1ce70b4fa // indirect
-	golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1 // indirect
+	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9 // indirect
+	golang.org/x/sys v0.0.0-20200116001909-b77594299b42 // indirect
 	gopkg.in/yaml.v2 v2.2.8 // indirect
 )
-
-replace github.com/FX-KNUT/fc-/backend/entity => ../../entity
-
-replace github.com/FX-KNUT/fc-/backend/database => ../../database
-
-replace github.com/FX-KNUT/fc-/backend/controller/logic => ../logic
-
-replace github.com/FX-KNUT/fc-/backend/service => ../../service

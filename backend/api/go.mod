@@ -3,15 +3,17 @@ module github.com/FX-KNUT/fc-/backend/api
 go 1.17
 
 require (
+	github.com/FX-KNUT/fc-/backend/controller/block v0.0.0-00010101000000-000000000000
+	github.com/FX-KNUT/fc-/backend/controller/message v0.0.0-00010101000000-000000000000
 	github.com/FX-KNUT/fc-/backend/controller/user v0.0.0-00010101000000-000000000000
-	github.com/FX-KNUT/fc-/backend/service v0.0.0-20211124055800-4f94789939d3
-	github.com/gin-gonic/gin v1.7.4
+	github.com/FX-KNUT/fc-/backend/entity v0.0.0-00010101000000-000000000000
+	github.com/FX-KNUT/fc-/backend/service v0.0.0-00010101000000-000000000000
+	github.com/gin-gonic/gin v1.7.7
 )
 
 require (
 	github.com/FX-KNUT/fc-/backend/controller/logic v0.0.0-00010101000000-000000000000 // indirect
-	github.com/FX-KNUT/fc-/backend/database v0.0.0-00010101000000-000000000000 // indirect
-	github.com/FX-KNUT/fc-/backend/entity v0.0.0-00010101000000-000000000000 // indirect
+	github.com/FX-KNUT/fc-/backend/database v0.0.0-20211126145401-28d087d7aa69 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.13.0 // indirect
 	github.com/go-playground/universal-translator v0.17.0 // indirect
@@ -33,6 +35,12 @@ replace github.com/FX-KNUT/fc-/backend/controller/user => ../controller/user
 
 replace github.com/FX-KNUT/fc-/backend/entity => ../entity
 
+replace github.com/FX-KNUT/fc-/backend/service => ../service
+
 replace github.com/FX-KNUT/fc-/backend/database => ../database
 
 replace github.com/FX-KNUT/fc-/backend/controller/logic => ../controller/logic
+
+replace github.com/FX-KNUT/fc-/backend/controller/message => ../controller/message
+
+replace github.com/FX-KNUT/fc-/backend/controller/block => ../controller/block

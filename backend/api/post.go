@@ -2,11 +2,10 @@ package api
 
 import (
 	"fmt"
-	"log"
 
+	ctrl_message "github.com/FX-KNUT/fc-/backend/controller/message"
 	ctrl_user "github.com/FX-KNUT/fc-/backend/controller/user"
 	"github.com/FX-KNUT/fc-/backend/service"
-<<<<<<< HEAD
 
 	"github.com/gin-gonic/gin"
 )
@@ -16,23 +15,35 @@ func Post(c chan<- bool, r *gin.Engine) {
 	go r.POST("/signup", fn_REST_post__signup)
 	go r.POST("/change_profile_picture", fn_REST_post__profile_picture)
 
-	board := r.Group("/board")
-	{	
-	}
-
 	post := r.Group(("/post"))
 	{
-		post.POST("/create")
-		post.POST("/get")
-		post.POST("/update")
-		post.POST("/delete")
+		post.POST("/:target/create", fn_REST_post__create_post)
+		// post.POST("/:target/get")
+		// post.POST("/:target/update")
+		// post.POST("/:target/delete")
 	}
 
 	c <- true
 }
-=======
-	"github.com/gin-gonic/gin"
-)
+
+
+
+// DML: UPDATE
+func fn_REST_post__update_post(c *gin.Context) {
+
+}
+
+// DML: DELETE
+func fn_REST_post__delete_post(c *gin.Context) {
+
+}
+
+// DML: SELECT
+func fn_REST_post__get_posts(c *gin.Context) {
+
+}
+
+
 
 /* ************************************* */
 // service and controller
@@ -48,8 +59,21 @@ var (
 	POST_block_service service.Block_service
 )
 
+// message
+var (
+	POST_message_controller ctrl_message.Interface_message_controller
+	POST_post_service service.Interface_post_service
+)
+
 /* ************************************* */
->>>>>>> 284099974d25184989677ca1ea348d39d2e588bc
+
+// DML: INSERT
+func fn_REST_post__create_post(c *gin.Context) {
+	err := POST_message_controller.CreatePost(c)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
 
 func fn_REST_post__signup(c *gin.Context) {
 	err := POST_user_controller.SignUp(c)
@@ -59,25 +83,16 @@ func fn_REST_post__signup(c *gin.Context) {
 	}
 }
 
-// func fn_REST_post__profile_picture(c *gin.Context) {
-// 	err := ctrl_user.Fn_change_profile_picture(c)
-// 	if err != nil {
-// 		fmt.Println(err.Error())
-// 	}
-// }
-
-<<<<<<< HEAD
-func fn_REST_post__create_post(c *gin.Context) {
-	err := service.CreatePost(c)
+func fn_REST_post__profile_picture(c *gin.Context) {
+	err := ctrl_user.Fn_change_profile_picture(c)
 	if err != nil {
-		log.Panic(err)
+		fmt.Println(err.Error())
 	}
 }
-=======
-// core
-func Post(c chan<- bool, r *gin.Engine) {
-	go r.POST("/signup", fn_REST_post__signup)
-	// go r.POST("/change_profile_picture", fn_REST_post__profile_picture)
-	c <- true
-}
->>>>>>> 284099974d25184989677ca1ea348d39d2e588bc
+
+// func fn_REST_post__create_post(c *gin.Context) {
+// 	err := service.CreatePost(c)
+// 	if err != nil {
+// 		log.Panic(err)
+// 	}
+// }

@@ -11,35 +11,27 @@ import (
 
 var db *sql.DB
 
-// CONSTANT VARIABLES
-
-const CONST_DBMS_NAME__DRIVER string = os.Getenv("DBMS_NAME__DRIVER")
-const CONST_DBMS_CONNECT_DB__USERID string = os.Getenv("DBMS_CONNECT_DB__USERID")
-const CONST_DBMS_CONNECT_DB__USERPW string = os.Getenv("DBMS_CONNECT_DB__USERPW")
-const CONST_DBMS_CONNECT_DB__METHOD string = os.Getenv("DBMS_CONNECT_DB__METHOD")
-const CONST_DBMS_CONNECT_DB__IP string = os.Getenv("DBMS_CONNECT_DB__IP")
-const CONST_DBMS_CONNECT_DB__PORT int = os.Getenv("DBMS_CONNECT_DB__PORT")
-const CONST_DBMS_CONNECT_DB__CONTEXT string = os.Getenv("DBMS_CONNECT_DB__CONTEXT")
-
 func Init() {
 	fn_open__db()
 	// fn_validate_blocks()
 }
 
-/*********************************************************************************/
-/* <!----- fn_open__db *********************/
-
 func fn_open__db() {
 
-	db, err := sql.Open(CONST_DBMS_NAME__DRIVER, fmt.Sprintf(
-		"%s:%s@%s(%s:%d)/%s",
-		CONST_DBMS_CONNECT_DB__USERID,
-		CONST_DBMS_CONNECT_DB__USERPW,
-		CONST_DBMS_CONNECT_DB__METHOD,
-		CONST_DBMS_CONNECT_DB__IP,
-		CONST_DBMS_CONNECT_DB__PORT,
-		CONST_DBMS_CONNECT_DB__CONTEXT,
-	))
+	sql_driver := os.Getenv("DBMS_NAME__DRIVER")
+
+	DSN := fmt.Sprintf("%s:%s@%s(%s:%s)/%s", 
+		os.Getenv("DBMS_CONNECT_DB__USERID"),
+		os.Getenv("DBMS_CONNECT_DB__USERPW"),
+		os.Getenv("DBMS_CONNECT_DB__METHOD"),
+		os.Getenv("DBMS_CONNECT_DB__IP"),
+		os.Getenv("DBMS_CONNECT_DB__PORT"),
+		os.Getenv("DBMS_CONNECT_DB__CONTEXT"),
+	)
+
+	db, err := sql.Open(sql_driver, DSN)
+
+	fmt.Println(sql_driver, DSN)
 
 	if err != nil {
 		fmt.Printf("Error occurred while opening DB, error - %s", err)
@@ -49,7 +41,6 @@ func fn_open__db() {
 	fn_set_db_config(db)
 
 	fmt.Println("DB is successfully opened. // backend/database/db_core.go")
-
 }
 
 func fn_set_db_config(db *sql.DB) {

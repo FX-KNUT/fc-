@@ -3,6 +3,7 @@ package service
 import (
 	"fmt"
 	"log"
+	"path/filepath"
 	"time"
 
 	db "github.com/FX-KNUT/fc-/backend/database"
@@ -12,12 +13,12 @@ import (
 type Post entity.Post
 type News entity.News
 
-type Struct_post_service struct {
-	Post
+type struct_post_service struct {
+	posts []Post
 }
 
-type Interface_post_servcie interface {
-	CreatePost(Post) error
+type Interface_post_service interface {
+	CreatePost(entity.Post) error
 	CreateNewsPost(News) error
 	GetAllPostsinPage([]Post, error)
 	GetAllPosts() ([]Post, error)
@@ -36,7 +37,7 @@ type Interface_post_servcie interface {
 }
 
 
-func (s Struct_post_service) CreatePost(p Post) error {
+func (s *struct_post_service) CreatePost(p entity.Post) error {
 	conn := db.Fn_access_db()
 
 	q := fmt.Sprintf("INSERT INTO %s VALUES (%d, %d, '%s', '%s', %d, %d, %s)",
@@ -45,18 +46,8 @@ func (s Struct_post_service) CreatePost(p Post) error {
 	
 	result, err := conn.Exec(q)
 	if err != nil {
-		
-	}
-}
-
-
-func CreatePost(post Post) error {
-	conn := db.Fn_access_db()
-
-	q := "INSERT INTO post VALUES (%d, %d, '%s', '%s', '%s', '%s', '%s', %d, '%s', %d, %d)"
-	result, err := conn.Exec(q, post.Message_ID, post.Message_UserID, post.Message_Content, post.Message_Target, time.Now(), post.Post_BoardID, post.Post_Title, post.Post_ViewCount, post.Post_LikeCount)
-	if err != nil {
-		log.Panicln(err)
+		dir,_ := filepath.Abs("post.go")
+		log.Panicf("Error: %s/CreatePost\n:%v", dir, err)
 	}
 
 	change_count, err := result.RowsAffected()
@@ -68,263 +59,282 @@ func CreatePost(post Post) error {
 	return nil
 }
 
-func CreateNewsPost(news entity.News) error {
-	conn := db.Fn_access_db()
 
-	q := "INSERT INTO newspost VALUES (%d, %d, '%s', '%s', '%s', '%s', '%s', %d, '%s', %d, %d, '%s')"
-	result, err := conn.Exec(q, news.Message_ID, news.Message_UserID, news.Message_Content, news.Message_Target, time.Now(),
-		news.Post_BoardID, news.Post_Title, news.Post_ViewCount, news.Post_LikeCount, news.News_Thumbnail)
-	if err != nil {
-		log.Panicln(err)
-	}
+// // func CreatePost(post Post) error {
+// // 	conn := db.Fn_access_db()
 
-	change_count, err := result.RowsAffected()
-	if err != nil {
-		log.Panicln(err)
-	}
-	log.Println("Change count: ", change_count)
+// // 	q := "INSERT INTO post VALUES (%d, %d, '%s', '%s', '%s', '%s', '%s', %d, '%s', %d, %d)"
+// // 	result, err := conn.Exec(q, post.Message_ID, post.Message_UserID, post.Message_Content, post.Message_Target, time.Now(), post.Post_BoardID, post.Post_Title, post.Post_ViewCount, post.Post_LikeCount)
+// // 	if err != nil {
+// // 		log.Panicln(err)
+// // 	}
 
-	return nil
-}
+// // 	change_count, err := result.RowsAffected()
+// // 	if err != nil {
+// // 		log.Panicln(err)
+// // 	}
+// // 	log.Println("Change count: ", change_count)
 
-func GetAllPosts() (posts []Post, e error) {
-	var post Post
+// // 	return nil
+// // }
 
-	conn := db.Fn_access_db()
+// func CreateNewsPost(news entity.News) error {
+// 	conn := db.Fn_access_db()
 
-	q := "SELECT * FROM post"
-	rows, err := conn.Query(q)
-	defer rows.Close()
-	if err != nil {
-		log.Panic(err)
-	}
+// 	q := "INSERT INTO newspost VALUES (%d, %d, '%s', '%s', '%s', '%s', '%s', %d, '%s', %d, %d, '%s')"
+// 	result, err := conn.Exec(q, news.Message_ID, news.Message_UserID, news.Message_Content, news.Message_Target, time.Now(),
+// 		news.Post_BoardID, news.Post_Title, news.Post_ViewCount, news.Post_LikeCount, news.News_Thumbnail)
+// 	if err != nil {
+// 		log.Panicln(err)
+// 	}
 
-	for rows.Next() {
-		err = rows.Scan(&post.Message_ID, &post.Message_UserID, &post.Message_Content, &post.Message_Target, &post.Message_CreatedAt,
-			&post.Message_UpdatedAt, &post.Message_DeletedAt, &post.Post_BoardID, &post.Post_Title, &post.Post_ViewCount, &post.Post_LikeCount)
-		if err != nil {
-			log.Panicln(err)
-		}
-		posts = append(posts, post)
-	}
+// 	change_count, err := result.RowsAffected()
+// 	if err != nil {
+// 		log.Panicln(err)
+// 	}
+// 	log.Println("Change count: ", change_count)
 
-	return posts, nil
-}
+// 	return nil
+// }
 
-func GetAllNewsPosts() (news_posts []News, e error) {
-	var news News
+// func GetAllPosts() (posts []Post, e error) {
+// 	var post Post
 
-	conn := db.Fn_access_db()
+// 	conn := db.Fn_access_db()
 
-	q := "SELECT * FROM news"
-	rows, err := conn.Query(q)
-	defer rows.Close()
-	if err != nil {
-		log.Panic(err)
-	}
+// 	q := "SELECT * FROM post"
+// 	rows, err := conn.Query(q)
+// 	defer rows.Close()
+// 	if err != nil {
+// 		log.Panic(err)
+// 	}
 
-	for rows.Next() {
-		err = rows.Scan(&news.Message_ID, &news.Message_UserID, &news.Message_Content, &news.Message_Target, &news.Message_CreatedAt,
-			&news.Message_UpdatedAt, &news.Message_DeletedAt, &news.Post_BoardID, &news.Post_Title, &news.Post_ViewCount, &news.Post_LikeCount,
-			&news.News_Thumbnail)
-		if err != nil {
-			log.Panicln(err)
-		}
-		news_posts = append(news_posts, news)
-	}
+// 	for rows.Next() {
+// 		err = rows.Scan(&post.Message_ID, &post.Message_UserID, &post.Message_Content, &post.Message_Target, &post.Message_CreatedAt,
+// 			&post.Message_UpdatedAt, &post.Message_DeletedAt, &post.Post_BoardID, &post.Post_Title, &post.Post_ViewCount, &post.Post_LikeCount)
+// 		if err != nil {
+// 			log.Panicln(err)
+// 		}
+// 		posts = append(posts, post)
+// 	}
 
-	return news_posts, nil
-}
+// 	return posts, nil
+// }
 
-func GetAllBestNewsPosts() (news_posts []News, e error) {
-	var news News
+// func GetAllNewsPosts() (news_posts []News, e error) {
+// 	var news News
 
-	conn := db.Fn_access_db()
+// 	conn := db.Fn_access_db()
 
-	q := "SELECT * FROM news ORDER BY post_view_count limit 10"
-	rows, err := conn.Query(q)
-	defer rows.Close()
-	if err != nil {
-		log.Panic(err)
-	}
+// 	q := "SELECT * FROM news"
+// 	rows, err := conn.Query(q)
+// 	defer rows.Close()
+// 	if err != nil {
+// 		log.Panic(err)
+// 	}
 
-	for rows.Next() {
-		err = rows.Scan(&news.Message_ID, &news.Message_UserID, &news.Message_Content, &news.Message_Target, &news.Message_CreatedAt,
-			&news.Message_UpdatedAt, &news.Message_DeletedAt, &news.Post_BoardID, &news.Post_Title, &news.Post_ViewCount, &news.Post_LikeCount,
-			&news.News_Thumbnail)
-		if err != nil {
-			log.Panicln(err)
-		}
-		news_posts = append(news_posts, news)
-	}
+// 	for rows.Next() {
+// 		err = rows.Scan(&news.Message_ID, &news.Message_UserID, &news.Message_Content, &news.Message_Target, &news.Message_CreatedAt,
+// 			&news.Message_UpdatedAt, &news.Message_DeletedAt, &news.Post_BoardID, &news.Post_Title, &news.Post_ViewCount, &news.Post_LikeCount,
+// 			&news.News_Thumbnail)
+// 		if err != nil {
+// 			log.Panicln(err)
+// 		}
+// 		news_posts = append(news_posts, news)
+// 	}
 
-	return news_posts, nil
-}
+// 	return news_posts, nil
+// }
 
-func GetPostsByTarget(target string) (posts []Post, e error) {
-	var post Post
+// func GetAllBestNewsPosts() (news_posts []News, e error) {
+// 	var news News
 
-	conn := db.Fn_access_db()
+// 	conn := db.Fn_access_db()
 
-	q := "SELECT * FROM post WEHRE message_target = '%s'"
-	rows, err := conn.Query(q, target)
-	defer rows.Close()
-	if err != nil {
-		log.Panic(err)
-	}
+// 	q := "SELECT * FROM news ORDER BY post_view_count limit 10"
+// 	rows, err := conn.Query(q)
+// 	defer rows.Close()
+// 	if err != nil {
+// 		log.Panic(err)
+// 	}
 
-	for rows.Next() {
-		err = rows.Scan(&post.Message_ID, &post.Message_UserID, &post.Message_Content, &post.Message_Target, &post.Message_CreatedAt,
-			&post.Message_UpdatedAt, &post.Message_DeletedAt, &post.Post_BoardID, &post.Post_Title, &post.Post_ViewCount, &post.Post_LikeCount)
-		if err != nil {
-			log.Panicln(err)
-		}
-		posts = append(posts, post)
-	}
+// 	for rows.Next() {
+// 		err = rows.Scan(&news.Message_ID, &news.Message_UserID, &news.Message_Content, &news.Message_Target, &news.Message_CreatedAt,
+// 			&news.Message_UpdatedAt, &news.Message_DeletedAt, &news.Post_BoardID, &news.Post_Title, &news.Post_ViewCount, &news.Post_LikeCount,
+// 			&news.News_Thumbnail)
+// 		if err != nil {
+// 			log.Panicln(err)
+// 		}
+// 		news_posts = append(news_posts, news)
+// 	}
 
-	return posts, nil
-}
+// 	return news_posts, nil
+// }
 
-func GetNewsPostsByTarget(target string) (news_posts []News, e error) {
-	var news News
+// func GetPostsByTarget(target string) (posts []Post, e error) {
+// 	var post Post
 
-	conn := db.Fn_access_db()
+// 	conn := db.Fn_access_db()
 
-	q := "SELECT * FROM news WEHRE message_target = '%s'"
-	rows, err := conn.Query(q, target)
-	defer rows.Close()
-	if err != nil {
-		log.Panic(err)
-	}
+// 	q := "SELECT * FROM post WEHRE message_target = '%s'"
+// 	rows, err := conn.Query(q, target)
+// 	defer rows.Close()
+// 	if err != nil {
+// 		log.Panic(err)
+// 	}
 
-	for rows.Next() {
-		err = rows.Scan(&news.Message_ID, &news.Message_UserID, &news.Message_Content, &news.Message_Target, &news.Message_CreatedAt,
-			&news.Message_UpdatedAt, &news.Message_DeletedAt, &news.Post_BoardID, &news.Post_Title, &news.Post_ViewCount, &news.Post_LikeCount,
-			&news.News_Thumbnail)
-		if err != nil {
-			log.Panicln(err)
-		}
-		news_posts = append(news_posts, news)
-	}
+// 	for rows.Next() {
+// 		err = rows.Scan(&post.Message_ID, &post.Message_UserID, &post.Message_Content, &post.Message_Target, &post.Message_CreatedAt,
+// 			&post.Message_UpdatedAt, &post.Message_DeletedAt, &post.Post_BoardID, &post.Post_Title, &post.Post_ViewCount, &post.Post_LikeCount)
+// 		if err != nil {
+// 			log.Panicln(err)
+// 		}
+// 		posts = append(posts, post)
+// 	}
 
-	return news_posts, nil
-}
+// 	return posts, nil
+// }
 
-func GetLatestPostByTarget(target string) (post Post, e error) {
-	conn := db.Fn_access_db()
+// func GetNewsPostsByTarget(target string) (news_posts []News, e error) {
+// 	var news News
 
-	q := "SELECT * FROM BLOCK post BY msg_id desc limit 1"
+// 	conn := db.Fn_access_db()
 
-	err := conn.QueryRow(q).Scan(&post)
+// 	q := "SELECT * FROM news WEHRE message_target = '%s'"
+// 	rows, err := conn.Query(q, target)
+// 	defer rows.Close()
+// 	if err != nil {
+// 		log.Panic(err)
+// 	}
 
-	if err != nil {
-		log.Panicln(err)
-		return Post{}, err
-	}
+// 	for rows.Next() {
+// 		err = rows.Scan(&news.Message_ID, &news.Message_UserID, &news.Message_Content, &news.Message_Target, &news.Message_CreatedAt,
+// 			&news.Message_UpdatedAt, &news.Message_DeletedAt, &news.Post_BoardID, &news.Post_Title, &news.Post_ViewCount, &news.Post_LikeCount,
+// 			&news.News_Thumbnail)
+// 		if err != nil {
+// 			log.Panicln(err)
+// 		}
+// 		news_posts = append(news_posts, news)
+// 	}
 
-	return post, nil
-}
+// 	return news_posts, nil
+// }
 
-func GetLatestNewsPostByTarget(target string) (news News, e error) {
-	conn := db.Fn_access_db()
+// func GetLatestPostByTarget(target string) (post Post, e error) {
+// 	conn := db.Fn_access_db()
 
-	q := "SELECT * FROM BLOCK news BY msg_id desc limit 1"
+// 	q := "SELECT * FROM BLOCK post BY msg_id desc limit 1"
 
-	err := conn.QueryRow(q).Scan(&news)
+// 	err := conn.QueryRow(q).Scan(&post)
 
-	if err != nil {
-		log.Panicln(err)
-		return News{}, err
-	}
+// 	if err != nil {
+// 		log.Panicln(err)
+// 		return Post{}, err
+// 	}
 
-	return news, nil
-}
+// 	return post, nil
+// }
 
-func UpdatePost(post Post) error { // Where 절 수정 필요할 수 있음. => Message 엔티티의 target과 Post 엔티티의 postid 분리
-	conn := db.Fn_access_db()
+// func GetLatestNewsPostByTarget(target string) (news News, e error) {
+// 	conn := db.Fn_access_db()
 
-	q := "UPDATE post SET message_content = '%s', message_target = '%s' message_updated_at = '%s', post_board_id = %d, post_title = '%s' WHERE message_id == %d"
+// 	q := "SELECT * FROM BLOCK news BY msg_id desc limit 1"
 
-	result, err := conn.Exec(q, post.Message_Content, post.Message_Target, time.Now(), post.Post_BoardID, post.Post_Title, post.Message_ID)
+// 	err := conn.QueryRow(q).Scan(&news)
 
-	if err != nil {
-		log.Panic(err)
-		return err
-	}
+// 	if err != nil {
+// 		log.Panicln(err)
+// 		return News{}, err
+// 	}
 
-	change_count, err := result.RowsAffected()
-	if err != nil {
-		log.Panic(err)
-		return err
-	}
-	log.Println("change count: ", change_count)
+// 	return news, nil
+// }
 
-	return nil
-}
+// func UpdatePost(post Post) error { // Where 절 수정 필요할 수 있음. => Message 엔티티의 target과 Post 엔티티의 postid 분리
+// 	conn := db.Fn_access_db()
 
-func UpdateNewsPost(news News) error { // Where 절 수정 필요할 수 있음. => Message 엔티티의 target과 Post 엔티티의 postid 분리
-	conn := db.Fn_access_db()
+// 	q := "UPDATE post SET message_content = '%s', message_target = '%s' message_updated_at = '%s', post_board_id = %d, post_title = '%s' WHERE message_id == %d"
 
-	q := "UPDATE news SET message_content = '%s', message_target = '%s' message_updated_at = '%s', post_board_id = %d, post_title = '%s' news_thumbnail = '%s' WHERE message_id == %d"
+// 	result, err := conn.Exec(q, post.Message_Content, post.Message_Target, time.Now(), post.Post_BoardID, post.Post_Title, post.Message_ID)
 
-	result, err := conn.Exec(q, news.Message_Content, news.Message_Target, time.Now(), news.Post_BoardID, news.Post_Title,
-		news.News_Thumbnail, news.Message_ID)
-	if err != nil {
-		log.Panic(err)
-		return err
-	}
+// 	if err != nil {
+// 		log.Panic(err)
+// 		return err
+// 	}
 
-	change_count, err := result.RowsAffected()
-	if err != nil {
-		log.Panic(err)
-		return err
-	}
-	log.Println("change count: ", change_count)
+// 	change_count, err := result.RowsAffected()
+// 	if err != nil {
+// 		log.Panic(err)
+// 		return err
+// 	}
+// 	log.Println("change count: ", change_count)
 
-	return nil
-}
+// 	return nil
+// }
 
-func DeletePost(post Post) error { // 위와 같은 이유로 수정 필요할 수 있음.
-	conn := db.Fn_access_db()
+// func UpdateNewsPost(news News) error { // Where 절 수정 필요할 수 있음. => Message 엔티티의 target과 Post 엔티티의 postid 분리
+// 	conn := db.Fn_access_db()
 
-	q := "DELETE FROM post WHERE message_id = '%s'"
+// 	q := "UPDATE news SET message_content = '%s', message_target = '%s' message_updated_at = '%s', post_board_id = %d, post_title = '%s' news_thumbnail = '%s' WHERE message_id == %d"
 
-	result, err := conn.Exec(q, post.Message_ID)
-	if err != nil {
-		log.Panic(err)
-		return err
-	}
+// 	result, err := conn.Exec(q, news.Message_Content, news.Message_Target, time.Now(), news.Post_BoardID, news.Post_Title,
+// 		news.News_Thumbnail, news.Message_ID)
+// 	if err != nil {
+// 		log.Panic(err)
+// 		return err
+// 	}
 
-	change_count, err := result.RowsAffected()
-	if err != nil {
-		log.Panic(err)
-		return err
-	}
-	log.Println("change count: ", change_count)
+// 	change_count, err := result.RowsAffected()
+// 	if err != nil {
+// 		log.Panic(err)
+// 		return err
+// 	}
+// 	log.Println("change count: ", change_count)
 
-	return nil
-}
+// 	return nil
+// }
 
-func DeleteNewsPost(news News) error { // 위와 같은 이유로 수정 필요할 수 있음.
-	conn := db.Fn_access_db()
+// func DeletePost(post Post) error { // 위와 같은 이유로 수정 필요할 수 있음.
+// 	conn := db.Fn_access_db()
 
-	q := "DELETE FROM post WHERE message_id = '%s'"
+// 	q := "DELETE FROM post WHERE message_id = '%s'"
 
-	result, err := conn.Exec(q, news.Message_ID)
-	if err != nil {
-		log.Panic(err)
-		return err
-	}
+// 	result, err := conn.Exec(q, post.Message_ID)
+// 	if err != nil {
+// 		log.Panic(err)
+// 		return err
+// 	}
 
-	change_count, err := result.RowsAffected()
-	if err != nil {
-		log.Panic(err)
-		return err
-	}
-	log.Println("change count: ", change_count)
+// 	change_count, err := result.RowsAffected()
+// 	if err != nil {
+// 		log.Panic(err)
+// 		return err
+// 	}
+// 	log.Println("change count: ", change_count)
 
-	return nil
-}
+// 	return nil
+// }
+
+// func DeleteNewsPost(news News) error { // 위와 같은 이유로 수정 필요할 수 있음.
+// 	conn := db.Fn_access_db()
+
+// 	q := "DELETE FROM post WHERE message_id = '%s'"
+
+// 	result, err := conn.Exec(q, news.Message_ID)
+// 	if err != nil {
+// 		log.Panic(err)
+// 		return err
+// 	}
+
+// 	change_count, err := result.RowsAffected()
+// 	if err != nil {
+// 		log.Panic(err)
+// 		return err
+// 	}
+// 	log.Println("change count: ", change_count)
+
+// 	return nil
+// }
 
 // func DeletePosts(posts []Post) error
 // func DeleteNewsPosts(posts []News) error
