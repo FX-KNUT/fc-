@@ -1,6 +1,7 @@
 package service
 
 import (
+	"database/sql"
 	"fmt"
 
 	db "github.com/FX-KNUT/fc-/backend/database"
@@ -28,7 +29,7 @@ func (s *struct_block_service) GetBlock(Idx int) (entity.Block, error) {
 
 	var block entity.Block
 
-	db := db.Fn_access_db()
+	db := db.Fn_open__db()
 
 	query := fmt.Sprintf("SELECT * FROM BLOCK WHERE Block_index == %d", Idx)
 
@@ -43,20 +44,21 @@ func (s *struct_block_service) GetBlock(Idx int) (entity.Block, error) {
 
 func (s *struct_block_service) GetAllBlocks() ([]entity.Block, error) {
 
-	var block entity.Block
-	var blocks []entity.Block
-
-	db := db.Fn_access_db()
+	var (
+		block entity.Block
+		blocks []entity.Block
+		db *sql.DB
+	)
 
 	query := "SELECT * FROM BLOCK"
 
 	rows, err := db.Query(query)
 
-	defer rows.Close()
-
 	if err != nil {
 		return blocks, err
 	}
+
+	defer rows.Close()
 
 	for rows.Next() {
 		err = rows.Scan(&block.Block_index, &block.Block_hash, &block.Block_previous_hash, &block.Block_tx_ref_ID,
@@ -73,9 +75,9 @@ func (s *struct_block_service) GetAllBlocks() ([]entity.Block, error) {
 func (s *struct_block_service) GetLatestBlock() (entity.Block, error) {
 	var block entity.Block
 
-	db := db.Fn_access_db()
+	var db *sql.DB
 
-	query := fmt.Sprintf("SELECT * FROM BLOCK ORDER BY Block_index desc limit 1")
+	query := "SELECT * FROM BLOCK ORDER BY Block_index desc limit 1"
 
 	err := db.QueryRow(query).Scan(&block)
 
@@ -89,9 +91,9 @@ func (s *struct_block_service) GetLatestBlock() (entity.Block, error) {
 func (s *struct_block_service) GetLatestIndex() (int, error) {
 	var Idx int
 
-	db := db.Fn_access_db()
+	var db *sql.DB
 
-	query := fmt.Sprintf("SELECT MAX(Block_index) FROM BLOCK")
+	query := "SELECT MAX(Block_index) FROM BLOCK"
 
 	err := db.QueryRow(query).Scan(&Idx)
 
@@ -104,7 +106,7 @@ func (s *struct_block_service) GetLatestIndex() (int, error) {
 
 func (s *struct_block_service) UpdateBlock(block entity.Block) error {
 
-	db := db.Fn_access_db()
+	var db *sql.DB
 
 	query := fmt.Sprintf("UPDATE BLOCK SET Block_hash = '%s', Block_previous_hash = '%s' Block_tx_ref_ID = %d, Block_owner = '%s', Block_nonce = %d, Block_created_at = '%s', Block_difficulty = %d, Block_reward = %d WHERE Block_index == %d",
 		block.Block_hash, block.Block_previous_hash, block.Block_tx_ref_ID, block.Block_owner,
@@ -117,7 +119,7 @@ func (s *struct_block_service) UpdateBlock(block entity.Block) error {
 
 func (s *struct_block_service) SaveBlock(block entity.Block) error {
 
-	db := db.Fn_access_db()
+	var db *sql.DB
 
 	query := fmt.Sprintf("INSERT INTO BLOCK VALUES (%d, '%s', '%s', %d, '%s', '%d', '%s', '%d', '%d')",
 		block.Block_index, block.Block_hash, block.Block_previous_hash, block.Block_tx_ref_ID,

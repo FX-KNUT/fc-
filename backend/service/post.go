@@ -38,13 +38,14 @@ type Interface_post_service interface {
 
 
 func (s *struct_post_service) CreatePost(p entity.Post) error {
-	conn := db.Fn_access_db()
+
+	db := db.Fn_open__db()
 
 	q := fmt.Sprintf("INSERT INTO %s VALUES (%d, %d, '%s', '%s', %d, %d, %s)",
 		p.Message_Target, p.Message_ID, p.Message_UserID, p.Post_Title, p.Message_Content, p.Post_ViewCount, p.Post_LikeCount, 
 		time.Now().Format("2006-01-02 15:04:05"))
 	
-	result, err := conn.Exec(q)
+	result, err := db.Exec(q)
 	if err != nil {
 		dir,_ := filepath.Abs("post.go")
 		log.Panicf("Error: %s/CreatePost\n:%v", dir, err)

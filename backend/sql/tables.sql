@@ -5,11 +5,11 @@
 -- 그 외 테이블 생성 SQL 작성.
 
 CREATE TABLE user (
-  id VARCHAR(20),
-  nickname VARCHAR(20),
-  hashed_pw VARCHAR(100),
-  email VARCHAR(100),
-  balance int(20),
+  id VARCHAR(15),
+  nickname VARCHAR(12),
+  hashed_pw VARCHAR(36),
+  email VARCHAR(48),
+  balance INT,
   primary key(id)
 );
 

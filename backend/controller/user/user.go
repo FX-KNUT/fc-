@@ -29,10 +29,10 @@ type controller struct {
 }
 
 type User_controller interface {
-	SignIn(string, string) error
+	SignIn(*gin.Context, string, string) error
 	SignUp(*gin.Context) error
-	CheckDuplicatedId(string) error
-	TESTING(string) error
+	CheckDuplicatedId(*gin.Context, string) error
+	TESTING(*gin.Context, string) error
 }
 
 func New__User(service service.User_service) User_controller {
@@ -41,8 +41,7 @@ func New__User(service service.User_service) User_controller {
 	}
 }
 
-func (c *controller) SignIn(id, pw string) error {
-	var ctx *gin.Context
+func (c *controller) SignIn(ctx *gin.Context, id, pw string) error {
 
 	if len(id) < 4 || len(id) > 12 {
 		ctx.String(http.StatusBadRequest, "정보가 잘못 입력되었습니다.")
@@ -136,8 +135,7 @@ func (c *controller) SignUp(ctx *gin.Context) error {
 	return nil
 }
 
-func (c *controller) CheckDuplicatedId(id string) error {
-	var ctx *gin.Context
+func (c *controller) CheckDuplicatedId(ctx *gin.Context, id string) error {
 
 	// simple filter for validation
 
@@ -172,12 +170,11 @@ func (c *controller) CheckDuplicatedId(id string) error {
 
 // }
 
-func (c *controller) TESTING(id string) error {
-	// var ctx *gin.Context
+func (c *controller) TESTING(ctx *gin.Context, id string) error {
 	c.service.TESTING(id)
 	// if err != nil {
 	// 	return err
 	// }
-	// ctx.String(200, "OK")
+	ctx.String(200, "OK")
 	return nil
 }

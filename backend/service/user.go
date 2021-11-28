@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 
-	db "github.com/FX-KNUT/fc-/backend/database"
+	database "github.com/FX-KNUT/fc-/backend/database"
 	"github.com/FX-KNUT/fc-/backend/entity"
 )
 
@@ -29,7 +29,7 @@ func (s *struct_user_service) SignIn(id, pw string) (entity.User, error) {
 
 	var user entity.User
 
-	db := db.Fn_access_db()
+	db := database.Fn_open__db()
 
 	query := fmt.Sprintf("SELECT id from users where id = '%s' and hashed_pw = '%s'", id, pw)
 
@@ -44,10 +44,14 @@ func (s *struct_user_service) SignIn(id, pw string) (entity.User, error) {
 
 func (s *struct_user_service) SignUp(user entity.User) error {
 
-	db := db.Fn_access_db()
+	db := database.Fn_open__db()
 
 	query := fmt.Sprintf("INSERT INTO users VALUES('%s', '%s', '%s', '%s', %d)",
 		user.Id, user.Nickname, user.Hashed_pw, user.Email, user.Balance)
+
+	fmt.Println(query)
+	fmt.Println(user.Hashed_pw)
+	fmt.Println(len(user.Hashed_pw))
 
 	_, err := db.Query(query)
 
@@ -58,7 +62,7 @@ func (s *struct_user_service) CheckDuplicatedId(id string) error {
 
 	var ret_id string
 
-	db := db.Fn_access_db()
+	db := database.Fn_open__db()
 
 	query := fmt.Sprintf("SELECT id from users where id = '%s'", id)
 
@@ -77,7 +81,7 @@ func (s *struct_user_service) TESTING(id string) error {
 
 	var ret_id string
 
-	db := db.Fn_access_db()
+	db := database.Fn_open__db()
 
 	query := fmt.Sprintf("SELECT id from users where id = '%s'", id)
 
@@ -85,9 +89,5 @@ func (s *struct_user_service) TESTING(id string) error {
 
 	err := row.Scan(&ret_id)
 
-	fmt.Println("look at me, I'am the ret_id : ", ret_id)
-	fmt.Println("look at me, I'am the err : ", err)
-	fmt.Println("look at me, I'am the db : ", db)
-	fmt.Println("id is ", id)
-	return nil
+	return err
 }
