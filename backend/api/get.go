@@ -29,7 +29,7 @@ func fn_REST_sign_in(c *gin.Context) {
 	id := c.Query("id")
 	pw := c.Query("pw")
 
-	err := GET_user_controller.SignIn(id, pw)
+	err := GET_user_controller.SignIn(c, id, pw)
 
 	if err != nil {
 		fmt.Println(err.Error())
@@ -40,7 +40,8 @@ func fn_REST_check_id(c *gin.Context) {
 
 	id := c.Query("id")
 	
-	err := GET_user_controller.CheckDuplicatedId(id)
+	err := GET_user_controller.CheckDuplicatedId(c, id)
+
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -50,7 +51,7 @@ func fn_TESTING(c *gin.Context) {
 	
 	id := c.Query("testing")
 
-	err := GET_user_controller.TESTING(id)
+	err := GET_user_controller.TESTING(c, id)
 
 	if err != nil {
 		fmt.Println(err.Error())

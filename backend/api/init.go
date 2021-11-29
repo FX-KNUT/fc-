@@ -30,7 +30,7 @@ func Init() {
 
 	if is_ready_GET && is_ready_POST {
 		// r.Run(CONST_STR_SERVER_PORT)
-		r.Run(os.Getenv(":PORT"))
+		r.Run(os.Getenv("PORT"))
 	} else {
 		log.Fatalln(err_opening_api)
 	}
