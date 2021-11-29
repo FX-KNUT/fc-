@@ -32,7 +32,6 @@ type User_controller interface {
 	SignIn(*gin.Context, string, string) error
 	SignUp(*gin.Context) error
 	CheckDuplicatedId(*gin.Context, string) error
-	TESTING(*gin.Context, string) error
 }
 
 func New__User(service service.User_service) User_controller {
@@ -169,12 +168,3 @@ func (c *controller) CheckDuplicatedId(ctx *gin.Context, id string) error {
 // func (c *controller) ChangeProfilePicture() error {
 
 // }
-
-func (c *controller) TESTING(ctx *gin.Context, id string) error {
-	c.service.TESTING(id)
-	// if err != nil {
-	// 	return err
-	// }
-	ctx.String(200, "OK")
-	return nil
-}
