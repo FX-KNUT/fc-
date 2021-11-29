@@ -1,3 +1,9 @@
+import Announce from "../components/Common/Main/announce";
+
 export default function Home() {
-  return <main>main</main>;
+  return (
+    <main>
+      <Announce></Announce>
+    </main>
+  );
 }

@@ -8,6 +8,7 @@ const header = () => {
   return (
     <header className={styles.header}>
       <Sns></Sns>
+      <hr />
       <Logo></Logo>
       <hr />
       <Gnb></Gnb>

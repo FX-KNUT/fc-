@@ -1,0 +1,39 @@
+@import "./variable";
+
+.announce_wrapper {
+  border: 1px solid red;
+  padding: 1rem $gutter;
+  .title_wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    border: 1px solid blue;
+    padding: 0.5rem;
+  }
+  .content_wrapper {
+    border: 1px solid yellowgreen;
+    display: flex;
+    justify-content: space-between;
+    .sub_title {
+      padding: 0.5rem;
+    }
+    .container {
+      border: 1px solid $default_color__footer_border;
+      padding: 0.5rem 3rem;
+      width: 20vw;
+      blockquote {
+        margin-left: 1.25rem;
+        padding: 0.5rem 0;
+        ul {
+          box-sizing: border-box;
+          li {
+            text-decoration: underline;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+  }
+}
