@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    image: 2mukee/fc-backend:1.0
+    ports:
+      - 8080:8080
+    environment:
+      - TZ=Asia/Seoul
+    deploy:
+      mode: replicated
+      replicas: 5
+      update_config:
+        parallelism: 5
+        delay: 10s
+        order: start-first
+        failure_action: rollback
+
+  frontend:
+    image: 2mukee/fc-frontend:1.0
+    ports: 
+      - 80:80
+    environment:
+      - TZ=Asia/Seoul
+    deploy:
+      mode: replicated
+      replicas: 5
+      update_config:
+        parallelism: 5
+        delay: 10s
+        order: start-first
+        failure_action: rollback
