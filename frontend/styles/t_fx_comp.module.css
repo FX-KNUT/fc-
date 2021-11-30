@@ -2,6 +2,17 @@
 
 .comp_container {
   padding: 1rem;
+  border: 1px solid orange;
+}
+
+.comp_container_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+
+.comp_container_content {
 }
 
 .comp_modal_wrapper {
@@ -37,8 +48,6 @@
   font-weight: 700;
 }
 
-.comp_expandable {
-}
 .comp_expandable_title_wrapper {
   display: flex;
   justify-content: space-between;
@@ -89,5 +98,6 @@
 }
 
 .comp_card {
-  padding: 0 3.25rem;
+  padding: 1rem;
+  border: 1px solid red;
 }

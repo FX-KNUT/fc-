@@ -1,0 +1,13 @@
+.coin_info_wrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  .coin_behind {
+    display: flex;
+    justify-content: center;
+    .coin_behind_title {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

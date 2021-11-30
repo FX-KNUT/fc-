@@ -5,6 +5,7 @@
   padding: 1em $gutter;
   border: 1px solid $default_color__footer_border;
   background-color: $default_color__footer_bg;
+  z-index: 3;
 
   .footer_wrapper {
     .contact_wrapper {

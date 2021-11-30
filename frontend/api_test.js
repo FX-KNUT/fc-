@@ -2,7 +2,7 @@ import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
 
-console.log(process.env.IP);
+// console.log(process.env.IP);
 
 const fn_hashing = (pw) => {
   const missing = process.env.HASH_LENGTH - pw.length; // 36-pw개수 = 빈 부분 채우기
@@ -71,6 +71,31 @@ const testcase_list_id = [
   "1234test",
   "1312reggregegegergegergre",
 ];
-testcase_list_id.map((testcase) =>
-  console.log(`${testcase} : ${regex_id.test(testcase)}`)
-);
+// testcase_list_id.map((testcase) =>
+//   console.log(`${testcase} : ${regex_id.test(testcase)}`)
+// );
+
+const post = {
+  message_target: "notice",
+  message_user_id: "test",
+  post_title: "mingyeongho",
+  message_content: "mingyeongho zzang",
+  post_view_count: 0,
+  post_like_count: 0,
+  message_created_at:
+    new Date().toISOString().substr(0, 10) +
+    " " +
+    new Date().toTimeString().substr(0, 9),
+};
+
+const fn_REST_POST__create_post = async (post) => {
+  const url = process.env.IP_2 + "/post/" + post.message_target + "/create";
+  try {
+    const res = await axios.post(url, post);
+    console.log(res.data);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+fn_REST_POST__create_post(post);
