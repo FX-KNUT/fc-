@@ -14,6 +14,7 @@ import (
 func Post(c chan<- bool, r *gin.Engine) {
 	go r.POST("/signup", fn_REST_post__signup)
 	go r.POST("/change_profile_picture", fn_REST_post__profile_picture)
+	go r.POST("/contract_transaction", fn_REST_post__contract_transaction)
 
 	post := r.Group(("/post"))
 	{
@@ -25,8 +26,6 @@ func Post(c chan<- bool, r *gin.Engine) {
 
 	c <- true
 }
-
-
 
 // DML: UPDATE
 func fn_REST_post__update_post(c *gin.Context) {
@@ -88,6 +87,13 @@ func fn_REST_post__profile_picture(c *gin.Context) {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
+}
+
+func fn_REST_post__contract_transaction(c *gin.Context) {
+	// err := ctrl_tx.Fn_ContractTx(c, from, to, amount)
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// }
 }
 
 // func fn_REST_post__create_post(c *gin.Context) {
