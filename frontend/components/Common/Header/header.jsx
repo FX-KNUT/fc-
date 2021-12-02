@@ -4,6 +4,8 @@ import Sns from "./sns";
 import Logo from "./logo";
 import Gnb from "./gnb";
 
+
+
 const header = () => {
   return (
     <header className={styles.header}>
@@ -18,3 +20,12 @@ const header = () => {
 };
 
 export default header;
+
+// header > *::after {
+//   content: '';
+//   position: relavant;
+//   display: block;
+//   width: 100%;
+//   height: 1px; // or 2px 정도 ..
+//   background: ??; // sass 처리
+// }
