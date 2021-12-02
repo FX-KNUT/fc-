@@ -26,7 +26,7 @@ CREATE TABLE user (
 
 CREATE TABLE posts (
   message_id INT(20),
-  message_user_id INT(20),
+  message_user_id VARCHAR(15),
   message_content VARCHAR(500),
   message_target VARCHAR(30),
   message_created_at TIMESTAMP,
@@ -45,7 +45,7 @@ CREATE TABLE news_thumbnails (
 
 CREATE TABLE comments (
   message_id INT(20),
-  message_user_id INT(20),
+  message_user_id VARCHAR(15),
   message_content VARCHAR(500),
   message_target VARCHAR(30),
   message_created_at TIMESTAMP,
