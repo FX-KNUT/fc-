@@ -7,11 +7,8 @@ import (
 	"github.com/FX-KNUT/fc-/backend/entity"
 )
 
-type User entity.User
-type Users entity.Users
-
 type struct_user_service struct {
-	users Users
+	Users []entity.User
 }
 
 type User_service interface {

@@ -45,7 +45,7 @@ const Logo = () => {
         </div>
         <div>
           <Palette onClick={() => palette.current.click()} />
-          <input ref={palette} type="color" className={styles.input_color} />
+          <input ref={palette} type="color" role="colorpicker" aria-roledescription="colorpicker" className={styles.input_color} />
         </div>
       </div>
       <Modal is_show={is_show} fn_on_close={fn_on_close}>

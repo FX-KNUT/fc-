@@ -9,7 +9,10 @@
 /coverage
 
 # next.js
+<<<<<<< HEAD
 /.next
+=======
+>>>>>>> d00e20874856931e2996399a1f111b943c72e37c
 /.next/
 /out/
 

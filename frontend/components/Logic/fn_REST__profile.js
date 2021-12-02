@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Image from "next/image";
 
+const TEXT_BUTTON__CHANGE_PROFILE = "change_profile"
+
 const Fn_REST__profile = () => {
   const [profile, set_profile] = useState(null);
 
@@ -30,7 +32,7 @@ const Fn_REST__profile = () => {
           defaultValue={profile}
           onChange={fn_on_change_profile}
         />
-        <button type="submit">change_profile</button>
+        <button type="submit">{TEXT_BUTTON__CHANGE_PROFILE}</button>
       </form>
       {profile && (
         <Image alt={profile} src={profile} width="300" height="300" />
