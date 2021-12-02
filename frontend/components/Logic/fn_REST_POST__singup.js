@@ -5,13 +5,15 @@ const fn_REST_POST__singup = async (id, pw, nickname, email) => {
   const url = process.env.NEXT_PUBLIC_IP + process.env.NEXT_PUBLIC_URL__SIGNUP;
 
   try {
-    const res = await axios.post(url, {
+    const obj_post = {
       id,
       hashed_pw: fn_hashing(pw),
       nickname,
       email,
-    });
-    console.log(res.data);
+    }
+    const res = await axios.post(url, obj_post);
+    const { data } = res;
+    console.log(data);
   } catch (e) {
     console.error(e);
   }
