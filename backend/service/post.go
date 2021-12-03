@@ -10,40 +10,77 @@ import (
 	entity "github.com/FX-KNUT/fc-/backend/entity"
 )
 
-type Post entity.Post
-type News entity.News
-
-type struct_post_service struct {
-	posts []Post
-}
-
+// Interface
 type Interface_post_service interface {
-	CreatePost(entity.Post) error
-	CreateNewsPost(News) error
-	GetAllPostsinPage([]Post, error)
-	GetAllPosts() ([]Post, error)
-	GetAllNewsPosts() ([]News, error)
-	GetBestAllNewsPosts() ([]News, error)
-	GetPostsByTarget(string) ([]Post, error)
-	GetNewsPostsByTarget(string) (News, error)
-	GetLatestPostByTarget(string) (Post, error)
-	GetLatestNewsPostByTarget(string) (News, error)
-	UpdatePost(Post) error
-	UpdateNewsPost(News) error
-	DeletePost(Post) error
-	DeleteNewsPost(News) error
-	DeletePosts([]Post) error
-	DeleteNewsPosts([]News) error
+	CreatePost(entity.Post, string) error
+	CreateNewsPost(entity.News) error
+	GetAllPostsinPage([]entity.Post, error)
+	GetPosts(string) ([]entity.Post, error)
+	GetAllNewsPosts() ([]entity.News, error)
+	GetBestAllNewsPosts() ([]entity.News, error)
+	GetPostsByTarget(string) ([]entity.Post, error)
+	GetNewsPostsByTarget(string) (entity.News, error)
+	GetLatestPostByTarget(string) (entity.Post, error)
+	GetLatestNewsPostByTarget(string) (entity.News, error)
+	UpdatePost(entity.Post) error
+	UpdateNewsPost(entity.News) error
+	DeletePost(entity.Post) error
+	DeleteNewsPost(entity.News) error
+	DeletePosts([]entity.Post) error
+	DeleteNewsPosts([]entity.News) error
 }
 
 
-func (s *struct_post_service) CreatePost(p entity.Post) error {
-
+// METHODS
+func fn_execute__post_sql(q string, e entity.Post) error {
 	db := db.Fn_open__db()
 
-	q := fmt.Sprintf("INSERT INTO %s VALUES (%d, %d, '%s', '%s', %d, %d, %s)",
-		p.Message_Target, p.Message_ID, p.Message_UserID, p.Post_Title, p.Message_Content, p.Post_ViewCount, p.Post_LikeCount, 
-		time.Now().Format("2006-01-02 15:04:05"))
+	result, err := db.Exec(q)
+	if err != nil {
+		dir,_ := filepath.Abs("post.go")
+		log.Panicf("Error: %s/CreatePost\n:%v", dir, err)
+	}
+
+	change_count, err := result.RowsAffected()
+	if err != nil {
+		log.Panicln(err)
+	}
+	log.Println("Change count: ", change_count)
+
+	return nil
+}
+
+// CREATE: 게시물 생성
+func CreatePost(e entity.Post, board string) error {
+	// q := fmt.Sprintf(
+	// 	`INSERT INTO posts (user_id, message_content, message_target, message_created_at, post_title)
+	// 	 VALUES ('%s', '%s', '%s', '%s', '%s')`,
+	// 	e.Message_UserID, e.Message_Content, e.Message_Target, time.Now().Format("2006-01-02 15:04:05"), e.Post_Title,
+	// )
+
+	q := fmt.Sprintf(
+		`INSERT
+		 INTO posts (user_id, message_content, message_target, message_created_at, post_title)
+		 VALUES ('%s', '%s', '%s', '%s', '%s')`,
+		e.Message_UserID, e.Message_Content, board, time.Now().Format("2006-01-02 15:04:05"), e.Post_Title,
+	)
+	
+	err := fn_execute__post_sql(q, e)
+	return err
+}
+
+func CreateNewsPost(e entity.News) error {
+	db := db.Fn_open__db()
+
+	q := fmt.Sprintf(
+		`INSERT
+		 INTO posts (message_user_id, message_content, message_target, message_created_at, post_title)
+		 VALUES ('%s', '%s', '%s', '%s', '%s')
+		 INTO news_thumbnails (news_thumbnail)
+		 VALUES ('%s')`,
+		e.Message_UserID, e.Message_Content, e.Message_Target, time.Now().Format("2006-01-02 15:04:05"), e.Post_Title,
+		e.News_Thumbnail,
+	)
 	
 	result, err := db.Exec(q)
 	if err != nil {
@@ -60,24 +97,107 @@ func (s *struct_post_service) CreatePost(p entity.Post) error {
 	return nil
 }
 
+// UPDATE: 게시물 수정
+func UpdatePost(e entity.Post) error {
+	q := fmt.Sprintf(
+		`UPDATE posts
+		 SET post_title='%s', message_content='%s', message_updated_at='%s' WHERE message_id = %d`,
+		 e.Post_Title, e.Message_Content, e.Post_UpdatedAt, e.Message_ID,
+	)
 
-// // func CreatePost(post Post) error {
-// // 	conn := db.Fn_access_db()
+	err := fn_execute__post_sql(q, e)
+	return err
+}
 
-// // 	q := "INSERT INTO post VALUES (%d, %d, '%s', '%s', '%s', '%s', '%s', %d, '%s', %d, %d)"
-// // 	result, err := conn.Exec(q, post.Message_ID, post.Message_UserID, post.Message_Content, post.Message_Target, time.Now(), post.Post_BoardID, post.Post_Title, post.Post_ViewCount, post.Post_LikeCount)
-// // 	if err != nil {
-// // 		log.Panicln(err)
-// // 	}
+func UpdateNewsPost(e entity.News) error {
+	db := db.Fn_open__db()
 
-// // 	change_count, err := result.RowsAffected()
-// // 	if err != nil {
-// // 		log.Panicln(err)
-// // 	}
-// // 	log.Println("Change count: ", change_count)
+	q := fmt.Sprintf(
+		`UPDATE posts p
+		 RIGHT JOIN news_thumbnails nt
+		 ON (p.message_id = nt.message_id)
+		 SET p.post_title='%s', p.message_content='%s', p.message_updated_at='%s' nt.news_thumbnail='%s' WHERE p.message_id = %d`,
+		 e.Post_Title, e.Message_Content, e.Post_UpdatedAt, e.News_Thumbnail, e.Message_ID,
+	)
 
-// // 	return nil
-// // }
+	result, err := db.Exec(q)
+	if err != nil {
+		log.Panic(err)
+		return err
+	}
+
+	change_count, err := result.RowsAffected()
+	if err != nil {
+		log.Panic(err)
+		return err
+	}
+	log.Println("change count: ", change_count)
+
+	return nil
+}
+
+// DELETE: 게시물 삭제
+func DeletePost(e entity.Post) error { // 위와 같은 이유로 수정 필요할 수 있음.
+	q := fmt.Sprintf("DELETE FROM posts WHERE message_id = %d", e.Message_ID)
+
+	err := fn_execute__post_sql(q, e)
+	return err
+}
+
+// READ
+func GetPosts(message_target string) (es []entity.Post, err error) {
+	var e entity.Post
+
+	q := fmt.Sprintf(
+		`SELECT * FROM posts
+		 WHERE message_target='%s'
+		 ORDER BY %d
+		 LIMIT %d`,
+		message_target, e.Message_ID, 20,
+	)
+
+	db := db.Fn_open__db()
+
+	rows, err := db.Query(q)
+	defer rows.Close()
+	if err != nil {
+		log.Panic(err)
+	}
+
+	for rows.Next() {
+		err = rows.Scan(&e.Message_ID, &e.Message_UserID, &e.Message_Content, &e.Message_Target, &e.Message_CreatedAt,
+			&e.Post_Title, &e.Post_ViewCount, &e.Post_LikeCount, &e.Post_UpdatedAt)
+		if err != nil {
+			log.Panicln(err)
+		}
+		es = append(es, e)
+	}
+
+	return es, nil
+
+}
+
+// func DeletePosts(e []entity.Post) error {
+// 	q := fmt.Sprintf(
+// 		`DELETE FROM posts WHERE `,
+// 	)
+// }
+
+	// CREATE TABLE post (
+	// 	message_id INT(20),
+	// 	message_user_id VARCHAR(15),
+	// 	message_content VARCHAR(500),
+	// 	message_target VARCHAR(30),
+	// 	message_created_at TIMESTAMP,
+	// 	post_title VARCHAR(30),
+	// 	post_view_count INT(3),
+	// 	post_like_count INT(3),
+	// 	post_updated_at TIMESTAMP,
+	// 	PRIMARY KEY(message_id),
+	// 	FORIEGN KEY(message_user_id) REFERENCES user (id)
+	// );
+
+
 
 // func CreateNewsPost(news entity.News) error {
 // 	conn := db.Fn_access_db()
@@ -251,28 +371,6 @@ func (s *struct_post_service) CreatePost(p entity.Post) error {
 // 	return news, nil
 // }
 
-// func UpdatePost(post Post) error { // Where 절 수정 필요할 수 있음. => Message 엔티티의 target과 Post 엔티티의 postid 분리
-// 	conn := db.Fn_access_db()
-
-// 	q := "UPDATE post SET message_content = '%s', message_target = '%s' message_updated_at = '%s', post_board_id = %d, post_title = '%s' WHERE message_id == %d"
-
-// 	result, err := conn.Exec(q, post.Message_Content, post.Message_Target, time.Now(), post.Post_BoardID, post.Post_Title, post.Message_ID)
-
-// 	if err != nil {
-// 		log.Panic(err)
-// 		return err
-// 	}
-
-// 	change_count, err := result.RowsAffected()
-// 	if err != nil {
-// 		log.Panic(err)
-// 		return err
-// 	}
-// 	log.Println("change count: ", change_count)
-
-// 	return nil
-// }
-
 // func UpdateNewsPost(news News) error { // Where 절 수정 필요할 수 있음. => Message 엔티티의 target과 Post 엔티티의 postid 분리
 // 	conn := db.Fn_access_db()
 
@@ -280,27 +378,6 @@ func (s *struct_post_service) CreatePost(p entity.Post) error {
 
 // 	result, err := conn.Exec(q, news.Message_Content, news.Message_Target, time.Now(), news.Post_BoardID, news.Post_Title,
 // 		news.News_Thumbnail, news.Message_ID)
-// 	if err != nil {
-// 		log.Panic(err)
-// 		return err
-// 	}
-
-// 	change_count, err := result.RowsAffected()
-// 	if err != nil {
-// 		log.Panic(err)
-// 		return err
-// 	}
-// 	log.Println("change count: ", change_count)
-
-// 	return nil
-// }
-
-// func DeletePost(post Post) error { // 위와 같은 이유로 수정 필요할 수 있음.
-// 	conn := db.Fn_access_db()
-
-// 	q := "DELETE FROM post WHERE message_id = '%s'"
-
-// 	result, err := conn.Exec(q, post.Message_ID)
 // 	if err != nil {
 // 		log.Panic(err)
 // 		return err

@@ -90,8 +90,6 @@ func (c *controller) SignUp(ctx *gin.Context) error {
 		return err
 	}
 
-	user.Balance = USER_DEFAULT_BALANCE
-
 	if len(user.Id) < 4 || len(user.Id) > 18 {
 		ctx.String(http.StatusBadRequest, "유효하지 않은 정보가 있습니다.")
 		return err_wrong__ID
@@ -121,7 +119,7 @@ func (c *controller) SignUp(ctx *gin.Context) error {
 	}
 
 	////// !!!!!!!!! SERVICE PART !!!!!!!!!!! //////////
-	err = c.service.SignUp(user)
+	err = c.service.SignUp(user, USER_DEFAULT_BALANCE)
 	////// !!!!!!!!! SERVICE PART !!!!!!!!!!! //////////
 
 	if err != nil {

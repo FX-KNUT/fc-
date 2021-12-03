@@ -4,7 +4,7 @@ import "time"
 
 type Message struct {
 	Message_ID        uint      `json:"message_id"`
-	Message_UserID    uint      `json:"message_user_id" binding:"require"`
+	Message_UserID    string    `json:"user_id" binding:"require"`
 	Message_Content   string    `json:"message_content" binding:"require"`
 	Message_Target    string    `json:"message_target"  binding:"require"`
 	Message_CreatedAt time.Time `json:"message_created_at"`
@@ -12,7 +12,7 @@ type Message struct {
 
 type Post struct { // 공지사항, FAQ, QnA, 커뮤니티
 	Message
-	Post_Title     string    `json:"post_title" 		 binding:"require"`
+	Post_Title     string    `json:"post_title" binding:"require"`
 	Post_ViewCount uint      `json:"post_view_count" binding:"require"`
 	Post_LikeCount uint      `json:"post_like_count" binding:"require"`
 	Post_UpdatedAt time.Time `json:"post_updated_at"`

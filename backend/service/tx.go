@@ -34,7 +34,7 @@ func (s *struct_tx_service) isContractAvailable(db *sql.DB, from entity.User, to
 	)
 
 	// validation where user 'from' can withdraw or not...
-	query := fmt.Sprintf("SELECT balance FROM USER WHERE id == %s", from.Id)
+	query := fmt.Sprintf("SELECT balance FROM wallet WHERE id == %s", from.Id)
 
 	err := db.QueryRow(query).Scan(&balance)
 
