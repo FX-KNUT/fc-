@@ -22,8 +22,9 @@ replace github.com/FX-KNUT/fc-/backend/service => ./service
 
 require (
 	github.com/FX-KNUT/fc-/backend/api v0.0.0-00010101000000-000000000000
-	github.com/FX-KNUT/fc-/backend/database v0.0.0-20211126145401-28d087d7aa69
-	github.com/FX-KNUT/fc-/backend/server v0.0.0-00010101000000-000000000000
+	github.com/FX-KNUT/fc-/backend/entity v0.0.0-00010101000000-000000000000
+	github.com/FX-KNUT/fc-/backend/service v0.0.0-20211124055800-4f94789939d3
+	github.com/gin-gonic/gin v1.7.7
 	github.com/joho/godotenv v1.4.0
 )
 
@@ -31,11 +32,8 @@ require (
 	github.com/FX-KNUT/fc-/backend/controller/logic v0.0.0-00010101000000-000000000000 // indirect
 	github.com/FX-KNUT/fc-/backend/controller/message v0.0.0-00010101000000-000000000000 // indirect
 	github.com/FX-KNUT/fc-/backend/controller/user v0.0.0-00010101000000-000000000000 // indirect
-	github.com/FX-KNUT/fc-/backend/entity v0.0.0-00010101000000-000000000000 // indirect
-	github.com/FX-KNUT/fc-/backend/server/logic v0.0.0-00010101000000-000000000000 // indirect
-	github.com/FX-KNUT/fc-/backend/service v0.0.0-20211124055800-4f94789939d3 // indirect
+	github.com/FX-KNUT/fc-/backend/database v0.0.0-20211126145401-28d087d7aa69 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
-	github.com/gin-gonic/gin v1.7.7 // indirect
 	github.com/go-playground/locales v0.13.0 // indirect
 	github.com/go-playground/universal-translator v0.17.0 // indirect
 	github.com/go-playground/validator/v10 v10.4.1 // indirect

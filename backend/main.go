@@ -7,6 +7,12 @@ import (
 	"github.com/joho/godotenv"
 )
 
+// CTRL    : Logic without DB
+// SERVICE : Business logic
+// ENTITY  : Models
+// SQL     : SQL
+// DATABASE: Pool, Connection or Access
+
 func main() {
 	fn_load_env_file()
 	fn_initialize_main()
