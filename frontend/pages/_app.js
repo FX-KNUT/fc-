@@ -13,7 +13,13 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
           <Footer></Footer>
         </div>
-        <div id="modal"></div>
+        <div
+          id="modal"
+          style={{
+            position: "fixed",
+            zIndex: 5,
+          }}
+        ></div>
       </Layout>
     </RecoilRoot>
   );

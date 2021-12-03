@@ -4,28 +4,29 @@ import Sns from "./sns";
 import Logo from "./logo";
 import Gnb from "./gnb";
 
-
+const header_contents = [
+  {
+    alt: "sns",
+    component: <Sns />,
+  },
+  {
+    alt: "logo",
+    component: <Logo />,
+  },
+  {
+    alt: "gnb",
+    component: <Gnb />,
+  },
+];
 
 const header = () => {
   return (
     <header className={styles.header}>
-      <Sns></Sns>
-      <hr />
-      <Logo></Logo>
-      <hr />
-      <Gnb></Gnb>
-      <hr />
+      {header_contents.map((content) => (
+        <div key={content.alt}>{content.component}</div>
+      ))}
     </header>
   );
 };
 
 export default header;
-
-// header > *::after {
-//   content: '';
-//   position: relavant;
-//   display: block;
-//   width: 100%;
-//   height: 1px; // or 2px 정도 ..
-//   background: ??; // sass 처리
-// }

@@ -3,19 +3,32 @@ import Container from "../components/Reusable/t_fx__container";
 import CoinInfo from "../components/Common/Main/Index/coin_info";
 import News from "../components/Common/Main/Index/news";
 
+const main_contents = [
+  {
+    _str_title: "News",
+    component: <News />,
+  },
+  {
+    _str_title: "Notice",
+    component: <Notice />,
+  },
+  {
+    _str_title: "CoinInfo",
+    component: <CoinInfo />,
+  },
+];
+
 export default function Home() {
   return (
     <main>
       <Container _str_title="Coin information"></Container>
-      <Container _str_title="NEWS">
-        <News></News>
-      </Container>
-      <Container _str_title="공지사항">
-        <Notice></Notice>
-      </Container>
-      <Container _str_title="코인 기본정보">
-        <CoinInfo></CoinInfo>
-      </Container>
+      {main_contents.map((content) => {
+        return (
+          <Container _str_title={content._str_title} key={content._str_title}>
+            {content.component}
+          </Container>
+        );
+      })}
     </main>
   );
 }

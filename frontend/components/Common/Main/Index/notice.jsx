@@ -25,36 +25,26 @@ const dummy_faq = [
   "ex)2.1.0 version faq",
 ];
 
+const notice_contents = [
+  { _str_title: "Update 소식", content: dummy_update },
+  { _str_title: "Q&A", content: dummy_qna },
+  { _str_title: "FAQ", content: dummy_faq },
+];
+
 const notice = () => {
   return (
     <div className={styles.notice_wrapper}>
-      <Card _str_title="Update 소식">
-        <blockquote>
-          <ul>
-            {dummy_update.map((dummy, idx) => (
-              <li key={idx}>{dummy}</li>
-            ))}
-          </ul>
-        </blockquote>
-      </Card>
-      <Card _str_title="Q&A">
-        <blockquote>
-          <ul>
-            {dummy_qna.map((dummy, idx) => (
-              <li key={idx}>{dummy}</li>
-            ))}
-          </ul>
-        </blockquote>
-      </Card>
-      <Card _str_title="FAQ">
-        <blockquote>
-          <ul>
-            {dummy_faq.map((dummy, idx) => (
-              <li key={idx}>{dummy}</li>
-            ))}
-          </ul>
-        </blockquote>
-      </Card>
+      {notice_contents.map((content) => (
+        <Card _str_title={content._str_title} key={content._str_title}>
+          <blockquote>
+            <ul>
+              {content.content.map((item, idx) => (
+                <li key={idx}>{item}</li>
+              ))}
+            </ul>
+          </blockquote>
+        </Card>
+      ))}
     </div>
   );
 };
