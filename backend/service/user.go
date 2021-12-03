@@ -12,13 +12,28 @@ type struct_user_service struct {
 }
 
 type User_service interface {
+	// private
+	addUserToWallet(string, int) error
+
+	// public
 	SignIn(string, string) (entity.User, error)
-	SignUp(entity.User) error
+	SignUp(entity.User, int) error
 	CheckDuplicatedId(string) error
 }
 
 func New__User() User_service {
 	return &struct_user_service{}
+}
+
+func (s *struct_user_service) addUserToWallet(id string, balance int) error {
+
+	db := database.Fn_open__db()
+
+	query := fmt.Sprintf("INSERT INTO wallet VALUES('%s', '%d')", id, balance)
+
+	_, err := db.Query(query)
+
+	return err
 }
 
 func (s *struct_user_service) SignIn(id, pw string) (entity.User, error) {
@@ -38,14 +53,20 @@ func (s *struct_user_service) SignIn(id, pw string) (entity.User, error) {
 	return user, nil
 }
 
-func (s *struct_user_service) SignUp(user entity.User) error {
+func (s *struct_user_service) SignUp(user entity.User, balance int) error {
 
 	db := database.Fn_open__db()
 
-	query := fmt.Sprintf("INSERT INTO users VALUES('%s', '%s', '%s', '%s', %d)",
-		user.Id, user.Nickname, user.Hashed_pw, user.Email, user.Balance)
+	query := fmt.Sprintf("INSERT INTO users VALUES('%s', '%s', '%s', '%s')",
+		user.Id, user.Nickname, user.Hashed_pw, user.Email)
 
 	_, err := db.Query(query)
+
+	if err != nil {
+		return err
+	}
+
+	err = s.addUserToWallet(user.Id, balance)
 
 	return err
 }
