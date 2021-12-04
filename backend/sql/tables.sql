@@ -9,10 +9,9 @@ CREATE TABLE user (
   nickname VARCHAR(12),
   hashed_pw VARCHAR(36),
   email VARCHAR(48),
-  balance INT,
   primary key(id)
 );
-
+-- 1204 balance column 자름
 
 -- MESSAGE
 -- -- POST
@@ -76,3 +75,27 @@ CREATE TABLE ranking (
   PRIMARY KEY(user_id),
   FOREIGN KEY(user_id) REFERENCES user (id)
 )
+
+-- temp // 임시
+
+create table blocks (
+  block_index int not null auto increment
+  block_hash varchar(256) not null
+  block_previous_hash varchar(256)
+  block_owner varchar(15) not null default ""
+  block_nonce int not null default 0
+  block_created_at date
+  block_difficulty int
+  primary key(block_index)
+);
+
+create table txs (
+  block_index int         -- 외래키
+  tx_from     varchar(15)
+  tx_to       varchar(15)
+  tx_amount   int
+);
+
+create table wallet (
+
+);

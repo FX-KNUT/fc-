@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/FX-KNUT/fc-/backend/api"
+	"github.com/FX-KNUT/fc-/backend/server"
 	"github.com/joho/godotenv"
 )
 
@@ -26,32 +27,11 @@ func fn_load_env_file() {
 }
 
 func fn_initialize_main() {
-	// db.Init()
-	// go server.Init() // not yet
+	go server.Init() // not yet
 	api.Init()
 }
 
 // will be used sometime..
 // func fn_close_server() {
-
-// 	// close db
-
-// 	close_db := make(chan bool)
-// 	db.Fn_close_db(close_db)
-// 	db_closed := <-close_db
-
-// 	if !db_closed {
-// 		fmt.Println("\n*****************************************************\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n" +
-// 			"DB is not closed successfully, but still the program will be shutdown after 10 seconds ..." +
-// 			"\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n*****************************************************")
-// 		time.AfterFunc(time.Second * 10, func() {
-// 			os.Exit(1)
-// 		})
-// 	}
-
-// 	// close body
-
-// 	if db_closed {
 // 		os.Exit(1)
-// 	}
 // }
