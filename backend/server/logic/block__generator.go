@@ -51,7 +51,7 @@ func initialize_block() (entity.Block, error) {
 		return entity.Block{}, err
 	}
 
-	block_hash := Block_get_hash(block_index, block_prev_hash, block_timestamp, string(block_txs__marshaled))
+	block_hash := Block_get_hash(block_index, block_prev_hash, block_timestamp, block_txs__marshaled)
 
 	// -1 means undefined yet but gonna be updated as soon as block is on stage...
 	new_block = entity.Block{
