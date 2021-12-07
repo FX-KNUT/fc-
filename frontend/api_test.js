@@ -39,7 +39,7 @@ const fn_REST_GET__checkid = async (id) => {
   const url = process.env.IP + process.env.URL__CHECKID;
   try {
     const res = await axios.get(url, { params: { id } });
-    console.log(res.data);
+    console.log(res);
   } catch (e) {
     console.error(e);
   }
@@ -98,4 +98,8 @@ const fn_REST_POST__create_post = async (post) => {
   }
 };
 
-fn_REST_POST__create_post(post);
+// fn_REST_POST__create_post(post);
+
+// fn_REST__singup("test", "alsrudgh1!", "민경호", "test123@naver.com");
+
+// fn_REST_GET__checkid("testtest");

@@ -2,7 +2,13 @@ import Layout from "../components/Reusable/t_fx__layout";
 import Header from "../components/Common/Header/header.jsx";
 import Footer from "../components/Common/Footer/footer.jsx";
 import "../styles/globals.scss";
-import { RecoilRoot } from "recoil";
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from "recoil";
 
 function MyApp({ Component, pageProps }) {
   return (

@@ -1,34 +1,11 @@
 import Link from "next/link";
+import { useRecoilValue } from "recoil";
+import { curr_language } from "../../../recoil/selectors/selector";
 import styles from "../../../styles/_header.module.scss";
 
-const gnb_contents = [
-  {
-    href: "#",
-    item: "가이드",
-  },
-  {
-    href: "#",
-    item: "내 지갑",
-  },
-  {
-    href: "#",
-    item: "투자정보",
-  },
-  {
-    href: "#",
-    item: "거래소",
-  },
-  {
-    href: "#",
-    item: "관심종목",
-  },
-  {
-    href: "#",
-    item: "고객센터",
-  },
-];
+const Gnb = () => {
+  const gnb_contents = useRecoilValue(curr_language);
 
-const gnb = () => {
   return (
     <div className={styles.gnb_wrapper}>
       {gnb_contents.map((content) => (
@@ -42,4 +19,4 @@ const gnb = () => {
   );
 };
 
-export default gnb;
+export default Gnb;
