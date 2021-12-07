@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/FX-KNUT/fc-/backend/entity"
+	"github.com/FX-KNUT/fc-/backend/server/logic/fx_framework"
 	"github.com/FX-KNUT/fc-/backend/service"
 )
 
@@ -17,9 +18,6 @@ const ERR_SAVING_BLOCK string = "Error occured while saving a block"
 const LOGGER_BLOCK_BEING_GENERATED string = "block is being generated!"
 
 var block_service service.Block_service = service.New__Block()
-
-// func get_tx_id() (string, error) {
-// }
 
 // not to be used yet since there's no tx_id yet in our logic flow
 func initialize_block() (entity.Block, error) {
@@ -35,25 +33,34 @@ func initialize_block() (entity.Block, error) {
 		return entity.Block{}, err
 	}
 
-	block__index := prev_block.Block_index + 1
+	block_index := prev_block.Block_index + 1
 
-	block__prev_hash := prev_block.Block_hash
+	block_prev_hash := prev_block.Block_hash
 
-	block__timestamp := time.Now().String()
+	block_timestamp := time.Now().String()
+	
+	block_txs, err := block_service.GetTxsOfBlock(block_index)
+	
+	if err != nil {
+		return entity.Block{}, err
+	}
 
-	block__hash := Block_get_hash(block__index, block__prev_hash, block__timestamp, "test")
+	block_txs__marshaled, err := fx_framework.Stringify(block_txs)
 
-	// block__tx_id := get_tx_id()
+	if err != nil {
+		return entity.Block{}, err
+	}
+
+	block_hash := Block_get_hash(block_index, block_prev_hash, block_timestamp, block_txs__marshaled)
 
 	// -1 means undefined yet but gonna be updated as soon as block is on stage...
 	new_block = entity.Block{
-		/* int */ 			Block_index: block__index,
-		/* varchar(256) */ 	Block_hash: block__hash,
-		/* varchar(256) */	Block_previous_hash: block__prev_hash,
-		/* int */			Block_tx_ref_ID: 19951025 /* block__tx_id */,
+		/* int */ 			Block_index: block_index,
+		/* varchar(256) */ 	Block_hash: block_hash,
+		/* varchar(256) */	Block_previous_hash: block_prev_hash,
 		/* varchar(18) */	Block_owner: "", // gonna be inserted as the block get mined
 		/* int unsigned	*/	Block_nonce: -1,
-		/* varchar(16) */	Block_created_at: block__timestamp,
+		/* varchar(16) */	Block_created_at: block_timestamp,
 		/* int */			Block_difficulty: -1,
 		/* int */ 			Block_reward: -1,
 	}

@@ -136,8 +136,6 @@ func (c *controller) CheckDuplicatedId(ctx *gin.Context, id string) error {
 
 	// simple filter for validation
 
-	fmt.Println("id is ", id, ", len is ", len(id))
-
 	if len(id) == 0 {
 		ctx.String(http.StatusBadRequest, "잘못된 요청입니다.")
 		return err_ID__undefined
@@ -147,7 +145,7 @@ func (c *controller) CheckDuplicatedId(ctx *gin.Context, id string) error {
 	err := c.service.CheckDuplicatedId(id)
 	////// !!!!!!!!! SERVICE PART !!!!!!!!!!! //////////
 
-	if err != nil {
+	if err == nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"message": "중복된 ID입니다",
 			"id":      id,

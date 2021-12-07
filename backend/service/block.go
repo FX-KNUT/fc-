@@ -1,7 +1,6 @@
 package service
 
 import (
-	"database/sql"
 	"fmt"
 
 	db "github.com/FX-KNUT/fc-/backend/database"
@@ -9,7 +8,7 @@ import (
 )
 
 type struct_block_service struct {
-	blocks []entity.Block
+	Blocks []entity.Block
 }
 
 type Block_service interface {
@@ -17,6 +16,7 @@ type Block_service interface {
 	GetAllBlocks() ([]entity.Block, error)
 	GetLatestBlock() (entity.Block, error)
 	GetLatestIndex() (int, error)
+	GetTxsOfBlock(int) (entity.Txs, error)
 	UpdateBlock(entity.Block) error
 	SaveBlock(entity.Block) error
 }
@@ -47,8 +47,9 @@ func (s *struct_block_service) GetAllBlocks() ([]entity.Block, error) {
 	var (
 		block entity.Block
 		blocks []entity.Block
-		db *sql.DB
 	)
+
+	db := db.Fn_open__db()
 
 	query := "SELECT * FROM BLOCK"
 
@@ -61,7 +62,7 @@ func (s *struct_block_service) GetAllBlocks() ([]entity.Block, error) {
 	defer rows.Close()
 
 	for rows.Next() {
-		err = rows.Scan(&block.Block_index, &block.Block_hash, &block.Block_previous_hash, &block.Block_tx_ref_ID,
+		err = rows.Scan(&block.Block_index, &block.Block_hash, &block.Block_previous_hash,
 			&block.Block_owner, &block.Block_nonce, &block.Block_created_at, &block.Block_difficulty, &block.Block_reward)
 		if err != nil {
 			return blocks, err
@@ -73,9 +74,10 @@ func (s *struct_block_service) GetAllBlocks() ([]entity.Block, error) {
 }
 
 func (s *struct_block_service) GetLatestBlock() (entity.Block, error) {
+
 	var block entity.Block
 
-	var db *sql.DB
+	db := db.Fn_open__db()
 
 	query := "SELECT * FROM BLOCK ORDER BY Block_index desc limit 1"
 
@@ -89,9 +91,10 @@ func (s *struct_block_service) GetLatestBlock() (entity.Block, error) {
 }
 
 func (s *struct_block_service) GetLatestIndex() (int, error) {
+
 	var Idx int
 
-	var db *sql.DB
+	db := db.Fn_open__db()
 
 	query := "SELECT MAX(Block_index) FROM BLOCK"
 
@@ -104,12 +107,29 @@ func (s *struct_block_service) GetLatestIndex() (int, error) {
 	return Idx, nil
 }
 
+func (s *struct_block_service) GetTxsOfBlock(index int) (entity.Txs, error) {
+
+	var txs entity.Txs
+	
+	db := db.Fn_open__db()
+
+	query := fmt.Sprintf("SELECT * FROM TXS WHERE block_index == %d", index)
+
+	err := db.QueryRow(query).Scan(&txs.Txs)
+
+	if err != nil {
+		return entity.Txs{}, err
+	}
+
+	return txs, nil	
+}
+
 func (s *struct_block_service) UpdateBlock(block entity.Block) error {
 
-	var db *sql.DB
+	db := db.Fn_open__db()
 
-	query := fmt.Sprintf("UPDATE BLOCK SET Block_hash = '%s', Block_previous_hash = '%s' Block_tx_ref_ID = %d, Block_owner = '%s', Block_nonce = %d, Block_created_at = '%s', Block_difficulty = %d, Block_reward = %d WHERE Block_index == %d",
-		block.Block_hash, block.Block_previous_hash, block.Block_tx_ref_ID, block.Block_owner,
+	query := fmt.Sprintf("UPDATE BLOCK SET Block_hash = '%s', Block_previous_hash = '%s' Block_owner = '%s', Block_nonce = %d, Block_created_at = '%s', Block_difficulty = %d, Block_reward = %d WHERE Block_index == %d",
+		block.Block_hash, block.Block_previous_hash, block.Block_owner,
 		block.Block_nonce, block.Block_created_at, block.Block_difficulty, block.Block_reward, block.Block_index)
 
 	_, err := db.Query(query)
@@ -119,11 +139,11 @@ func (s *struct_block_service) UpdateBlock(block entity.Block) error {
 
 func (s *struct_block_service) SaveBlock(block entity.Block) error {
 
-	var db *sql.DB
+	db := db.Fn_open__db()
 
-	query := fmt.Sprintf("INSERT INTO BLOCK VALUES (%d, '%s', '%s', %d, '%s', '%d', '%s', '%d', '%d')",
-		block.Block_index, block.Block_hash, block.Block_previous_hash, block.Block_tx_ref_ID,
-		block.Block_owner, block.Block_nonce, block.Block_created_at, block.Block_difficulty, block.Block_reward)
+	query := fmt.Sprintf("INSERT INTO BLOCK VALUES (%d, '%s', '%s', '%s', '%d', '%s', '%d', '%d')",
+		block.Block_index, block.Block_hash, block.Block_previous_hash, block.Block_owner,
+		block.Block_nonce, block.Block_created_at, block.Block_difficulty, block.Block_reward)
 
 	_, err := db.Query(query)
 
