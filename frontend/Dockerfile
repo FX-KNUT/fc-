@@ -16,7 +16,7 @@ WORKDIR /usr/fc-frontend
 
 # timezone setting & install nodejs and npm
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
-    && apk add --update nodejs=16.13.0-r0 \
-    && apk add --update npm=8.1.3-r0
+    && apk add --update nodejs \
+    && apk add --update npm
 EXPOSE 80
 ENTRYPOINT ["npm", "start"]
