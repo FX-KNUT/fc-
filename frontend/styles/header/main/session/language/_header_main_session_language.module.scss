@@ -1,0 +1,13 @@
+@import "../../../../variable";
+
+.language_wrapper {
+  display: flex;
+  align-items: center;
+
+  select {
+    border: none;
+    background-color: $default_bg;
+    outline: none;
+    // appearance: none;
+  }
+}

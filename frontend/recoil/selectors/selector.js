@@ -1,6 +1,65 @@
 import { selector } from "recoil";
 import { language, language_state } from "../atoms/atoms";
 
+const korea = [
+  {
+    href: "#",
+    span: "가이드",
+  },
+  {
+    href: "#",
+    span: "내 지갑",
+  },
+  {
+    href: "#",
+    span: "투자정보",
+  },
+  {
+    href: "#",
+    span: "거래소",
+  },
+  {
+    href: "#",
+    span: "관심종목",
+  },
+  {
+    href: "#",
+    span: "고객센터",
+  },
+];
+
+const english = [
+  {
+    href: "#",
+    span: "Guide",
+  },
+  {
+    href: "#",
+    span: "Wallet",
+  },
+  {
+    href: "#",
+    span: "Info",
+  },
+  {
+    href: "#",
+    span: "Exchange",
+  },
+  {
+    href: "#",
+    span: "Interest",
+  },
+  {
+    href: "#",
+    span: "Customer",
+  },
+];
+
+const gnb = {
+  korea,
+  english,
+};
+
 export const curr_language = selector({
   key: "curr_language",
   get: ({ get }) => {
@@ -8,63 +67,9 @@ export const curr_language = selector({
 
     switch (language) {
       case "한국어":
-        return korea_gnb;
+        return gnb.korea;
       case "English":
-        return english_gnb;
+        return gnb.english;
     }
   },
 });
-
-const korea_gnb = [
-  {
-    href: "#",
-    item: "가이드",
-  },
-  {
-    href: "#",
-    item: "내 지갑",
-  },
-  {
-    href: "#",
-    item: "투자정보",
-  },
-  {
-    href: "#",
-    item: "거래소",
-  },
-  {
-    href: "#",
-    item: "관심종목",
-  },
-  {
-    href: "#",
-    item: "고객센터",
-  },
-];
-
-const english_gnb = [
-  {
-    href: "#",
-    item: "Guide",
-  },
-  {
-    href: "#",
-    item: "Wallet",
-  },
-  {
-    href: "#",
-    item: "Info",
-  },
-  {
-    href: "#",
-    item: "Exchange",
-  },
-  {
-    href: "#",
-    item: "Interest",
-  },
-  {
-    href: "#",
-    item: "Service",
-  },
-];

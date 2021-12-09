@@ -1,17 +1,16 @@
-import styles from "../../../styles/_header.module.scss";
+import Sns from "./sns/sns";
+import Header_main from "./main/header_main";
+import Gnb from "./gnb/gnb";
+import styles from "../../../styles/header/_header.module.scss";
 
-import Sns from "./sns";
-import Logo from "./logo";
-import Gnb from "./gnb";
-
-const header_contents = [
+const header_components = [
   {
     alt: "sns",
     component: <Sns />,
   },
   {
-    alt: "logo",
-    component: <Logo />,
+    alt: "header_main",
+    component: <Header_main />,
   },
   {
     alt: "gnb",
@@ -22,8 +21,8 @@ const header_contents = [
 const header = () => {
   return (
     <header className={styles.header}>
-      {header_contents.map((content) => (
-        <div key={content.alt}>{content.component}</div>
+      {header_components.map((component) => (
+        <div key={component.alt}>{component.component}</div>
       ))}
     </header>
   );

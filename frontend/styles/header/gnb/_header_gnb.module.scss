@@ -1,0 +1,15 @@
+@import "../../variable";
+
+.gnb_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  a {
+    margin: 1rem 2rem;
+    color: $default_color__gnb;
+    // hover는 회의 후 색상 결정
+    &:hover {
+      color: $default_sns;
+    }
+  }
+}

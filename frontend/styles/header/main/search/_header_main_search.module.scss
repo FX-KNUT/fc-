@@ -1,0 +1,19 @@
+@import "../../../variable";
+
+.search_wrapper {
+  width: 250px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  input {
+    width: 100%;
+    background-color: $default_input;
+    border-color: $default_sns;
+    outline: none;
+    padding: 0.5rem;
+  }
+  .ic_search {
+    position: absolute;
+    right: 4px;
+  }
+}

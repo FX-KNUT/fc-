@@ -8,15 +8,17 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@svgr/webpack": "^5.5.0",
+    "@svgr/webpack": "^6.1.1",
     "axios": "^0.24.0",
     "dotenv": "^10.0.0",
-    "next": "12.0.2",
+    "next": "^12.0.7",
+    "nth-check": "^2.0.1",
     "react": "^18.0.0-alpha-ee069065d-20211105",
     "react-dom": "^18.0.0-alpha-ee069065d-20211105",
     "recoil": "^0.4.1",
     "sass": "^1.43.4",
-    "styled-jsx": "^4.0.1"
+    "styled-jsx": "^4.0.1",
+    "svgo": "^2.8.0"
   },
   "devDependencies": {
     "eslint": "7.32.0",

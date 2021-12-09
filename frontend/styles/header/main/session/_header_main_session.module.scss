@@ -1,0 +1,10 @@
+@import "../../../variable";
+
+.session_wrapper {
+  display: flex;
+  align-items: center;
+
+  & > div {
+    margin-left: 0.5rem;
+  }
+}

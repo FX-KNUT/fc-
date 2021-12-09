@@ -1,0 +1,18 @@
+@import "../../variable";
+
+.sns_wrapper {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  background-color: $default_sns;
+  svg {
+    fill: $default_sns;
+  }
+
+  div {
+    margin-left: 14px;
+    &:last-child {
+      margin-right: 14px;
+    }
+  }
+}
