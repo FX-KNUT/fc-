@@ -4,7 +4,7 @@ import "time"
 
 type Message struct {
 	Message_ID        uint      `json:"message_id"`
-	Message_UserID    string    `json:"user_id" binding:"require"`
+	User_ID    				string    `json:"user_id" binding:"require"`
 	Message_Content   string    `json:"message_content" binding:"require"`
 	Message_Target    string    `json:"message_target"  binding:"require"`
 	Message_CreatedAt time.Time `json:"message_created_at"`

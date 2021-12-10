@@ -62,7 +62,7 @@ func CreatePost(e entity.Post, board string) error {
 		`INSERT
 		 INTO posts (user_id, message_content, message_target, message_created_at, post_title)
 		 VALUES ('%s', '%s', '%s', '%s', '%s')`,
-		e.Message_UserID, e.Message_Content, board, time.Now().Format("2006-01-02 15:04:05"), e.Post_Title,
+		e.User_ID, e.Message_Content, board, time.Now().Format("2006-01-02 15:04:05"), e.Post_Title,
 	)
 	
 	err := fn_execute__post_sql(q, e)
@@ -78,7 +78,7 @@ func CreateNewsPost(e entity.News) error {
 		 VALUES ('%s', '%s', '%s', '%s', '%s')
 		 INTO news_thumbnails (news_thumbnail)
 		 VALUES ('%s')`,
-		e.Message_UserID, e.Message_Content, e.Message_Target, time.Now().Format("2006-01-02 15:04:05"), e.Post_Title,
+		e.User_ID, e.Message_Content, e.Message_Target, time.Now().Format("2006-01-02 15:04:05"), e.Post_Title,
 		e.News_Thumbnail,
 	)
 	
@@ -144,7 +144,7 @@ func DeletePost(e entity.Post) error { // 위와 같은 이유로 수정 필요�
 	return err
 }
 
-// READ
+// READ: 게시물 불러오기
 func GetPosts(message_target string) (es []entity.Post, err error) {
 	var e entity.Post
 
@@ -159,22 +159,20 @@ func GetPosts(message_target string) (es []entity.Post, err error) {
 	db := db.Fn_open__db()
 
 	rows, err := db.Query(q)
-	defer rows.Close()
 	if err != nil {
 		log.Panic(err)
 	}
+	defer rows.Close()
 
 	for rows.Next() {
-		err = rows.Scan(&e.Message_ID, &e.Message_UserID, &e.Message_Content, &e.Message_Target, &e.Message_CreatedAt,
+		err = rows.Scan(&e.Message_ID, &e.User_ID, &e.Message_Content, &e.Message_Target, &e.Message_CreatedAt,
 			&e.Post_Title, &e.Post_ViewCount, &e.Post_LikeCount, &e.Post_UpdatedAt)
 		if err != nil {
 			log.Panicln(err)
 		}
 		es = append(es, e)
 	}
-
 	return es, nil
-
 }
 
 // func DeletePosts(e []entity.Post) error {

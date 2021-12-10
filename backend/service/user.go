@@ -2,8 +2,10 @@ package service
 
 import (
 	"fmt"
+	"log"
 
 	database "github.com/FX-KNUT/fc-/backend/database"
+	db "github.com/FX-KNUT/fc-/backend/database"
 	"github.com/FX-KNUT/fc-/backend/entity"
 )
 
@@ -19,6 +21,7 @@ type User_service interface {
 	SignIn(string, string) (entity.User, error)
 	SignUp(entity.User, int) error
 	CheckDuplicatedId(string) error
+	GetRanking100() ([]entity.Ranking, error)
 }
 
 func New__User() User_service {
@@ -89,3 +92,32 @@ func (s *struct_user_service) CheckDuplicatedId(id string) error {
 // func (s *struct_user_service) ChangeProfilePicture(/* some data type */) error {
 	
 // }
+
+func (s *struct_user_service) GetRanking100() (es []entity.Ranking, err error) {
+	var e entity.Ranking
+
+	// @이진형 1209
+	// 수정 필요
+	q := fmt.Sprintf(
+		`SELECT * FROM ranking LIMIT %d`,
+		100,
+	)
+
+	db := db.Fn_open__db()
+
+	rows, err := db.Query(q)
+	if err != nil {
+		log.Panic(err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		err = rows.Scan(&e.User_Id, &e.Ranking_Idx)
+		if err != nil {
+			log.Panicln(err)
+		}
+		es = append(es, e)
+	}
+
+	return es, nil
+} 

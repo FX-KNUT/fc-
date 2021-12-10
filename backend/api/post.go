@@ -22,8 +22,8 @@ var (
 	// -- Message
 	// -- -- Post
 	// -- -- Comment
+	// -- -- Report
 	POST_message_controller ctrl_message.Interface_message_controller
-	POST_post_service service.Interface_post_service
 )
 
 
@@ -38,8 +38,21 @@ func Post(c chan<- bool, r *gin.Engine) {
 		post.POST("/:message_target/create", fn_REST_post__create_post)
 		post.POST("/:message_target/update", fn_REST_post__update_post)
 		post.POST("/:message_target/delete", fn_REST_post__delete_post)
-
 		post.POST("/:message_target/get", fn_REST_post__get_posts)
+	}
+
+	comment := r.Group("/comment")
+	{
+		comment.POST("/:message_target/create", fn_REST_post__create_comment)
+		comment.POST("/:message_target/update", fn_REST_post__update_comment)
+		comment.POST("/:message_target/delete", fn_REST_post__delete_comment)
+		comment.POST("/:message_target/get", fn_REST_post__get_comments)
+	}
+
+	report := r.Group("/report")
+	{
+		report.POST("/:message_target/create", fn_REST_post__create_report)
+		report.POST("/:message_target/get", fn_REST_post__get_reports)
 	}
 
 	c <- true
@@ -48,7 +61,21 @@ func Post(c chan<- bool, r *gin.Engine) {
 
 // DML: INSERT
 func fn_REST_post__create_post(c *gin.Context) {
-	err := POST_message_controller.ControllerDMLPost(c, "create")
+	err := POST_message_controller.ControllerDMLPost(c, "C")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
+
+func fn_REST_post__create_comment(c *gin.Context) {
+	err := POST_message_controller.ControllerDMLPost(c, "C")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
+
+func fn_REST_post__create_report(c *gin.Context) {
+	err := POST_message_controller.ControllerDMLReport(c, "C")
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -56,7 +83,14 @@ func fn_REST_post__create_post(c *gin.Context) {
 
 // DML: UPDATE
 func fn_REST_post__update_post(c *gin.Context) {
-	err := POST_message_controller.ControllerDMLPost(c, "update")
+	err := POST_message_controller.ControllerDMLPost(c, "U")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
+
+func fn_REST_post__update_comment(c *gin.Context) {
+	err := POST_message_controller.ControllerDMLComment(c, "U")
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -64,7 +98,14 @@ func fn_REST_post__update_post(c *gin.Context) {
 
 // DML: DELETE
 func fn_REST_post__delete_post(c *gin.Context) {
-	err := POST_message_controller.ControllerDMLPost(c, "delete")
+	err := POST_message_controller.ControllerDMLPost(c, "D")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
+
+func fn_REST_post__delete_comment(c *gin.Context) {
+	err := POST_message_controller.ControllerDMLComment(c, "D")
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -72,7 +113,24 @@ func fn_REST_post__delete_post(c *gin.Context) {
 
 // DML: SELECT
 func fn_REST_post__get_posts(c *gin.Context) {
+	err := POST_message_controller.ControllerDMLPost(c, "R")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
 
+func fn_REST_post__get_comments(c *gin.Context) {
+	err := POST_message_controller.ControllerDMLComment(c, "R")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
+
+func fn_REST_post__get_reports(c *gin.Context) {
+	err := POST_message_controller.ControllerDMLReport(c, "R")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 }
 
 func fn_REST_post__signup(c *gin.Context) {

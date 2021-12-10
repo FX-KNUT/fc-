@@ -32,6 +32,7 @@ type User_controller interface {
 	SignIn(*gin.Context, string, string) error
 	SignUp(*gin.Context) error
 	CheckDuplicatedId(*gin.Context, string) error
+	GetUserRanking(*gin.Context) error
 }
 
 func New__User(service service.User_service) User_controller {
@@ -164,3 +165,12 @@ func (c *controller) CheckDuplicatedId(ctx *gin.Context, id string) error {
 // func (c *controller) ChangeProfilePicture() error {
 
 // }
+
+func (c *controller) GetUserRanking(ctx *gin.Context) error {
+	es, err := c.service.GetRanking100()
+	if err != nil {
+		ctx.String(http.StatusBadRequest, "Content is not written.")
+	}
+	ctx.JSON(http.StatusOK, es)
+	return nil
+}

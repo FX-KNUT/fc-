@@ -1,7 +1,6 @@
 package message
 
 import (
-	"errors"
 	"fmt"
 	"net/http"
 
@@ -10,25 +9,112 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var err_wrong__title error = errors.New("asfadsf")
-var err_wrong__content error = errors.New("asdfdasf")
-
-var msg_s_500 string = ""
-
-
 type struct_message_controller struct {
-	service service.Interface_post_service
+	post_service service.Interface_post_service
+	comment_service service.Interface_comment_service
+	report_service service.Interface_report_service
 }
 
 type Interface_message_controller interface {
 	ControllerDMLPost(*gin.Context, string) error
+	ControllerDMLComment(*gin.Context, string) error
+	ControllerDMLReport(*gin.Context, string) error
+}
+
+func (s *struct_message_controller) ControllerDMLReport(c *gin.Context, dml string) error {
+	var json entity.Report
+
+	message_target := c.Param("message_target")
+	body,_ := c.Request.GetBody()
+
+	if err := c.ShouldBindJSON(&json); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{ "message": body, "error": err.Error() })
+		return err
+	}
+	
+	switch dml {
+		case "C":
+			err := s.report_service.CreateReport(json)
+			if err != nil {
+				fmt.Println(err)
+			}
+		case "R":
+			reports, err := s.report_service.GetReports(message_target)
+			if err != nil {
+				fmt.Println(err)
+			}
+			c.JSON(http.StatusOK, reports)
+			return nil
+	}
+
+	return nil;
+}
+
+func (s *struct_message_controller) ControllerDMLComment(c *gin.Context, dml string) error {
+	var json entity.Comment
+
+	message_target := c.Param("message_target")
+	body,_ := c.Request.GetBody()
+
+	if err := c.ShouldBindJSON(&json); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{ "message": body, "error": err.Error() })
+		return err
+	}
+
+
+	if len(json.Message_Target) == 0 {
+		c.String(http.StatusBadRequest, "There is no information about the post.")
+	}
+
+	switch dml {
+		// Create
+		case "C":
+			if len(json.Message_Content) == 0 {
+				c.String(http.StatusBadRequest, "Content is not written.")
+			}
+
+			err := s.comment_service.CreateComment(json, message_target)
+			if err != nil {
+				fmt.Println(err)
+			}
+		// Read
+		case "R":
+			comments, err := s.comment_service.GetComments(message_target)
+			if err != nil {
+				fmt.Println(err)
+			}
+			c.JSON(http.StatusOK, comments) // 확인 필요
+			return nil;
+		// Update	
+		case "U":
+			if json.Message_ID == 0 { // 수정 필요
+				c.String(http.StatusBadRequest, "Content is not written.")
+			}
+			err := s.comment_service.UpdateComment(json)
+			if err != nil {
+				fmt.Println(err)
+			}
+		// Delete
+		case "D":
+			if json.Message_ID == 0 {
+				c.String(http.StatusBadRequest, "Content is not written.")
+			}
+
+			err := s.comment_service.DeleteComment(json)
+			if err != nil {
+				fmt.Println(err)
+			}
+	}
+
+	c.String(http.StatusOK, "OK")
+	return nil
 }
 
 
 func (s *struct_message_controller) ControllerDMLPost(c *gin.Context, dml string) error {
 	var json entity.Post
 
-	board := c.Param("message_target")
+	message_target := c.Param("message_target")
 	body,_ := c.Request.GetBody()
 
 	if err := c.ShouldBindJSON(&json); err != nil {
@@ -46,7 +132,7 @@ func (s *struct_message_controller) ControllerDMLPost(c *gin.Context, dml string
 				c.String(http.StatusBadRequest, "유효하지 않은 정보가 있습니다.")
 			}
 
-			err := s.service.CreatePost(json, board)
+			err := s.post_service.CreatePost(json, message_target)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -59,7 +145,7 @@ func (s *struct_message_controller) ControllerDMLPost(c *gin.Context, dml string
 				c.String(http.StatusBadRequest, "유효하지 않은 정보가 있습니다.")
 			}
 
-			err := s.service.UpdatePost(json)
+			err := s.post_service.UpdatePost(json)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -68,7 +154,7 @@ func (s *struct_message_controller) ControllerDMLPost(c *gin.Context, dml string
 			// 	c.String(http.StatusBadRequest, "유효하지 않은 정보가 있습니다.")
 			// }
 
-			err := s.service.DeletePost(json)
+			err := s.post_service.DeletePost(json)
 			if err != nil {
 				fmt.Println(err)
 			}

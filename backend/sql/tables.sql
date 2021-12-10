@@ -42,7 +42,7 @@ CREATE TABLE posts (
   post_like_count INT(3),
   post_updated_at TIMESTAMP,
   PRIMARY KEY(message_id),
-  FORIEGN KEY(message_user_id) REFERENCES user (id)
+  FORIEGN KEY(user_id) REFERENCES user (id)
 );
 
 CREATE TABLE news_thumbnails (

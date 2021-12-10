@@ -11,9 +11,9 @@ import (
 )
 
 
-type Comment_Service interface {
+type Interface_comment_service interface {
 	CreateComment(entity.Comment, string) error
-	GetComments() ([]entity.Comment, string, error)
+	GetComments(string) ([]entity.Comment, error)
 	UpdateComment(entity.Comment) error
 	DeleteComment(entity.Comment) error
 }
@@ -49,7 +49,7 @@ func CreateComment(e entity.Comment, message_target string) error {
 		`INSERT
 		 INTO comments (user_id, message_content, message_target, message_created_at)
 		 VALUES ('%s', '%s', '%s', '%s')`,
-		 e.Message_UserID, e.Message_Content, message_target, time.Now().Format("2006-01-02 15:04:05"),
+		 e.User_ID, e.Message_Content, message_target, time.Now().Format("2006-01-02 15:04:05"),
 	)
 
 	err := fn_execute_comment_sql(q, e)
@@ -93,13 +93,13 @@ func GetComments(message_target string) (es []entity.Comment, err error) {
 	db := db.Fn_open__db()
 
 	rows, err := db.Query(q)
-	defer rows.Close()
 	if err != nil {
 		fmt.Println(err)
 	}
+	defer rows.Close()
 
 	for rows.Next() {
-		err = rows.Scan(&e.Message_ID, &e.Message_UserID, &e.Message_Content, &e.Message_Target, &e.Message_CreatedAt, &e.Comment_LikeCount, &e.Comment_UpdatedAt)
+		err = rows.Scan(&e.Message_ID, &e.User_ID, &e.Message_Content, &e.Message_Target, &e.Message_CreatedAt, &e.Comment_LikeCount, &e.Comment_UpdatedAt)
 		if err != nil {
 			log.Panicln(err)
 		}
