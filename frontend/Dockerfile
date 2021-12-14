@@ -11,8 +11,8 @@ RUN npm install && npm run build
 FROM alpine:edge
 
 # build file load from builder image
-COPY --from=builder /usr/fc-frontend/.next /usr/fc-frontend
-WORKDIR /usr/fc-frontend
+COPY --from=builder /usr/fc-frontend /usr/fc-frontend
+WORKDIR /usr/fc-frontend/.next
 
 # timezone setting & install nodejs and npm
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
