@@ -1,4 +1,4 @@
-import HeadInfo from "../Common/headinfo";
+import HeadInfo from "../Common/HeadInfo";
 
 const t_fx__layout = ({ children }) => {
   return (
