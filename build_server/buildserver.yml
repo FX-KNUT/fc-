@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  build_server:
+    image: 2mukee/fc-build-server:1.0
+    ports:
+      - 80:8080
+      - 50000:50000
+    environment:
+      - TZ=Asia/Seoul
+    volumes:
+      - /home/ec2-user/jenkins_home:/var/jenkins_home
+    deploy:
+      update_config:
+        delay: 10s
+        order: start-first
+        failure_action: rollback
