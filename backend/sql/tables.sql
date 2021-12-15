@@ -5,11 +5,11 @@
 -- 그 외 테이블 생성 SQL 작성.
 
 CREATE TABLE users (
-  id VARCHAR(15),
-  nickname VARCHAR(12),
-  hashed_pw VARCHAR(36),
-  email VARCHAR(48),
-  primary key(id)
+  user_id VARCHAR(15),
+  user_nickname VARCHAR(12),
+  user_hashed_pw VARCHAR(36),
+  user_email VARCHAR(48),
+  primary key(user_id)
 );
 -- 1204 balance column 자름
 
@@ -63,6 +63,37 @@ CREATE TABLE comments (
   PRIMARY KEY(message_id)
 );
 
+create table blocks (
+  block_index int not null auto_increment,
+  block_hash varchar(256) not null,
+  block_previous_hash varchar(256),
+  block_owner varchar(15) not null default "",
+  block_nonce int not null default 0,
+  block_created_at date,
+  block_difficulty int,
+  primary key(block_index)
+);
+
+create table txs (
+  block_index int,
+  tx_from     varchar(15),
+  tx_to       varchar(15),
+  tx_amount   int
+);
+
+create table wallet (
+	wallet_owner            varchar(15),
+	wallet_balance          int,
+	wallet_gunwonjungbo     int,
+	wallet_mumuncheoljeon   int,
+	wallet_haedongjungbo    int,
+	wallet_samhantongbo     int,
+	wallet_joseontongbo     int,
+	wallet_sibjeontongbo    int,
+	wallet_sangpyeongtongbo int,
+	wallet_daedongunjeon    int
+);
+
 -- @신이종 1203
 -- BOARD 테이블은 필요가 없다고 판단하므로 삭제.
 -- Message_target이 문자열이라서 게시판 생성 등의 로직이 없다면 쓸 이유가 없음
@@ -75,27 +106,3 @@ CREATE TABLE ranking (
   PRIMARY KEY(user_id),
   FOREIGN KEY(user_id) REFERENCES users (id)
 )
-
--- temp // 임시
-
-create table blocks (
-  block_index int not null auto_increment,
-  block_hash varchar(256) not null,
-  block_previous_hash varchar(256),
-  block_owner varchar(15) not null default "",
-  block_nonce int not null default 0,
-  block_created_at date,
-  block_difficulty int,
-  primary key(block_index),
-);
-
-create table txs (
-  block_index int,
-  tx_from     varchar(15),
-  tx_to       varchar(15),
-  tx_amount   int,
-);
-
-create table wallet (
-
-);
