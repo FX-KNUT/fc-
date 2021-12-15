@@ -10,6 +10,8 @@ replace github.com/FX-KNUT/fc-/backend/service => ../service
 
 replace github.com/FX-KNUT/fc-/backend/entity => ../entity
 
+replace github.com/FX-KNUT/fc-/backend/cache => ./cache
+
 require github.com/FX-KNUT/fc-/backend/server/logic v0.0.0-00010101000000-000000000000
 
 require (
