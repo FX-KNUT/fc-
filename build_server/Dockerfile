@@ -8,7 +8,7 @@ USER root
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
 # should create fc-login.sh before container build
-COPY ./fc-login.sh /var/jenkins_home/fc-login.sh
+COPY fc-login.sh /usr
 
 # Jenkins Option Save
 VOLUME /home/ec2-user/jenkins_home:/var/jenkins_home
