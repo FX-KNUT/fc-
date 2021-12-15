@@ -14,6 +14,7 @@ WORKDIR /usr/fc-backend
 
 # timezone setting & install go
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
-    && apk add --update go
+    && apk add --update go \
+    && chmod +x backend.exe
 EXPOSE 8080
-ENTRYPOINT ["./backend.exe"]
+ENTRYPOINT ["go","run","main.go"]
