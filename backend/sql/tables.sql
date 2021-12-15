@@ -42,14 +42,14 @@ CREATE TABLE posts (
   post_like_count INT(3),
   post_updated_at TIMESTAMP,
   PRIMARY KEY(message_id),
-  FORIEGN KEY(user_id) REFERENCES user (id)
+  FOREIGN KEY(user_id) REFERENCES users (id)
 );
 
 CREATE TABLE news_thumbnails (
   message_id INT(20),
   news_thumbnail VARCHAR(100),
   PRIMARY KEY(message_id),
-  FOREIGN KEY(message_id) REFERENCES post (message_id)
+  FOREIGN KEY(message_id) REFERENCES posts (message_id)
 );
 
 CREATE TABLE comments (
@@ -73,27 +73,27 @@ CREATE TABLE ranking (
   user_id VARCHAR(15),
   ranking_idx INT(3),
   PRIMARY KEY(user_id),
-  FOREIGN KEY(user_id) REFERENCES user (id)
+  FOREIGN KEY(user_id) REFERENCES users (id)
 )
 
 -- temp // 임시
 
 create table blocks (
-  block_index int not null auto increment
-  block_hash varchar(256) not null
-  block_previous_hash varchar(256)
-  block_owner varchar(15) not null default ""
-  block_nonce int not null default 0
-  block_created_at date
-  block_difficulty int
-  primary key(block_index)
+  block_index int not null auto_increment,
+  block_hash varchar(256) not null,
+  block_previous_hash varchar(256),
+  block_owner varchar(15) not null default "",
+  block_nonce int not null default 0,
+  block_created_at date,
+  block_difficulty int,
+  primary key(block_index),
 );
 
 create table txs (
-  block_index int         -- 외래키
-  tx_from     varchar(15)
-  tx_to       varchar(15)
-  tx_amount   int
+  block_index int,
+  tx_from     varchar(15),
+  tx_to       varchar(15),
+  tx_amount   int,
 );
 
 create table wallet (
