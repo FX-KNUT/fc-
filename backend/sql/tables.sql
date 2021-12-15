@@ -4,7 +4,7 @@
 -- USER 테이블: 필요한 필드 추가 기재.
 -- 그 외 테이블 생성 SQL 작성.
 
-CREATE TABLE user (
+CREATE TABLE users (
   id VARCHAR(15),
   nickname VARCHAR(12),
   hashed_pw VARCHAR(36),
