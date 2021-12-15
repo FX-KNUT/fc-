@@ -61,7 +61,7 @@ func (s *struct_user_service) SignUp(user entity.User, balance int) error {
 	db := database.Fn_open__db()
 
 	query := fmt.Sprintf("INSERT INTO users VALUES('%s', '%s', '%s', '%s')",
-		user.Id, user.Nickname, user.Hashed_pw, user.Email)
+		user.User_id, user.User_nickname, user.User_hashed_pw, user.User_email)
 
 	_, err := db.Query(query)
 
@@ -69,7 +69,7 @@ func (s *struct_user_service) SignUp(user entity.User, balance int) error {
 		return err
 	}
 
-	err = s.addUserToWallet(user.Id, balance)
+	err = s.addUserToWallet(user.User_id, balance)
 
 	return err
 }

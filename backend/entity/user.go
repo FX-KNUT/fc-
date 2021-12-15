@@ -13,10 +13,10 @@ package entity
 // 서비스나 컨트롤러 관련 문제가 있을 수 있으므로 일단 내 쪽에서 바꾸지는 않음.
 
 type User struct {
-	Id        string `json:"id" binding:"required"`
-	Nickname  string `json:"nickname" binding:"required"`
-	Hashed_pw string `json:"hashed_pw" binding:"required"`
-	Email     string `json:"email" binding:"required"`
+	User_id        string `json:"id" binding:"required"`
+	User_nickname  string `json:"nickname" binding:"required"`
+	User_hashed_pw string `json:"hashed_pw" binding:"required"`
+	User_email     string `json:"email" binding:"required"`
 }
 
 type Users []User
