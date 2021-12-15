@@ -4,7 +4,7 @@ services:
   backend:
     image: 2mukee/fc-backend:1.0
     ports:
-      - 8080:8080
+      - 8080:8096
     environment:
       - TZ=Asia/Seoul
     deploy:
