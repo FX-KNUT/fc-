@@ -7,5 +7,8 @@ USER root
 # TimeZone Setting
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
+# should create fc-login.sh before container build
+COPY ./fc-login.sh /var/jenkins_home/fc-login.sh
+
 # Jenkins Option Save
 VOLUME /home/ec2-user/jenkins_home:/var/jenkins_home

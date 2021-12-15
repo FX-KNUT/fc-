@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # dockerhub login
-bash /home/ec2-user/jenkins/workspace/fc-login.sh
+bash /var/jenkins_home/fc-login.sh
 
 # backend and frontend docker container image build
 docker build --tag 2mukee/fc-backend:1.0 ./backend
