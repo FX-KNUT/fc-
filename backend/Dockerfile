@@ -8,4 +8,4 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
     && apk add --update go wine\
     && chmod +x backend.exe
 EXPOSE 8096
-ENTRYPOINT ["wine","backend.exe"]
+ENTRYPOINT ["wine", "/usr/fc-backend/backend.exe"]
