@@ -15,12 +15,6 @@ services:
         delay: 10s
         order: stop-first
         failure_action: rollback\
-    healthcheck:
-      test: ["wine", "main.go"]
-      interval: 1m30s
-      timeout: 30s
-      retries: 5
-      start_period: 45s
 
   frontend:
     image: 2mukee/fc-frontend:1.0
@@ -36,8 +30,3 @@ services:
         delay: 10s
         order: start-first
         failure_action: rollback
-    healthcheck:
-      test: ["curl", "-f", "http://localhost/", "||", "exit", "1"]
-      interval: 1m
-      timeout: 3s
-      retries: 5
