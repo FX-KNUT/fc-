@@ -14,7 +14,7 @@ services:
         parallelism: 1
         delay: 10s
         order: stop-first
-        failure_action: rollback\
+        failure_action: rollback
 
   frontend:
     image: 2mukee/fc-frontend:1.0
