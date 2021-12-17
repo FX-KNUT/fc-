@@ -91,28 +91,28 @@ func (c *controller) SignUp(ctx *gin.Context) error {
 		return err
 	}
 
-	if len(user.Id) < 4 || len(user.Id) > 18 {
+	if len(user.User_id) < 4 || len(user.User_id) > 18 {
 		ctx.String(http.StatusBadRequest, "유효하지 않은 정보가 있습니다.")
 		return err_wrong__ID
 	}
 
-	if len(user.Hashed_pw) != 36 {
+	if len(user.User_hashed_pw) != 36 {
 		ctx.String(http.StatusBadGateway, "유효하지 않은 정보가 있습니다.")
 		fmt.Println(errors.New("error occured at Fn_sign_up on sign_up"))
 		return err_wrong__pw
 	}
 
-	if len(user.Nickname) < 2 || len(user.Nickname) > 12 {
+	if len(user.User_nickname) < 2 || len(user.User_nickname) > 12 {
 		ctx.String(http.StatusBadRequest, "유효하지 않은 정보가 있습니다.")
 		return err_wrong__nickname
 	}
 
-	if len(user.Email) > 48 {
+	if len(user.User_email) > 48 {
 		ctx.String(http.StatusBadRequest, "유효하지 않은 정보가 있습니다.")
 		return err_wrong__email
 	}
 
-	user.Hashed_pw, err = logic_hashing.Fn_hashing(&user.Hashed_pw)
+	user.User_hashed_pw, err = logic_hashing.Fn_hashing(&user.User_hashed_pw)
 
 	if err != nil {
 		ctx.String(http.StatusBadGateway, "Error occurred while hashing on server, sorry.")
