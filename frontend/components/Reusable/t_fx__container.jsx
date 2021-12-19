@@ -1,7 +1,7 @@
-import styles from "../../styles/t_fx_comp.module.css";
+import styles from "../../styles/t_fx_comp.module.scss";
 import Link from "next/link";
 
-const TEXT_MORE = "More"
+const TEXT_MORE = "More";
 
 const t_fx__container = ({ children, _str_title }) => {
   return (

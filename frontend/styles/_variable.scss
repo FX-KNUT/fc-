@@ -1,6 +1,13 @@
 // mediaquery
-$breakpoint_mobile: 359px; // min ~ max: 359
-$breakpoint_tablet: 1023px; // min: 768 ~ max: 1023
+$breakpoint_mobile_min: 320px;
+$breakpoint_mobile_max: 480px;
+$breakpoint_tablet_min: 481px;
+$breakpoint_tablet_max: 768px;
+$breakpoint_laptop_min: 769px;
+$breakpoint_laptop_max: 1024px;
+$breakpoint_desktop_min: 1025px;
+$breakpoint_desktop_max: 1200px;
+$breakpoint_tv_min: 1201px;
 
 // color
 $blue: hsl(240, 100%, 50%);

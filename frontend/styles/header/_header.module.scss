@@ -1,4 +1,5 @@
-@import "../variable";
+@import "../_variable";
+@import "../mixin";
 
 .header {
   background-color: $default_bg;

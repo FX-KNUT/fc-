@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-const DOC__TITLE = "fc"
+const DOC__TITLE = "fc";
 
 const headInfo = () => {
   return (

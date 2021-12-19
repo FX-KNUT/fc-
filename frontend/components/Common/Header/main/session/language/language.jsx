@@ -7,16 +7,16 @@ const language_list = ["한국어", "English"];
 
 const Language = () => {
   // global state
-  const set_language = useSetRecoilState(language_state);
+  const [curr_lang, set_curr_lang] = useRecoilState(language_state);
 
   // event
   const fn_on_change_language = (e) => {
-    set_language(e.target.value);
+    set_curr_lang(e.target.value);
   };
   return (
     <div className={styles.language_wrapper}>
       <Ic_earth />
-      <select onChange={fn_on_change_language}>
+      <select onChange={fn_on_change_language} defaultValue={curr_lang}>
         {language_list.map((lang) => (
           <option key={lang} value={lang}>
             {lang}

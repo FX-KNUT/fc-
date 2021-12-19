@@ -2,6 +2,7 @@ import styles from "../../../../../styles/header/main/session/_header_main_sessi
 import Login from "./login/login";
 import Palette from "./palette/palette";
 import Language from "./language/language";
+import axios from "axios";
 
 const session_components = [
   {
@@ -9,11 +10,11 @@ const session_components = [
     component: <Login />,
   },
   {
-    alt: "login",
+    alt: "language",
     component: <Language />,
   },
   {
-    alt: "login",
+    alt: "palette",
     component: <Palette />,
   },
 ];

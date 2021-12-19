@@ -2,19 +2,19 @@
 
 // mediaquery
 @mixin mobile {
-  @media screen and (max-width: $breakpoint_mobile) {
+  @media screen and (max-width: $breakpoint_mobile_max) {
     @content;
   }
 }
 
 @mixin tablet {
-  @media screen and (min-width: calc($breakpoint_mobile + 1)) and (max-width: $breakpoint_tablet) {
+  @media screen and (min-width: $breakpoint_tablet_min) and (max-width: $breakpoint_tablet_max) {
     @content;
   }
 }
 
-@mixin desktop {
-  @media screen and (min-width: calc($breakpoint_tablet + 1)) {
+@mixin laptop {
+  @media screen and (min-width: $breakpoint_laptop_min) {
     @content;
   }
 }

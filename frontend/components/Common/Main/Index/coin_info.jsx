@@ -45,6 +45,7 @@ const coin_info = () => {
                 alt={dummy.title}
                 width="200px"
                 height="200px"
+                priority={true}
               ></Image>
               <div className={styles.coin_behind_title}>{dummy.title}</div>
             </div>

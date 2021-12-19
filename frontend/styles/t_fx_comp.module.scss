@@ -1,8 +1,10 @@
-/* @import "./_variable.scss"; */
+@import "./_variable.scss";
+@import "./mixin";
 
 .comp_container {
-  padding: 1rem;
+  padding: 1rem $gutter;
   border: 1px solid orange;
+  // overflow-x: scroll;
 }
 
 .comp_container_header {
@@ -10,9 +12,6 @@
   justify-content: space-between;
   align-items: center;
   padding-bottom: 1rem;
-}
-
-.comp_container_content {
 }
 
 .comp_modal_wrapper {
@@ -100,4 +99,10 @@
 .comp_card {
   padding: 1rem;
   border: 1px solid red;
+}
+
+@include mobile {
+  .comp_container {
+    overflow-x: scroll;
+  }
 }

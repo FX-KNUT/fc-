@@ -2,7 +2,6 @@ import Notice from "../components/Common/Main/Index/notice";
 import Container from "../components/Reusable/t_fx__container";
 import CoinInfo from "../components/Common/Main/Index/coin_info";
 import News from "../components/Common/Main/Index/news";
-import { useEffect } from "react";
 
 const main_contents = [
   {

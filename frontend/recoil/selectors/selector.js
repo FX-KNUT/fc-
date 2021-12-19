@@ -3,54 +3,54 @@ import { language, language_state } from "../atoms/atoms";
 
 const korea = [
   {
-    href: "#",
+    href: "/guide",
     span: "가이드",
   },
   {
-    href: "#",
+    href: "/wallet",
     span: "내 지갑",
   },
   {
-    href: "#",
+    href: "/info",
     span: "투자정보",
   },
   {
-    href: "#",
+    href: "/exchange",
     span: "거래소",
   },
   {
-    href: "#",
+    href: "/interest",
     span: "관심종목",
   },
   {
-    href: "#",
+    href: "/help",
     span: "고객센터",
   },
 ];
 
 const english = [
   {
-    href: "#",
+    href: "/guide",
     span: "Guide",
   },
   {
-    href: "#",
+    href: "/wallet",
     span: "Wallet",
   },
   {
-    href: "#",
+    href: "/info",
     span: "Info",
   },
   {
-    href: "#",
+    href: "/exchange",
     span: "Exchange",
   },
   {
-    href: "#",
+    href: "/interest",
     span: "Interest",
   },
   {
-    href: "#",
+    href: "/help",
     span: "Customer",
   },
 ];

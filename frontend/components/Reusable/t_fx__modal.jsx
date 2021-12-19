@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import styles from "../../styles/t_fx_comp.module.css";
+import styles from "../../styles/t_fx_comp.module.scss";
 import Container from "./t_fx__container";
 
 const T_fx__modal = ({ children, is_show__modal, fn_on_close }) => {

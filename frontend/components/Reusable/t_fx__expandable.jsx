@@ -1,5 +1,5 @@
 import Down_arrow from "../../public/down_arrow.svg";
-import styles from "../../styles/t_fx_comp.module.css";
+import styles from "../../styles/t_fx_comp.module.scss";
 import { useEffect, useState } from "react";
 
 const T_fx__expandable = ({ _str_title, _obj_blockquote, children }) => {
