@@ -40,10 +40,15 @@
     text-decoration-color: $default_color__logo;
   }
 
+  &:hover select {
+    color: $hover_b_color__lang;
+    font-weight: bold;
+  }
+
   &::after {
     content: "";
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-top: 2px solid $default_color__logo;
     border-right: 2px solid $default_color__logo;
     border-radius: 2px;
@@ -56,8 +61,10 @@
 
     transition: 0.25s all ease;
   }
+}
 
-  &:hover::after {
+.active_arrow {
+  &::after {
     top: -2px;
     transform: rotate(-225deg);
   }
