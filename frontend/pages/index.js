@@ -24,7 +24,11 @@ export default function Home() {
       <Container _str_title="Coin information"></Container>
       {main_contents.map((content) => {
         return (
-          <Container _str_title={content._str_title} key={content._str_title}>
+          <Container
+            _str_title={content._str_title}
+            key={content._str_title}
+            _int_gutter={content._int_gutter}
+          >
             {content.component}
           </Container>
         );
