@@ -1,6 +1,7 @@
 import Layout from "../components/Reusable/t_fx__layout";
 import Header from "../components/Common/Header/header.jsx";
 import Footer from "../components/Common/Footer/footer.jsx";
+import Ic_Top from "../public/ic_top.svg";
 import "../styles/globals.scss";
 import {
   RecoilRoot,
@@ -26,6 +27,9 @@ function MyApp({ Component, pageProps }) {
             zIndex: 5,
           }}
         ></div>
+        <div style={{ position: "fixed", right: "20px", bottom: "20px" }}>
+          <Ic_Top></Ic_Top>
+        </div>
       </Layout>
     </RecoilRoot>
   );

@@ -5,10 +5,6 @@ import styles from "../../../styles/header/_header.module.scss";
 
 const header_components = [
   {
-    alt: "sns",
-    component: <Sns />,
-  },
-  {
     alt: "header_main",
     component: <Header_main />,
   },
