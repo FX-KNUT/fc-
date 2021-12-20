@@ -39,4 +39,26 @@
     text-decoration-style: solid;
     text-decoration-color: $default_color__logo;
   }
+
+  &::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-top: 2px solid $default_color__logo;
+    border-right: 2px solid $default_color__logo;
+    border-radius: 2px;
+
+    align-self: center;
+    position: relative;
+    top: 0;
+
+    transform: rotate(-45deg);
+
+    transition: 0.25s all ease;
+  }
+
+  &:hover::after {
+    top: -2px;
+    transform: rotate(-225deg);
+  }
 }
