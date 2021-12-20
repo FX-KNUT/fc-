@@ -14,23 +14,25 @@ const Language = () => {
     set_curr_lang(e.target.value);
   };
 
-  const fn_on_mousedown_language = (e) => {};
-
   return (
     <div className={styles.language_wrapper}>
       <Ic_earth />
-      <select
-        onChange={fn_on_change_language}
-        onMouseDown={fn_on_mousedown_language}
-        defaultValue={curr_lang}
-      >
+      <select onChange={fn_on_change_language} defaultValue={curr_lang}>
         {language_list.map((lang, i) => {
           return i === 0 ? (
-            <option key={lang} value={lang} disabled>
+            <option
+              onMouseDown={fn_on_mousedown_option}
+              key={lang}
+              value={lang}
+            >
               {lang}
             </option>
           ) : (
-            <option key={lang} value={lang}>
+            <option
+              onMouseDown={fn_on_mousedown_option}
+              key={lang}
+              value={lang}
+            >
               {lang}
             </option>
           );
