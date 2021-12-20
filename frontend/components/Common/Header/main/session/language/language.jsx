@@ -19,20 +19,8 @@ const Language = () => {
       <Ic_earth />
       <select onChange={fn_on_change_language} defaultValue={curr_lang}>
         {language_list.map((lang, i) => {
-          return i === 0 ? (
-            <option
-              onMouseDown={fn_on_mousedown_option}
-              key={lang}
-              value={lang}
-            >
-              {lang}
-            </option>
-          ) : (
-            <option
-              onMouseDown={fn_on_mousedown_option}
-              key={lang}
-              value={lang}
-            >
+          return (
+            <option key={lang} value={lang}>
               {lang}
             </option>
           );
