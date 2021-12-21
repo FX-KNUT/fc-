@@ -12,6 +12,10 @@ import {
 } from "recoil";
 
 function MyApp({ Component, pageProps }) {
+  // event
+  const on_move_top = () => {
+    document.documentElement.scrollTop = 0;
+  };
   return (
     <RecoilRoot>
       <Layout>
@@ -27,7 +31,10 @@ function MyApp({ Component, pageProps }) {
             zIndex: 5,
           }}
         ></div>
-        <div style={{ position: "fixed", right: "20px", bottom: "20px" }}>
+        <div
+          style={{ position: "fixed", right: "20px", bottom: "20px" }}
+          onClick={on_move_top}
+        >
           <Ic_Top></Ic_Top>
         </div>
       </Layout>

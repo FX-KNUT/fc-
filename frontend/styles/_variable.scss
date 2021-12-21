@@ -2,12 +2,12 @@
 $breakpoint_mobile_min: 320px;
 $breakpoint_mobile_max: 480px;
 $breakpoint_tablet_min: 481px;
-$breakpoint_tablet_max: 768px;
-$breakpoint_laptop_min: 769px;
-$breakpoint_laptop_max: 1024px;
+$breakpoint_tablet_max: 1024px;
+// $breakpoint_laptop_min: 769px;
+// $breakpoint_laptop_max: 1024px;
 $breakpoint_desktop_min: 1025px;
-$breakpoint_desktop_max: 1200px;
-$breakpoint_tv_min: 1201px;
+// $breakpoint_desktop_max: 1200px;
+// $breakpoint_tv_min: 1201px;
 
 // color
 $blue: hsl(240, 100%, 50%);
@@ -23,4 +23,4 @@ $default_color__footer_bg: hsl(21, 26%, 76%);
 $hover_b_color__lang: hsl(9, 30%, 50%);
 $hover_bg_color__arrow: hsla(9, 20%, 50%, 0.2);
 // gutter
-$gutter: 12rem;
+$gutter: 16vw;

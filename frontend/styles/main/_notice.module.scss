@@ -1,5 +1,26 @@
-.notice_wrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+@import "../variable";
+@import "../mixin";
+
+@include mobile {
+  .notice_wrapper {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1rem;
+  }
+}
+
+@include tablet {
+  .notice_wrapper {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1rem;
+  }
+}
+
+@include desktop {
+  .notice_wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
 }

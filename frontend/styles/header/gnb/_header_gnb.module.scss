@@ -1,15 +1,69 @@
 @import "../../variable";
+@import "../../mixin";
 
 .gnb_wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  a {
-    margin: 1rem 2rem;
-    color: $default_color__gnb;
-    // hover는 회의 후 색상 결정
-    &:hover {
-      color: $default_sns;
+  flex-direction: column;
+
+  .gnb_contents {
+    a {
+      margin: 1rem 2rem;
+      color: $default_color__gnb;
+      // hover는 회의 후 색상 결정
+      &:hover {
+        color: $default_sns;
+      }
+    }
+  }
+}
+
+@include mobile {
+  .gnb_wrapper {
+    .gnb_hamburger {
+      display: flex;
+      justify-content: center;
+    }
+
+    .gnb_contents {
+      display: none;
+    }
+
+    .active_gnb {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
+
+@include tablet {
+  .gnb_wrapper {
+    .gnb_hamburger {
+      display: flex;
+      justify-content: center;
+    }
+
+    .gnb_contents {
+      display: none;
+    }
+
+    .active_gnb {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
+
+@include desktop {
+  .gnb_wrapper {
+    .gnb_hamburger {
+      display: none;
+    }
+    .gnb_contents {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 }

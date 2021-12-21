@@ -1,4 +1,5 @@
 @import "../../variable";
+@import "../../mixin";
 
 .header_main_wrapper {
   display: flex;
@@ -14,4 +15,16 @@
     justify-content: center;
     align-items: center;
   }
+}
+
+@include mobile {
+  .header_main_wrapper {
+    padding: 1rem 5vw;
+  }
+}
+
+@include tablet {
+}
+
+@include desktop {
 }

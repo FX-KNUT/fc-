@@ -13,8 +13,8 @@
   }
 }
 
-@mixin laptop {
-  @media screen and (min-width: $breakpoint_laptop_min) {
+@mixin desktop {
+  @media screen and (min-width: $breakpoint_desktop_min) {
     @content;
   }
 }

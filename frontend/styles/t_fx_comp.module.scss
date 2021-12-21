@@ -111,6 +111,10 @@
 
 @include mobile {
   .comp_container {
+    padding: 1rem 5vw;
     overflow-x: scroll;
   }
+}
+
+@include tablet {
 }

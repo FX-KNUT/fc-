@@ -1,2 +1,15 @@
+@import "../../variable";
+@import "../../mixin";
+
 .wallet_wrapper {
+  height: auto;
+}
+
+@include mobile {
+}
+
+@include tablet {
+}
+
+@include desktop {
 }

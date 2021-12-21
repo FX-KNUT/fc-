@@ -12,8 +12,8 @@ const pie_chart = () => {
   return (
     <div className={styles.wallet_wrapper}>
       <Chart
-        width={"500px"}
-        height={"300px"}
+        width={"auto"}
+        height={"auto"}
         chartType="PieChart"
         loader={<div>Loading Your Wallet</div>}
         data={dummy_wallet}
