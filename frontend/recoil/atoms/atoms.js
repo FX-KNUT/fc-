@@ -1,5 +1,4 @@
 import { atom } from "recoil";
-// import variable from "../../styles/_variable.scss";
 
 export const language_state = atom({
   key: "language_state",
@@ -16,7 +15,7 @@ export const logged = atom({
   default: false,
 });
 
-// export const color_mode = atom({
-//   key: "color_mode",
-//   default: variable.$default_bg,
-// });
+export const color = atom({
+  key: "color",
+  default: "#F0E8E4",
+});

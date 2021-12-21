@@ -2,6 +2,8 @@ import Sns from "./sns/sns";
 import Header_main from "./main/header_main";
 import Gnb from "./gnb/gnb";
 import styles from "../../../styles/header/_header.module.scss";
+import { useRecoilValue } from "recoil";
+import { color } from "../../../recoil/atoms/atoms";
 
 const header_components = [
   {
@@ -14,9 +16,12 @@ const header_components = [
   },
 ];
 
-const header = () => {
+const Header = () => {
+  // global state
+  const curr_color = useRecoilValue(color);
+
   return (
-    <header className={styles.header}>
+    <header className={styles.header} style={{ backgroundColor: curr_color }}>
       {header_components.map((component) => (
         <div key={component.alt}>{component.component}</div>
       ))}
@@ -24,4 +29,4 @@ const header = () => {
   );
 };
 
-export default header;
+export default Header;
