@@ -2,7 +2,8 @@ import styles from "../../../../../../styles/header/main/session/language/_heade
 import Ic_earth from "../../../../../../public/ic_earth.svg";
 import { language_state } from "../../../../../../recoil/atoms/atoms.js";
 import { useState, useRef } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { color } from "../../../../../../recoil/atoms/atoms";
 
 const language_list = ["한국어", "English"];
 
@@ -12,6 +13,7 @@ const Language = () => {
 
   // Global state
   const [curr_lang, set_curr_lang] = useRecoilState(language_state);
+  const curr_color = useRecoilValue(color);
 
   // Local ref
   const ref_lang = useRef();
@@ -39,6 +41,7 @@ const Language = () => {
         onBlur={fn_on_blur_language}
         ref={ref_lang}
         defaultValue={curr_lang}
+        style={{ backgroundColor: curr_color }}
       >
         {language_list.map((lang) => {
           return (
