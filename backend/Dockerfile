@@ -8,9 +8,11 @@ RUN go build
 # deploy image
 FROM alpine:edge
 
+RUN mkdir /usr/fc-backend
+WORKDIR /usr/fc-backend
+
 # build file load from builder image
 COPY --from=builder /usr/fc-backend/backend.exe /usr/fc-backend
-WORKDIR /usr/fc-backend
 
 # timezone setting & install go
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
