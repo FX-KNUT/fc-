@@ -9,12 +9,12 @@ RUN go build
 FROM alpine:edge
 
 # build file load from builder image
-COPY --from=builder /usr/fc-backend /usr/fc-backend
+COPY --from=builder /usr/fc-backend/backend.exe /usr/fc-backend
 WORKDIR /usr/fc-backend
 
 # timezone setting & install go
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
     && apk add --update go wine \
-    && chmod +x backend.exe
+    && chmod +x /usr/fc-backend/backend.exe
 EXPOSE 8080
-ENTRYPOINT ["wine", "backend.exe"]
+ENTRYPOINT ["wine", "/usr/fc-backend/backend.exe"]
