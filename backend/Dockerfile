@@ -5,8 +5,8 @@ WORKDIR /usr/fc-backend
 
 # timezone setting & install go
 RUN ln -sSf /usr/share/zoneinfo/Asia/eoul /etc/localtime \
-    && go build \
     && apk add --update go wine\
+    && go build \
     && chmod +x backend.exe
 EXPOSE 8096
 ENTRYPOINT ["wine", "/usr/fc-backend/backend.exe"]
