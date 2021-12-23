@@ -4,8 +4,9 @@ COPY . /usr/fc-backend
 WORKDIR /usr/fc-backend
 
 # timezone setting & install go
-RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
+RUN ln -sSf /usr/share/zoneinfo/Asia/eoul /etc/localtime \
     && apk add --update go wine\
+    && go build \
     && chmod +x backend.exe
 EXPOSE 8096
 ENTRYPOINT ["wine", "/usr/fc-backend/backend.exe"]
