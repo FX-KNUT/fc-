@@ -4,7 +4,7 @@ COPY . /usr/fc-frontend
 WORKDIR /usr/fc-frontend
 
 # timezone setting and frontend library install and build
-RUN  ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime\
+RUN  ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
     && npm install \
     && npm run build
 
