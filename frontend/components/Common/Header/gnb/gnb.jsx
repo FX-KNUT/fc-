@@ -17,7 +17,7 @@ const Gnb = () => {
     set_is_show_list(!is_show_list);
   };
   return (
-    <div className={styles.gnb_wrapper}>
+    <nav className={styles.gnb_wrapper}>
       <div className={styles.gnb_hamburger} onClick={on_show_gnb}>
         <Ic_list></Ic_list>
       </div>
@@ -34,7 +34,7 @@ const Gnb = () => {
           </Link>
         ))}
       </div>
-    </div>
+    </nav>
   );
 };
 

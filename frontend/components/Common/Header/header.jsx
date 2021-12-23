@@ -21,11 +21,18 @@ const Header = () => {
   const curr_color = useRecoilValue(color);
 
   return (
-    <header className={styles.header} style={{ backgroundColor: curr_color }}>
-      {header_components.map((component) => (
-        <div key={component.alt}>{component.component}</div>
-      ))}
-    </header>
+    <>
+      <header className={styles.header}>
+        {header_components.map((component) => (
+          <div key={component.alt}>{component.component}</div>
+        ))}
+      </header>
+      <style jsx>{`
+        header {
+          background-color: ${curr_color};
+        }
+      `}</style>
+    </>
   );
 };
 
