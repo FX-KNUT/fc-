@@ -5,6 +5,8 @@ import iu from "../../../../public/dummy_img/dummy_img_iu.jpg";
 import wendy from "../../../../public/dummy_img/dummy_img_wendy.jpg";
 import winter from "../../../../public/dummy_img/dummy_img_winter.jpg";
 import moonbyul from "../../../../public/dummy_img/dummy_img_moonbyul.jpg";
+import Ic_arrow_left from "../../../../public/ic_arrow_left.svg";
+import Ic_arrow_right from "../../../../public/ic_arrow_right.svg";
 
 const dummy_behind = [
   {
@@ -19,10 +21,10 @@ const dummy_behind = [
     img: winter,
     title: "윈터",
   },
-  {
-    img: moonbyul,
-    title: "문별",
-  },
+  // {
+  //   img: moonbyul,
+  //   title: "문별",
+  // },
 ];
 
 const dummy_community = [
@@ -38,6 +40,7 @@ const coin_info = () => {
     <div className={styles.coin_info_wrapper}>
       <Card _str_title="Coin Behind Story">
         <div className={styles.coin_behind}>
+          <Ic_arrow_left></Ic_arrow_left>
           {dummy_behind.map((dummy, idx) => (
             <div key={idx}>
               <Image
@@ -50,6 +53,7 @@ const coin_info = () => {
               <div className={styles.coin_behind_title}>{dummy.title}</div>
             </div>
           ))}
+          <Ic_arrow_right></Ic_arrow_right>
         </div>
       </Card>
       <Card _str_title="토론 게시판">

@@ -1,7 +1,12 @@
 .news_item_wrapper {
-  display: flex;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  border: 1px solid black;
 
   .news_item_content {
-    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
   }
 }

@@ -5,7 +5,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem $gutter;
+  padding: 0 1rem;
   color: $default_color__logo;
   fill: $default_color__logo;
   stroke: $default_color__logo;
@@ -19,7 +19,7 @@
 
 @include mobile {
   .header_main_wrapper {
-    padding: 1rem 5vw;
+    // padding: 1rem 5vw;
   }
 }
 

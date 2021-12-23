@@ -8,8 +8,8 @@ const news_item = ({ _obj_item }) => {
       <Image
         alt={title}
         src={img}
-        width="350px"
-        height="300px"
+        width="331px"
+        height="232px"
         priority={true}
       ></Image>
       <div className={styles.news_item_content}>
