@@ -1,7 +1,9 @@
+import Ranking from "../components/Common/Main/exchange/Ranking";
+
 const exchange = () => {
   return (
     <div>
-      <span>exchange</span>
+      <Ranking></Ranking>
     </div>
   );
 };

@@ -3,12 +3,12 @@ import styles from "../../../../../styles/header/main/search/_header_main_search
 
 const search = () => {
   return (
-    <div className={styles.search_wrapper}>
-      <input type="text" placeholder="search" autoComplete="false" />
-      <div className={styles.ic_search}>
+    <form className={styles.search_wrapper}>
+      <input type="text" placeholder="코인 검색" autoComplete="false" />
+      <button type="submit" className={styles.ic_search}>
         <Icon_search />
-      </div>
-    </div>
+      </button>
+    </form>
   );
 };
 
