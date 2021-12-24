@@ -28,6 +28,7 @@ const korea = [
   },
 ];
 
+//
 const english = [
   {
     href: "/guide",
@@ -55,11 +56,13 @@ const english = [
   },
 ];
 
+// global navigation bar
 const gnb = {
   korea,
   english,
 };
 
+// navigation
 export const curr_language = selector({
   key: "curr_language",
   get: ({ get }) => {

@@ -19,7 +19,7 @@ const T_fx__modal = ({ children, is_show__modal, fn_on_close }) => {
           >
             X
           </div>
-          <Container>{children}</Container>
+          <div>{children}</div>
         </div>
       </div>,
       document.getElementById("modal")

@@ -1,5 +1,152 @@
+@import "../../../../variable";
+
 .login_wrapper {
   display: flex;
   align-items: center;
   cursor: pointer;
+}
+
+.login_modal_children_wrapper {
+  width: 100%;
+  min-width: 331px;
+  max-width: 400px;
+
+  // border: 1px solid red;
+  background-color: white; // tmp
+
+  .login_language_wrapper {
+    display: flex;
+    // margin: 5px 0;
+    // padding: 5px;
+    // border: 1px solid blue;
+    justify-content: flex-end;
+
+    background-color: $default_color__login_input_border;
+
+    select {
+      background-color: white;
+    }
+  }
+
+  .login_logo_wrapper {
+    display: flex;
+    justify-content: center;
+
+    margin: 5px 0;
+    padding: 5px;
+    border: 1px solid green;
+
+    background-color: $default_color__login_input_border;
+
+    h1 {
+      background-color: $default_color__login_input_bg;
+    }
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    height: 2.5rem;
+
+    outline: none;
+    border: 2px solid $default_color__login_input_border;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+    background: $default_color__login_input_bg;
+
+    margin: 5px 0;
+
+    padding: 8px;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+  }
+
+  button {
+    width: 100%;
+    height: 2.5rem;
+
+    outline: none;
+    border: none;
+    background-color: $default_color__login_input_border;
+
+    margin: 5px 0;
+
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    cursor: pointer;
+  }
+
+  button .btn_click {
+    border: 2px solid $click_color__login_submit_border;
+  }
+
+  label {
+    display: inline-flex;
+    font-size: 0.8rem;
+    align-items: center;
+    cursor: pointer;
+
+    flex-shrink: 0;
+  }
+
+  label:nth-of-type(1) {
+    margin-right: 20px;
+  }
+  input[type="checkbox"]:nth-of-type(1) {
+    // display: none;
+    margin-right: 3px;
+  }
+
+  // input[type="checkbox"] + em {
+  //   width: 1.25em;
+  //   height: 1.25em;
+
+  //   border: 2px solid #cccccc;
+  //   border-radius: 3px;
+
+  //   margin-right: 5px;
+  // }
+
+  // input[type="checkbox"]:checked + em {
+  //   border-color: black;
+  // }
+
+  // input[type="checkbox"]:checked + em::before {
+  //   content: "\2714";
+  // }
+
+  .another_login_method {
+    display: block;
+    // background-color: $default_color__login_input_border;
+
+    margin-top: 20px;
+    margin-bottom: 5px;
+
+    text-align: center;
+
+    font-size: 0.8rem;
+    // color: blue;
+    text-decoration: underline;
+  }
+
+  .login_function {
+    display: flex;
+    justify-content: space-around;
+
+    margin-top: 20px;
+    list-style-type: none;
+
+    a {
+      font-size: 0.8rem;
+    }
+  }
+
+  p {
+    margin-top: 30px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
 }
