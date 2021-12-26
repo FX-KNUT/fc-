@@ -109,6 +109,12 @@
   border: 1px solid red;
 }
 
+.card_pad_wrapper {
+  padding: 1rem;
+  border: 1px solid #d5d6dc;
+  border-radius: 6px;
+}
+
 @include mobile {
   .comp_container {
     padding: 1rem 5vw;

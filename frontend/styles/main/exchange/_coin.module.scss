@@ -1,0 +1,30 @@
+.exchange_wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  padding: 1rem 6rem;
+  gap: 1rem;
+
+  .summary_wrapper {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+  }
+
+  .chart_wrapper {
+    grid-column: 1 / 3;
+    grid-row: 3 / 7;
+  }
+
+  .ranking_wrapper {
+    grid-column: 3 / 4;
+    grid-row: 1 / 7;
+  }
+
+  .order_wrapper {
+    grid-column: 1 / 2;
+  }
+
+  .trade_wrapper {
+    grid-column: 2 / 3;
+  }
+}

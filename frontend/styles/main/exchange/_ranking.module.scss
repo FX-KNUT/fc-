@@ -1,0 +1,28 @@
+.ranking_wrapper {
+  .ranking_nav {
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 1px solid #d5d6dc;
+
+    .nav_item {
+      padding: 0.5rem;
+
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+  .ranking_items {
+    display: grid;
+    grid-template-rows: 0.75fr repeat(10, 1fr);
+    overflow: hidden;
+    .item_nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      border-bottom: 1px solid #d5d6dc;
+      font-size: 0.75rem;
+    }
+  }
+}

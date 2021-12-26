@@ -1,0 +1,38 @@
+.ranking_item {
+  display: flex;
+  align-items: center;
+  // border: 1px solid #d5d6dc;
+  font-size: 0.9rem;
+
+  svg {
+    fill: white;
+    margin: 0.25rem 0 0.25rem 0.25rem;
+  }
+
+  .item_name {
+    flex: 2;
+
+    .coin_name_kr {
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    .coin_name_en {
+      font-size: 0.75rem;
+      color: rgb(158, 158, 158);
+    }
+  }
+  .item_price {
+    flex: 2;
+  }
+  .item_rate {
+    flex: 1;
+  }
+  .item_volume {
+    flex: 2;
+    white-space: nowrap;
+  }
+
+  & > div {
+    margin: 0.25rem 0.5rem;
+  }
+}
