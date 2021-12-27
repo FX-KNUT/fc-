@@ -1,104 +1,80 @@
+import { useState } from "react";
 import styles from "../../../../styles/main/exchange/_ranking.module.scss";
-import Ranking_item from "./ranking_item";
+import All from "./all";
+import Own from "./own";
+import Attention from "./attention";
 
-const dummy_coins = [
+const nav_items = [
   {
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC0",
-    price: "59,955,000",
-    fluctuation_rate: "+0.49%",
-    volume: "37,611백만",
+    idx: 0,
+    text: "All",
   },
   {
-    coin_name_kr: "리플",
-    coin_name_en: "XRP",
-    price: "1,212",
-    fluctuation_rate: "+3.50%",
-    volume: "29,111백만",
+    idx: 1,
+    text: "보유",
   },
   {
-    coin_name_kr: "이더리움",
-    coin_name_en: "ETH",
-    price: "4,871,000",
-    fluctuation_rate: "-0.20%",
-    volume: "27,387백만",
-  },
-  {
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC1",
-    price: "59,955,000",
-    fluctuation_rate: "+0.49%",
-    volume: "37,611백만",
-  },
-  {
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC2",
-    price: "59,955,000",
-    fluctuation_rate: "+0.49%",
-    volume: "37,611백만",
-  },
-  {
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC3",
-    price: "59,955,000",
-    fluctuation_rate: "+0.49%",
-    volume: "37,611백만",
-  },
-  {
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC4",
-    price: "59,955,000",
-    fluctuation_rate: "+0.49%",
-    volume: "37,611백만",
-  },
-  {
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC5",
-    price: "59,955,000",
-    fluctuation_rate: "+0.49%",
-    volume: "37,611백만",
-  },
-  {
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC6",
-    price: "59,955,000",
-    fluctuation_rate: "+0.49%",
-    volume: "37,611백만",
-  },
-  {
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC7",
-    price: "59,955,000",
-    fluctuation_rate: "+0.49%",
-    volume: "37,611백만",
+    idx: 2,
+    text: "관심",
   },
 ];
 
-const ranking_nav = ["원화", "보유", "관심"];
-
 const ranking_item_nav = ["코인이름", "현재가", "전일대비", "거래량"];
 
-const Ranking = () => {
+const Ranking = ({ _obj_all }) => {
+  // local state
+  const [nav_idx, set_nav_idx] = useState(0);
+
+  // event
+  const on_click_nav_item = (e) => {
+    switch (e.target.innerText) {
+      case "All":
+        set_nav_idx(0);
+        break;
+      case "보유":
+        set_nav_idx(1);
+        break;
+      case "관심":
+        set_nav_idx(2);
+        break;
+      default:
+    }
+  };
+
   return (
-    <main className={styles.ranking_wrapper}>
-      <nav className={styles.ranking_nav}>
-        {ranking_nav.map((nav_item) => (
-          <div key={nav_item} className={styles.nav_item}>
-            {nav_item}
-          </div>
-        ))}
+    <div className={styles.ranking_wrapper}>
+      <nav className={styles.ranking_nav_wrapper} onClick={on_click_nav_item}>
+        <div className={styles.ranking_nav}>
+          {nav_items.map((item) => (
+            <div
+              key={item.idx}
+              className={`${styles.nav_item} ${
+                nav_idx === item.idx && styles.on
+              }`}
+            >
+              {item.text}
+            </div>
+          ))}
+        </div>
       </nav>
-      <div className={styles.ranking_items}>
+      {/* <div className={styles.ranking_items}>
         <nav className={styles.item_nav}>
           {ranking_item_nav.map((nav_item) => (
             <span key={nav_item}>{nav_item}</span>
           ))}
         </nav>
-        {dummy_coins.map((coin) => (
+        {_obj_all.map((coin) => (
           <Ranking_item _obj_coin={coin} key={coin.coin_name_en}></Ranking_item>
         ))}
-      </div>
-    </main>
+      </div> */}
+      {nav_idx === 0 ? (
+        <All _obj_all={_obj_all}></All>
+      ) : nav_idx === 1 ? (
+        <Own></Own>
+      ) : (
+        <Attention></Attention>
+      )}
+    </div>
   );
 };
 

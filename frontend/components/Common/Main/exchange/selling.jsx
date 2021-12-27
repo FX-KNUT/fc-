@@ -51,7 +51,7 @@ const Selling = () => {
           </div>
         </div>
         <button type="submit" className={styles.buying_btn}>
-          매수
+          매도
         </button>
       </form>
     </div>

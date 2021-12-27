@@ -8,6 +8,7 @@ import styles from "../../styles/main/exchange/_coin.module.scss";
 import axios from "axios";
 import { useRouter } from "next/router";
 
+// Summary dummy data
 const dummy_summary = {
   coin_name_kr: "비트코인",
   coin_name_en: "BTC",
@@ -15,6 +16,80 @@ const dummy_summary = {
   fluctuation_rate: "+0.49%",
   volume: "37,611백만",
 };
+
+// Ranking dummy data
+const dummy_coins = [
+  {
+    coin_name_kr: "비트코인",
+    coin_name_en: "BTC0",
+    price: "59,955,000",
+    fluctuation_rate: "+0.49%",
+    volume: "37,611백만",
+  },
+  {
+    coin_name_kr: "리플",
+    coin_name_en: "XRP",
+    price: "1,212",
+    fluctuation_rate: "+3.50%",
+    volume: "29,111백만",
+  },
+  {
+    coin_name_kr: "이더리움",
+    coin_name_en: "ETH",
+    price: "4,871,000",
+    fluctuation_rate: "-0.20%",
+    volume: "27,387백만",
+  },
+  {
+    coin_name_kr: "비트코인",
+    coin_name_en: "BTC1",
+    price: "59,955,000",
+    fluctuation_rate: "+0.49%",
+    volume: "37,611백만",
+  },
+  {
+    coin_name_kr: "비트코인",
+    coin_name_en: "BTC2",
+    price: "59,955,000",
+    fluctuation_rate: "+0.49%",
+    volume: "37,611백만",
+  },
+  {
+    coin_name_kr: "비트코인",
+    coin_name_en: "BTC3",
+    price: "59,955,000",
+    fluctuation_rate: "+0.49%",
+    volume: "37,611백만",
+  },
+  {
+    coin_name_kr: "비트코인",
+    coin_name_en: "BTC4",
+    price: "59,955,000",
+    fluctuation_rate: "+0.49%",
+    volume: "37,611백만",
+  },
+  {
+    coin_name_kr: "비트코인",
+    coin_name_en: "BTC5",
+    price: "59,955,000",
+    fluctuation_rate: "+0.49%",
+    volume: "37,611백만",
+  },
+  {
+    coin_name_kr: "비트코인",
+    coin_name_en: "BTC6",
+    price: "59,955,000",
+    fluctuation_rate: "+0.49%",
+    volume: "37,611백만",
+  },
+  {
+    coin_name_kr: "비트코인",
+    coin_name_en: "BTC7",
+    price: "59,955,000",
+    fluctuation_rate: "+0.49%",
+    volume: "37,611백만",
+  },
+];
 
 const exchange_components = [
   {
@@ -27,7 +102,7 @@ const exchange_components = [
   },
   {
     alt: "ranking",
-    component: <Ranking></Ranking>,
+    component: <Ranking _obj_all={dummy_coins}></Ranking>,
   },
   {
     alt: "order",
@@ -41,7 +116,7 @@ const exchange_components = [
 
 const Coin = () => {
   return (
-    <div className={styles.exchange_wrapper}>
+    <main className={styles.exchange_wrapper}>
       {exchange_components.map((component) => {
         const cn = component.alt + "_wrapper";
         return (
@@ -50,7 +125,7 @@ const Coin = () => {
           </div>
         );
       })}
-    </div>
+    </main>
   );
 };
 

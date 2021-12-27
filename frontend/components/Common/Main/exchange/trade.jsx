@@ -38,9 +38,10 @@ const Trade = () => {
       default:
     }
   };
+
   return (
     <div className={styles.trade_wrapper}>
-      <div className={styles.trade_nav_wrapper} onClick={on_click_nav_item}>
+      <nav className={styles.trade_nav_wrapper} onClick={on_click_nav_item}>
         <div className={styles.trade_nav}>
           {nav_items.map((item) => (
             <div
@@ -53,7 +54,7 @@ const Trade = () => {
             </div>
           ))}
         </div>
-      </div>
+      </nav>
       <div>
         {nav_idx === 0 ? (
           <Buying></Buying>
