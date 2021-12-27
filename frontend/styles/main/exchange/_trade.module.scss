@@ -27,6 +27,10 @@
           border-bottom: 2px solid $focus_color;
         }
       }
+
+      .on {
+        border-bottom: 2px solid $focus_color;
+      }
     }
   }
 }

@@ -20,23 +20,22 @@ const nav_items = [
 ];
 
 const Trade = () => {
+  // local state
   const [nav_idx, set_nav_idx] = useState(0);
 
   // event
   const on_click_nav_item = (e) => {
-    if (e.target.tagName === "SPAN") {
-      switch (e.target.innerText) {
-        case "매수":
-          set_nav_idx(0);
-          break;
-        case "매도":
-          set_nav_idx(1);
-          break;
-        case "거래내역":
-          set_nav_idx(2);
-          break;
-        default:
-      }
+    switch (e.target.innerText) {
+      case "매수":
+        set_nav_idx(0);
+        break;
+      case "매도":
+        set_nav_idx(1);
+        break;
+      case "거래내역":
+        set_nav_idx(2);
+        break;
+      default:
     }
   };
   return (
@@ -44,7 +43,12 @@ const Trade = () => {
       <div className={styles.trade_nav_wrapper} onClick={on_click_nav_item}>
         <div className={styles.trade_nav}>
           {nav_items.map((item) => (
-            <div key={item.idx} className={styles.nav_item}>
+            <div
+              key={item.idx}
+              className={`${styles.nav_item} ${
+                nav_idx === item.idx && styles.on
+              }`}
+            >
               <span>{item.text}</span>
             </div>
           ))}
