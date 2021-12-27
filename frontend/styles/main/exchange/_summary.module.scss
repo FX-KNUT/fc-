@@ -1,0 +1,20 @@
+.summary_wrapper {
+  .coin_name_wrapper {
+    & > span:first-child::after {
+      content: "|";
+      height: 100%;
+      color: grey;
+      padding: 0 0.25rem;
+    }
+  }
+
+  .price_fluc_wrapper {
+    display: flex;
+    align-items: center;
+    .price {
+      font-size: 1.75rem;
+      font-weight: 650;
+      padding-right: 0.5rem;
+    }
+  }
+}

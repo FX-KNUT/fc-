@@ -11,6 +11,7 @@
 
   .item_name {
     flex: 2;
+    white-space: nowrap;
 
     .coin_name_kr {
       font-size: 0.875rem;
