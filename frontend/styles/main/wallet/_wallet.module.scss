@@ -7,7 +7,7 @@
 
 #wallet_container {
   display: grid;
-  grid-template-columns: 40% 60%;
+  grid-template-columns: 28% auto;
   grid-gap: 1rem;
 }
 
@@ -28,21 +28,155 @@
     padding-right: 0.5rem;
     padding-bottom: 0.5rem;
     padding-left: 1rem;
-
-    display: flex;
-    justify-content: flex-start;
   }
 
   // #유저이름#님의 지갑
   & > div > div:first-child {
-    padding-top: unset;
+    display: flex;
     align-items: center;
     font-weight: bold;
+    background: greenyellow;
   }
 
   // 코인 정보
   & > div > div:last-child {
     padding-bottom: unset;
+  }
+
+  // 코인 정보 제대로 찍은 놈
+  // 차후 side effect 방지용 2중 선택(OR Operator)
+  & > div > div:last-child,
+  & div#wallet_description_body {
+
+    background: silver;
+
+    & > div {
+      padding: 1rem;
+    }
+
+    & #wallet_total_value {
+      display: flex;
+      background: grey;
+      padding: 1rem;
+
+      & #wallet_total_value_title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        background: cadetblue;
+      }
+
+      & .spacer {
+        flex-grow: 1;
+        background: burlywood;
+      }
+
+      & #wallet_total_value_display {
+        font-size: 1.25rem;
+        font-weight: bold;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        background: blueviolet;
+      }
+    }
+
+    & #wallet_coins_wrapper {
+      background: brown;
+
+      & .wallet_coins_container {
+        display: grid;
+        grid-template-columns: 20% 18% 10% 18% 18% auto;
+        padding: 0.5rem;
+        border: 1px solid blue;
+        background: chocolate;
+
+        & > div {
+          padding: 0.25rem;
+        }
+
+        & .wallet_coin__title {
+          display: flex;
+          justify-content: flex-start;
+          background: #aaa;
+
+          &.wallet_example {
+            justify-content: center;
+            padding-left: unset;
+          }
+        }
+
+        & .wallet_coin__price {
+          display: flex;
+          justify-content: center;
+          padding-left: 0.75rem;
+          padding-right: 0.75rem;
+          background: #999;
+
+          & > .wallet_coin__price__have {
+
+          }
+
+          & > .spacer {
+            flex-grow: 1;
+          }
+
+          & > .wallet_coin__price__unit {
+
+          }
+        }
+
+        & .wallet_coin__stock {
+          display: flex;
+          justify-content: center;
+          background: #888;
+        }
+
+        & .wallet_coin__total {
+          display: flex;
+          justify-content: center;
+          padding-left: 0.75rem;
+          padding-right: 0.75rem;
+          background: #777;
+
+          & > .spacer {
+            flex-grow: 1;
+          }
+
+          &.wallet_example {
+            justify-content: center;
+          }
+        }
+
+        & .wallet_coin__average_price {
+          display: flex;
+          justify-content: center;
+          padding-left: 0.75rem;
+          padding-right: 0.75rem;
+          background: #666;
+
+          & > .spacer {
+            flex-grow: 1;
+          }
+
+          &.wallet_example {
+            justify-content: center;
+          }
+        }
+
+        & .wallet_coin__profit_ratio {
+          display: flex;
+          justify-content: flex-end;
+          padding-right: 1rem;
+          background: #555;
+
+          &.wallet_example {
+            justify-content: center;
+            padding-right: 1rem;
+          }
+        }
+      }
+    }
   }
 
 }
