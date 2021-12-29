@@ -11,9 +11,11 @@ const all = ({ _arr_all }) => {
           <span key={nav_item}>{nav_item}</span>
         ))}
       </nav>
-      {_arr_all.map((coin) => (
-        <Ranking_item _obj_coin={coin} key={coin.coin_name_en}></Ranking_item>
-      ))}
+      <div className={styles.ranking_item_container}>
+        {_arr_all.map((coin) => (
+          <Ranking_item _obj_coin={coin} key={coin.coin_name_en}></Ranking_item>
+        ))}
+      </div>
     </div>
   );
 };

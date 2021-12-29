@@ -1,7 +1,6 @@
 .ranking_item {
   display: flex;
   align-items: center;
-  // border: 1px solid #d5d6dc;
   font-size: 0.9rem;
 
   i {
@@ -23,9 +22,11 @@
   }
   .item_price {
     flex: 2;
+    font-weight: 700;
   }
   .item_rate {
     flex: 1;
+    font-weight: 700;
   }
   .item_volume {
     flex: 2;
@@ -34,5 +35,13 @@
 
   & > div {
     margin: 0.25rem 0.5rem;
+  }
+
+  .plus {
+    color: red;
+  }
+
+  .minus {
+    color: blue;
   }
 }

@@ -1,12 +1,37 @@
 .ranking_items {
-  display: grid;
-  grid-template-rows: 0.75fr repeat(10, 1fr);
-  overflow: hidden;
   .item_nav {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     border-bottom: 1px solid #d5d6dc;
     font-size: 0.75rem;
+    padding: 0 0 0.5rem 0;
+  }
+
+  .ranking_item_container {
+    display: grid;
+    grid-template-rows: repeat(8, 1fr);
+    overflow-y: scroll;
+    height: 420px;
+    /* width */
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 6px;
+
+      /* Handle on hover */
+      &:hover {
+        background: rgba(0, 0, 0, 0.3);
+      }
+    }
   }
 }

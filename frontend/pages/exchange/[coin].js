@@ -99,6 +99,22 @@ const dummy_coins = [
     rate: "+0.49%",
     volume: "37,611백만",
   },
+  {
+    is_favorite: false,
+    coin_name_kr: "비트코인",
+    coin_name_en: "BTC8",
+    price: "59,955,000",
+    rate: "+0.49%",
+    volume: "37,611백만",
+  },
+  {
+    is_favorite: false,
+    coin_name_kr: "비트코인",
+    coin_name_en: "BTC9",
+    price: "59,955,000",
+    rate: "+0.49%",
+    volume: "37,611백만",
+  },
 ];
 
 const exchange_components = [
