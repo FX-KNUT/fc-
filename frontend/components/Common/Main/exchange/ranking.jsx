@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "../../../../styles/main/exchange/_ranking.module.scss";
 import All from "./all";
 import Own from "./own";
-import Attention from "./attention";
+import Favorite from "./favorite";
 
 const nav_items = [
   {
@@ -21,7 +21,7 @@ const nav_items = [
 
 const ranking_item_nav = ["코인이름", "현재가", "전일대비", "거래량"];
 
-const Ranking = ({ _obj_all }) => {
+const Ranking = ({ _arr_all }) => {
   // local state
   const [nav_idx, set_nav_idx] = useState(0);
 
@@ -68,11 +68,11 @@ const Ranking = ({ _obj_all }) => {
         ))}
       </div> */}
       {nav_idx === 0 ? (
-        <All _obj_all={_obj_all}></All>
+        <All _arr_all={_arr_all}></All>
       ) : nav_idx === 1 ? (
         <Own></Own>
       ) : (
-        <Attention></Attention>
+        <Favorite></Favorite>
       )}
     </div>
   );

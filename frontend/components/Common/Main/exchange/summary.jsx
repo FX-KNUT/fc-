@@ -1,13 +1,11 @@
 import styles from "../../../../styles/main/exchange/_summary.module.scss";
 
 const summary = ({ _obj_summary }) => {
-  const { coin_name_kr, coin_name_en, price, fluctuation_rate, volume } =
-    _obj_summary;
+  const { coin_name_kr, coin_name_en, price, rate, volume } = _obj_summary;
 
-  const pri_fluc =
+  const pri_rate =
     parseInt(price.replaceAll(",", "")) *
-    (parseFloat(fluctuation_rate.substring(1, fluctuation_rate.length - 1)) /
-      100);
+    (parseFloat(rate.substring(1, rate.length - 1)) / 100);
 
   return (
     <div className={styles.summary_wrapper}>
@@ -15,10 +13,10 @@ const summary = ({ _obj_summary }) => {
         <span>{coin_name_kr}</span>
         <span>{coin_name_en}</span>
       </div>
-      <div className={styles.price_fluc_wrapper}>
+      <div className={styles.price_rate_wrapper}>
         <span className={styles.price}>{price}</span>
-        <span className={styles.fluctuation_rate}>
-          {fluctuation_rate}({pri_fluc})
+        <span className={styles.rate}>
+          {rate}({pri_rate})
         </span>
       </div>
       <div>
