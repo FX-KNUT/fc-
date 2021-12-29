@@ -9,7 +9,6 @@ CREATE TABLE users (
   user_nickname VARCHAR(12),
   user_hashed_pw VARCHAR(36),
   user_email VARCHAR(48),
-  user_stars ??
   primary key(user_id)
 );
 -- 1204 balance column 자름
@@ -118,5 +117,6 @@ create table bookmark {
 	bookmark_sibjeontongbo    boolean,
 	bookmark_sangpyeongtongbo boolean,
 	bookmark_daedongunjeon    boolean,
-  primary key(user_id)
+  primary key(user_id),
+  FOREIGN KEY(user_id) REFERENCES users (id)
 }
