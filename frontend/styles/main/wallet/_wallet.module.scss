@@ -3,11 +3,48 @@
 
 .wallet_chart_container {
   height: auto;
-  background: red;
 }
 
 #wallet_container {
-  
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-gap: 1rem;
+}
+
+// 차트 오른쪽 녀석
+#wallet_description {
+
+  // 차트 오른쪽 녀석 제대로 찍은 거
+  & > div {
+    border: none;
+    display: grid;
+    height: 100%;
+    grid-template-rows: 3rem auto;
+  }
+
+  // #유저이름#님의 지갑 + 코인 정보
+  & > div > div {
+    padding-top: 0.5rem;
+    padding-right: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  // #유저이름#님의 지갑
+  & > div > div:first-child {
+    padding-top: unset;
+    align-items: center;
+    font-weight: bold;
+  }
+
+  // 코인 정보
+  & > div > div:last-child {
+    padding-bottom: unset;
+  }
+
 }
 
 @include mobile {
