@@ -106,3 +106,16 @@ CREATE TABLE ranking (
   PRIMARY KEY(user_id),
   FOREIGN KEY(user_id) REFERENCES users (id)
 )
+
+create table bookmark {
+  user_id varchar(15),
+	bookmark_gunwonjungbo     boolean,
+	bookmark_mumuncheoljeon   boolean,
+	bookmark_haedongjungbo    boolean,
+	bookmark_samhantongbo     boolean,
+	bookmark_joseontongbo     boolean,
+	bookmark_sibjeontongbo    boolean,
+	bookmark_sangpyeongtongbo boolean,
+	bookmark_daedongunjeon    boolean,
+  primary key(user_id)
+}
