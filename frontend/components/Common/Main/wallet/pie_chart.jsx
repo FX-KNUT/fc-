@@ -3,9 +3,9 @@ import Chart from "react-google-charts";
 
 const dummy_wallet = [
   ["Coin", "Per"],
-  ["Wendy", 10],
-  ["Winter", 5],
-  ["IU", 22],
+  ["상평통보", 154.4],
+  ["경호뚱땡보", 85.2],
+  ["하민울보", 1663.2],
 ];
 
 const pie_chart = () => {
