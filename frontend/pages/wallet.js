@@ -2,8 +2,7 @@ import Pie_chart from "../components/Common/Main/wallet/pie_chart";
 
 const wallet = () => {
   return (
-    <div>
-      <span>wallet</span>
+    <div id="wallet_container">
       <Pie_chart></Pie_chart>
     </div>
   );

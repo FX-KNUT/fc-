@@ -5,15 +5,15 @@ import News from "../components/Common/Main/Index/news";
 
 const main_contents = [
   {
-    _str_title: "News",
+    str_title: "News",
     component: <News />,
   },
   {
-    _str_title: "Notice",
+    str_title: "Notice",
     component: <Notice />,
   },
   {
-    _str_title: "CoinInfo",
+    str_title: "CoinInfo",
     component: <CoinInfo />,
   },
 ];
@@ -24,7 +24,7 @@ export default function Home() {
       <Container _str_title="Coin information"></Container>
       {main_contents.map((content) => {
         return (
-          <Container _str_title={content._str_title} key={content._str_title}>
+          <Container _str_title={content.str_title} key={content._str_title}>
             {content.component}
           </Container>
         );

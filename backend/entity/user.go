@@ -17,6 +17,7 @@ type User struct {
 	User_nickname  string `json:"nickname" binding:"required"`
 	User_hashed_pw string `json:"hashed_pw" binding:"required"`
 	User_email     string `json:"email" binding:"required"`
+	User_stars		[]string
 }
 
 type Users []User

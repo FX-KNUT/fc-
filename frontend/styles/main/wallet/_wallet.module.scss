@@ -1,8 +1,13 @@
 @import "../../variable";
 @import "../../mixin";
 
-.wallet_wrapper {
+.wallet_chart_container {
   height: auto;
+  background: red;
+}
+
+#wallet_container {
+  
 }
 
 @include mobile {
