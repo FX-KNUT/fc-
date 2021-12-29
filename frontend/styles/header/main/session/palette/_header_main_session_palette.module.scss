@@ -1,4 +1,10 @@
+@import "../../../../variable";
+
 .palette_wrapper {
   display: flex;
   align-items: center;
+
+  i {
+    font-size: $ic_session_size;
+  }
 }

@@ -1,5 +1,4 @@
 import styles from "../../../../../../styles/header/main/session/language/_header_main_session_language.module.scss";
-import Ic_earth from "../../../../../../public/ic_earth.svg";
 import { language_state } from "../../../../../../recoil/atoms/atoms.js";
 import { useState, useRef } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -34,7 +33,7 @@ const Language = () => {
         is_focus && styles.active_arrow
       }`}
     >
-      <Ic_earth />
+      <i className="fas fa-globe"></i>
       <select
         onChange={fn_on_change_language}
         onFocus={fn_on_focus_language}

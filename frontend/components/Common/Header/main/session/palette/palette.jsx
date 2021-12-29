@@ -1,8 +1,6 @@
 import { useRecoilState } from "recoil";
-import Ic_palette from "../../../../../../public/ic_palette.svg";
 import styles from "../../../../../../styles/header/main/session/palette/_header_main_session_palette.module.scss";
 import { color } from "../../../../../../recoil/atoms/atoms";
-import { useEffect } from "react";
 
 const Palette = () => {
   // global state
@@ -16,7 +14,7 @@ const Palette = () => {
   return (
     <div className={styles.palette_wrapper}>
       <label htmlFor="colorpicker">
-        <Ic_palette />
+        <i className="fas fa-palette"></i>
       </label>
       <input
         id="colorpicker"
