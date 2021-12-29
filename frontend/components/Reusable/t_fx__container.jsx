@@ -3,14 +3,20 @@ import Link from "next/link";
 
 const TEXT_MORE = "More";
 
-const t_fx__container = ({ children, _str_title }) => {
+const t_fx__container = ({ children, _str_title, _is_show_more }) => {
   return (
     <div className={styles.comp_container}>
       <div className={styles.comp_container_header}>
         <div>{_str_title}</div>
-        <Link href="#">
-          <a>{TEXT_MORE}</a>
-        </Link>
+        {
+          (
+            _is_show_more == undefined 
+            || _is_show_more == true 
+          )
+          &&  <Link href="#">
+                <a>{TEXT_MORE}</a>
+              </Link>
+        }
       </div>
       <div className={styles.comp_container_content}>{children}</div>
     </div>
