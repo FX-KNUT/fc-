@@ -9,6 +9,7 @@ CREATE TABLE users (
   user_nickname VARCHAR(12),
   user_hashed_pw VARCHAR(36),
   user_email VARCHAR(48),
+  user_stars ??
   primary key(user_id)
 );
 -- 1204 balance column 자름

@@ -22,14 +22,11 @@
         width: 100%;
         padding: 0 0 0.5rem 0;
         border-bottom: 2px solid transparent;
-        &:hover {
+        &:hover,
+        &.on {
           cursor: pointer;
           border-bottom: 2px solid $focus_color;
         }
-      }
-
-      .on {
-        border-bottom: 2px solid $focus_color;
       }
     }
   }

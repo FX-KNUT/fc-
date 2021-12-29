@@ -10,7 +10,7 @@ const dummy_wallet = [
 
 const pie_chart = () => {
   return (
-    <div className={styles.wallet_wrapper}>
+    <div className={styles.wallet_chart_container}>
       <Chart
         width={"auto"}
         height={"auto"}
