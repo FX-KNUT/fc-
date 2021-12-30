@@ -74,14 +74,14 @@ create table blocks (
   primary key(block_index)
 );
 
-create table txs (
+CREATE TABLE txs (
   block_index int,
   tx_from     varchar(15),
   tx_to       varchar(15),
   tx_amount   int
 );
 
-create table wallet (
+CREATE TABLE wallet (
 	wallet_owner            varchar(15),
 	wallet_balance          int,
 	wallet_gunwonjungbo     int,
@@ -105,9 +105,9 @@ CREATE TABLE ranking (
   ranking_idx INT(3),
   PRIMARY KEY(user_id),
   FOREIGN KEY(user_id) REFERENCES users (id)
-)
+);
 
-create table bookmark {
+CREATE TABLE bookmark (
   user_id varchar(15),
 	bookmark_gunwonjungbo     boolean,
 	bookmark_mumuncheoljeon   boolean,
@@ -119,4 +119,4 @@ create table bookmark {
 	bookmark_daedongunjeon    boolean,
   primary key(user_id),
   FOREIGN KEY(user_id) REFERENCES users (id)
-}
+);
