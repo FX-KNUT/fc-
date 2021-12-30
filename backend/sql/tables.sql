@@ -42,7 +42,7 @@ CREATE TABLE posts (
   post_like_count INT(3),
   post_updated_at TIMESTAMP,
   PRIMARY KEY(message_id),
-  FOREIGN KEY(user_id) REFERENCES users (id)
+  FOREIGN KEY(user_id) REFERENCES users (user_id)
 );
 
 CREATE TABLE news_thumbnails (
@@ -104,7 +104,7 @@ CREATE TABLE ranking (
   user_id VARCHAR(15),
   ranking_idx INT(3),
   PRIMARY KEY(user_id),
-  FOREIGN KEY(user_id) REFERENCES users (id)
+  FOREIGN KEY(user_id) REFERENCES users (user_id)
 );
 
 CREATE TABLE bookmark (
@@ -118,5 +118,5 @@ CREATE TABLE bookmark (
 	bookmark_sangpyeongtongbo boolean,
 	bookmark_daedongunjeon    boolean,
   primary key(user_id),
-  FOREIGN KEY(user_id) REFERENCES users (id)
+  FOREIGN KEY(user_id) REFERENCES users (user_id)
 );
