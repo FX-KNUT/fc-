@@ -1,8 +1,7 @@
 import styles from "../../../../styles/main/exchange/_ranking_item.module.scss";
 
 const Ranking_item = ({ _obj_coin }) => {
-  const { is_favorite, coin_name_kr, coin_name_en, price, rate, volume } =
-    _obj_coin;
+  const { is_favorite, coin_name, price, rate, volume } = _obj_coin;
 
   const condition = rate.substring(0, 1) === "+" ? "plus" : "minus";
 
@@ -16,10 +15,11 @@ const Ranking_item = ({ _obj_coin }) => {
         )}
       </div>
       <div className={styles.item_name}>
-        <div className={styles.coin_name_kr}>{coin_name_kr}</div>
-        <div className={styles.coin_name_en}>{coin_name_en}</div>
+        <div className={styles.coin_name}>{coin_name}</div>
       </div>
-      <div className={`${styles.item_price} ${styles[condition]}`}>{price}</div>
+      <div className={`${styles.item_price} ${styles[condition]}`}>
+        {price.toLocaleString()}
+      </div>
       <div className={`${styles.item_rate} ${styles[condition]}`}>{rate}</div>
       <div className={styles.item_volume}>{volume}</div>
     </div>

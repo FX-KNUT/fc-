@@ -5,122 +5,133 @@ import Trade from "../../components/Common/Main/exchange/trade";
 import Chart from "../../components/Common/Main/exchange/chart";
 import Ask_price from "../../components/Common/Main/exchange/ask_price";
 import styles from "../../styles/main/exchange/_coin.module.scss";
-import axios from "axios";
-import { useRouter } from "next/router";
 
-// Summary dummy data
-const dummy_summary = {
-  coin_name_kr: "비트코인",
-  coin_name_en: "BTC",
-  price: "59,955,000",
-  rate: "+0.49%",
-  volume: "37,611백만",
+const dummy_data = {
+  dummy_coin: {
+    is_favorite: true,
+    coin_name: "차",
+    price: 59955000,
+    rate: "+0.49%",
+    volume: "37,611백만",
+    high_price: 61000000,
+    low_price: 59000000,
+  },
+
+  dummy_coins: [
+    {
+      is_favorite: true,
+      coin_name: "차",
+      price: 59955000,
+      rate: "+0.49%",
+      volume: "37,611백만",
+    },
+    {
+      is_favorite: true,
+      coin_name: "리플",
+      price: "1,212",
+      rate: "+3.50%",
+      volume: "29,111백만",
+    },
+    {
+      is_favorite: false,
+      coin_name: "이더리움",
+      price: 4871000,
+      rate: "-0.20%",
+      volume: "27,387백만",
+    },
+    {
+      is_favorite: false,
+      coin_name: "자",
+      price: 59955000,
+      rate: "+0.49%",
+      volume: "37,611백만",
+    },
+    {
+      is_favorite: false,
+      coin_name: "아",
+      price: 59955000,
+      rate: "+0.49%",
+      volume: "37,611백만",
+    },
+    {
+      is_favorite: false,
+      coin_name: "사",
+      price: 59955000,
+      rate: "+0.49%",
+      volume: "37,611백만",
+    },
+    {
+      is_favorite: false,
+      coin_name: "바",
+      price: 59955000,
+      rate: "+0.49%",
+      volume: "37,611백만",
+    },
+    {
+      is_favorite: false,
+      coin_name: "마",
+      price: 59955000,
+      rate: "+0.49%",
+      volume: "37,611백만",
+    },
+    {
+      is_favorite: false,
+      coin_name: "라",
+      price: 59955000,
+      rate: "+0.49%",
+      volume: "37,611백만",
+    },
+    {
+      is_favorite: false,
+      coin_name: "다",
+      price: 59955000,
+      rate: "+0.49%",
+      volume: "37,611백만",
+    },
+    {
+      is_favorite: false,
+      coin_name: "나",
+      price: 59955000,
+      rate: "+0.49%",
+      volume: "37,611백만",
+    },
+    {
+      is_favorite: false,
+      coin_name: "가",
+      price: 59955000,
+      rate: "+0.49%",
+      volume: "37,611백만",
+    },
+    {
+      is_favorite: false,
+      coin_name: "카",
+      price: 59955000,
+      rate: "+0.49%",
+      volume: "37,611백만",
+    },
+    {
+      is_favorite: false,
+      coin_name: "타",
+      price: 59955000,
+      rate: "+0.49%",
+      volume: "37,611백만",
+    },
+    {
+      is_favorite: false,
+      coin_name: "파",
+      price: 59955000,
+      rate: "+0.49%",
+      volume: "37,611백만",
+    },
+  ],
 };
 
-// Ranking dummy data
-const dummy_coins = [
-  {
-    is_favorite: true,
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC0",
-    price: "59,955,000",
-    rate: "+0.49%",
-    volume: "37,611백만",
-  },
-  {
-    is_favorite: true,
-    coin_name_kr: "리플",
-    coin_name_en: "XRP",
-    price: "1,212",
-    rate: "+3.50%",
-    volume: "29,111백만",
-  },
-  {
-    is_favorite: false,
-    coin_name_kr: "이더리움",
-    coin_name_en: "ETH",
-    price: "4,871,000",
-    rate: "-0.20%",
-    volume: "27,387백만",
-  },
-  {
-    is_favorite: false,
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC1",
-    price: "59,955,000",
-    rate: "+0.49%",
-    volume: "37,611백만",
-  },
-  {
-    is_favorite: false,
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC2",
-    price: "59,955,000",
-    rate: "+0.49%",
-    volume: "37,611백만",
-  },
-  {
-    is_favorite: false,
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC3",
-    price: "59,955,000",
-    rate: "+0.49%",
-    volume: "37,611백만",
-  },
-  {
-    is_favorite: false,
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC4",
-    price: "59,955,000",
-    rate: "+0.49%",
-    volume: "37,611백만",
-  },
-  {
-    is_favorite: false,
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC5",
-    price: "59,955,000",
-    rate: "+0.49%",
-    volume: "37,611백만",
-  },
-  {
-    is_favorite: false,
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC6",
-    price: "59,955,000",
-    rate: "+0.49%",
-    volume: "37,611백만",
-  },
-  {
-    is_favorite: false,
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC7",
-    price: "59,955,000",
-    rate: "+0.49%",
-    volume: "37,611백만",
-  },
-  {
-    is_favorite: false,
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC8",
-    price: "59,955,000",
-    rate: "+0.49%",
-    volume: "37,611백만",
-  },
-  {
-    is_favorite: false,
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC9",
-    price: "59,955,000",
-    rate: "+0.49%",
-    volume: "37,611백만",
-  },
-];
+const { dummy_coin, dummy_coins } = dummy_data;
 
 const exchange_components = [
   {
     alt: "summary",
-    component: <Summary _obj_summary={dummy_summary}></Summary>,
+    component: <Summary _obj_coin={dummy_coin}></Summary>,
   },
   {
     alt: "chart",
@@ -136,7 +147,7 @@ const exchange_components = [
   },
   {
     alt: "trade",
-    component: <Trade></Trade>,
+    component: <Trade _obj_coin={dummy_coin}></Trade>,
   },
 ];
 
@@ -154,11 +165,5 @@ const Coin = () => {
     </main>
   );
 };
-
-// export async function getServerSideProps({ query }) {
-//   console.log(query.coin);
-
-//   return;
-// }
 
 export default Coin;

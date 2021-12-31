@@ -1,9 +1,10 @@
+import { useEffect } from "react";
 import styles from "../../../../styles/main/exchange/_all.module.scss";
 import Ranking_item from "./ranking_item";
 
 const ranking_item_nav = ["코인이름", "현재가", "전일대비", "거래량"];
 
-const all = ({ _arr_all }) => {
+const All = ({ _arr_all }) => {
   return (
     <div className={styles.ranking_items}>
       <nav className={styles.item_nav}>
@@ -13,11 +14,11 @@ const all = ({ _arr_all }) => {
       </nav>
       <div className={styles.ranking_item_container}>
         {_arr_all.map((coin) => (
-          <Ranking_item _obj_coin={coin} key={coin.coin_name_en}></Ranking_item>
+          <Ranking_item _obj_coin={coin} key={coin.coin_name}></Ranking_item>
         ))}
       </div>
     </div>
   );
 };
 
-export default all;
+export default All;

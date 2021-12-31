@@ -19,7 +19,7 @@ const nav_items = [
   },
 ];
 
-const Trade = () => {
+const Trade = ({ _obj_coin }) => {
   // local state
   const [nav_idx, set_nav_idx] = useState(0);
 
@@ -57,9 +57,9 @@ const Trade = () => {
       </nav>
       <div>
         {nav_idx === 0 ? (
-          <Buying></Buying>
+          <Buying _obj_coin={_obj_coin}></Buying>
         ) : nav_idx === 1 ? (
-          <Selling></Selling>
+          <Selling _obj_coin={_obj_coin}></Selling>
         ) : (
           <Transaction></Transaction>
         )}

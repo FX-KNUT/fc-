@@ -6,16 +6,14 @@ import styles from "../../../../styles/main/exchange/_favorite.module.scss";
 const dummy_favorite = [
   {
     is_favorite: true,
-    coin_name_kr: "비트코인",
-    coin_name_en: "BTC0",
-    price: "59,955,000",
+    coin_name: "차",
+    price: 59955000,
     rate: "+0.49%",
     volume: "37,611백만",
   },
   {
     is_favorite: true,
-    coin_name_kr: "리플",
-    coin_name_en: "XRP",
+    coin_name: "리플",
     price: "1,212",
     rate: "+3.50%",
     volume: "29,111백만",
@@ -47,7 +45,7 @@ const Favorite = () => {
         ))}
       </nav>
       {dummy_favorite.map((coin) => (
-        <Ranking_item _obj_coin={coin} key={coin.coin_name_en}></Ranking_item>
+        <Ranking_item _obj_coin={coin} key={coin.coin_name}></Ranking_item>
       ))}
     </div>
   );

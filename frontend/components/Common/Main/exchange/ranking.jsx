@@ -57,16 +57,6 @@ const Ranking = ({ _arr_all }) => {
           ))}
         </div>
       </nav>
-      {/* <div className={styles.ranking_items}>
-        <nav className={styles.item_nav}>
-          {ranking_item_nav.map((nav_item) => (
-            <span key={nav_item}>{nav_item}</span>
-          ))}
-        </nav>
-        {_obj_all.map((coin) => (
-          <Ranking_item _obj_coin={coin} key={coin.coin_name_en}></Ranking_item>
-        ))}
-      </div> */}
       {nav_idx === 0 ? (
         <All _arr_all={_arr_all}></All>
       ) : nav_idx === 1 ? (

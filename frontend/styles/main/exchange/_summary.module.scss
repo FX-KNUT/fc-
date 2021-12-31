@@ -1,11 +1,7 @@
 .summary_wrapper {
   .coin_name_wrapper {
-    & > span:first-child::after {
-      content: "|";
-      height: 100%;
-      color: grey;
-      padding: 0 0.25rem;
-    }
+    font-size: 1.25rem;
+    font-weight: 600;
   }
 
   .price_rate_wrapper {
@@ -16,5 +12,13 @@
       font-weight: 650;
       padding-right: 0.5rem;
     }
+  }
+
+  .plus {
+    color: red;
+  }
+
+  .minus {
+    color: blue;
   }
 }
