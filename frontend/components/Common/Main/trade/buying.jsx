@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../../../../styles/main/exchange/_buying.module.scss";
+import styles from "../../../../styles/main/trade/_buying.module.scss";
 
 const buying_text = [
   "주문구분",
@@ -12,7 +12,7 @@ const buying_text = [
 const Buying = ({ _obj_coin }) => {
   const [buy_info, set_buy_info] = useState({
     price: _obj_coin.price,
-    quantity: 0,
+    quantity: 1,
   });
   const { price, quantity } = buy_info;
 
@@ -31,30 +31,6 @@ const Buying = ({ _obj_coin }) => {
     <div className={styles.buying_wrapper}>
       <form className={styles.buying_form} onSubmit={on_submit}>
         <div className={styles.buying_form_grid}>
-          <span>주문구분</span>
-          <div className={styles.ordering_wrapper}>
-            <div>
-              <input
-                type="radio"
-                name="ordering"
-                id="designate"
-                value="designate"
-                checked
-                readOnly
-              />
-              <label htmlFor="designate">지정가</label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                name="ordering"
-                id="market"
-                value="market"
-                readOnly
-              />
-              <label htmlFor="market">시장가</label>
-            </div>
-          </div>
           <span>주문가능</span>
           <div className={styles.order_wrapper}>
             <span>0</span>
@@ -98,7 +74,7 @@ const Buying = ({ _obj_coin }) => {
           </div>
           <span>주문총액</span>
           <div className={styles.total}>
-            <span>주문총액</span>
+            <span>{(price * quantity).toLocaleString()}</span>
           </div>
         </div>
         <button type="submit" className={styles.buying_btn}>

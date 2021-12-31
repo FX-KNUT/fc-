@@ -1,0 +1,46 @@
+.summary_wrapper {
+  .coin_name_wrapper {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .price_rate_wrapper {
+    display: flex;
+    align-items: center;
+    .price {
+      font-size: 1.75rem;
+      font-weight: 650;
+      padding-right: 0.5rem;
+    }
+  }
+
+  .price_detail_wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+
+    .price_detail_item {
+      &::after {
+        content: "|";
+        margin: 0 0.25rem;
+        color: grey;
+      }
+
+      &:last-child::after {
+        content: "";
+      }
+    }
+
+    .price_detail_name {
+      margin-right: 0.25rem;
+    }
+  }
+
+  .plus {
+    color: red;
+  }
+
+  .minus {
+    color: blue;
+  }
+}

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import styles from "../../../../styles/main/exchange/_all.module.scss";
+import styles from "../../../../styles/main/trade/_all.module.scss";
 import Ranking_item from "./ranking_item";
 
 const ranking_item_nav = ["코인이름", "현재가", "전일대비", "거래량"];

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import styles from "../../../../styles/main/exchange/_selling.module.scss";
+import styles from "../../../../styles/main/trade/_selling.module.scss";
 
 const Selling = ({ _obj_coin }) => {
   const [buy_info, set_buy_info] = useState({
     price: _obj_coin.price,
-    quantity: 0,
+    quantity: 1,
   });
   const { price, quantity } = buy_info;
 
@@ -23,30 +23,6 @@ const Selling = ({ _obj_coin }) => {
     <div className={styles.selling_wrapper}>
       <form className={styles.selling_form} onSubmit={on_submit}>
         <div className={styles.selling_form_grid}>
-          <span>주문구분</span>
-          <div className={styles.ordering_wrapper}>
-            <div>
-              <input
-                type="radio"
-                name="ordering"
-                id="designate"
-                value="designate"
-                checked
-                readOnly
-              />
-              <label htmlFor="designate">지정가</label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                name="ordering"
-                id="market"
-                value="market"
-                readOnly
-              />
-              <label htmlFor="market">시장가</label>
-            </div>
-          </div>
           <span>주문가능</span>
           <div className={styles.order_wrapper}>
             <span>0</span>
@@ -60,8 +36,18 @@ const Selling = ({ _obj_coin }) => {
               value={price}
               onChange={on_change}
             />
-            <button type="button">-</button>
-            <button type="button">+</button>
+            <button
+              type="button"
+              onClick={() => set_buy_info({ ...buy_info, price: price - 1 })}
+            >
+              -
+            </button>
+            <button
+              type="button"
+              onClick={() => set_buy_info({ ...buy_info, price: price + 1 })}
+            >
+              +
+            </button>
           </div>
           <span>주문수량</span>
           <div className={styles.selling_quantity_wrapper}>
@@ -73,9 +59,7 @@ const Selling = ({ _obj_coin }) => {
             />
             <button
               type="button"
-              onClick={() =>
-                set_buy_info({ ...buy_info, quantity: quantity - 1 })
-              }
+              onClick={() => set_buy_info({ ...buy_info, price: price - 1 })}
             >
               -
             </button>
@@ -90,7 +74,7 @@ const Selling = ({ _obj_coin }) => {
           </div>
           <span>주문총액</span>
           <div className={styles.total}>
-            <span>주문총액</span>
+            <span>{(price * quantity).toLocaleString()}</span>
           </div>
         </div>
         <button type="submit" className={styles.selling_btn}>

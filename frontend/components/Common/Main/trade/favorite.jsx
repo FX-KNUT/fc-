@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Ranking_item from "./ranking_item";
-import styles from "../../../../styles/main/exchange/_favorite.module.scss";
+import styles from "../../../../styles/main/trade/_favorite.module.scss";
 
 const dummy_favorite = [
   {

@@ -1,10 +1,10 @@
-import Ranking from "../../components/Common/Main/exchange/Ranking";
+import Ranking from "../../components/Common/Main/trade/Ranking";
 import Card_pad from "../../components/Reusable/t_fx__card_pad";
-import Summary from "../../components/Common/Main/exchange/summary";
-import Trade from "../../components/Common/Main/exchange/trade";
-import Chart from "../../components/Common/Main/exchange/chart";
-import Ask_price from "../../components/Common/Main/exchange/ask_price";
-import styles from "../../styles/main/exchange/_coin.module.scss";
+import Summary from "../../components/Common/Main/trade/summary";
+import Trade from "../../components/Common/Main/trade/trade";
+import Chart from "../../components/Common/Main/trade/chart";
+import Ask_price from "../../components/Common/Main/trade/ask_price";
+import styles from "../../styles/main/trade/_coin.module.scss";
 
 const dummy_data = {
   dummy_coin: {
@@ -33,7 +33,7 @@ const dummy_data = {
       volume: "29,111백만",
     },
     {
-      is_favorite: false,
+      is_favorite: true,
       coin_name: "이더리움",
       price: 4871000,
       rate: "-0.20%",

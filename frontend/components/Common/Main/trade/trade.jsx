@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../../../../styles/main/exchange/_trade.module.scss";
+import styles from "../../../../styles/main/trade/_trade.module.scss";
 import Buying from "./buying";
 import Selling from "./selling";
 import Transaction from "./transaction";

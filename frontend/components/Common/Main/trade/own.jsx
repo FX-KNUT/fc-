@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import styles from "../../../../styles/main/exchange/_own.module.scss";
+import styles from "../../../../styles/main/trade/_own.module.scss";
 import Ranking_item from "./ranking_item";
 
 const dummy_own = [

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../../../../styles/main/exchange/_ranking.module.scss";
+import styles from "../../../../styles/main/trade/_ranking.module.scss";
 import All from "./all";
 import Own from "./own";
 import Favorite from "./favorite";

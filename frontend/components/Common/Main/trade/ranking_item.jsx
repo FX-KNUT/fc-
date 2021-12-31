@@ -1,4 +1,5 @@
-import styles from "../../../../styles/main/exchange/_ranking_item.module.scss";
+import Link from "next/link";
+import styles from "../../../../styles/main/trade/_ranking_item.module.scss";
 
 const Ranking_item = ({ _obj_coin }) => {
   const { is_favorite, coin_name, price, rate, volume } = _obj_coin;
@@ -15,8 +16,13 @@ const Ranking_item = ({ _obj_coin }) => {
         )}
       </div>
       <div className={styles.item_name}>
-        <div className={styles.coin_name}>{coin_name}</div>
+        <Link href={`/exchange/${coin_name}`}>
+          <a>
+            <div className={styles.coin_name}>{coin_name}</div>
+          </a>
+        </Link>
       </div>
+
       <div className={`${styles.item_price} ${styles[condition]}`}>
         {price.toLocaleString()}
       </div>

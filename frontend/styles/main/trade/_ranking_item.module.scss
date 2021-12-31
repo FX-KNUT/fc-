@@ -7,15 +7,6 @@
   .item_name {
     flex: 2;
     white-space: nowrap;
-
-    .coin_name_kr {
-      font-size: 0.875rem;
-      font-weight: 600;
-    }
-    .coin_name_en {
-      font-size: 0.75rem;
-      color: rgb(158, 158, 158);
-    }
   }
   .item_price {
     flex: 2;
