@@ -1,0 +1,22 @@
+.ask_item_container {
+  display: flex;
+  //   border: 1px solid red;
+  padding: 0.25rem 0;
+  font-size: 1.125rem;
+
+  .item__price {
+    flex: 1.5;
+    display: flex;
+    justify-content: center;
+
+    .price {
+      cursor: pointer;
+    }
+  }
+
+  .item__volume {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+}

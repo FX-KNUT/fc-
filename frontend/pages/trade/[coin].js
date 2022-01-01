@@ -6,7 +6,7 @@ import Chart from "../../components/Common/Main/trade/chart";
 import Ask_price from "../../components/Common/Main/trade/ask_price";
 import styles from "../../styles/main/trade/_coin.module.scss";
 import { useSetRecoilState } from "recoil";
-import { order_state } from "../../recoil/atoms/atoms";
+import { price_state } from "../../recoil/atoms/atoms";
 import { useEffect } from "react";
 
 const dummy_data = {
@@ -19,117 +19,9 @@ const dummy_data = {
     high_price: 61000000,
     low_price: 59000000,
   },
-
-  dummy_coins: [
-    {
-      is_favorite: true,
-      coin_name: "차",
-      price: 59955000,
-      rate: "+0.49%",
-      volume: "37,611백만",
-    },
-    {
-      is_favorite: true,
-      coin_name: "리플",
-      price: "1,212",
-      rate: "+3.50%",
-      volume: "29,111백만",
-    },
-    {
-      is_favorite: true,
-      coin_name: "이더리움",
-      price: 4871000,
-      rate: "-0.20%",
-      volume: "27,387백만",
-    },
-    {
-      is_favorite: false,
-      coin_name: "자",
-      price: 59955000,
-      rate: "+0.49%",
-      volume: "37,611백만",
-    },
-    {
-      is_favorite: false,
-      coin_name: "아",
-      price: 59955000,
-      rate: "+0.49%",
-      volume: "37,611백만",
-    },
-    {
-      is_favorite: false,
-      coin_name: "사",
-      price: 59955000,
-      rate: "+0.49%",
-      volume: "37,611백만",
-    },
-    {
-      is_favorite: false,
-      coin_name: "바",
-      price: 59955000,
-      rate: "+0.49%",
-      volume: "37,611백만",
-    },
-    {
-      is_favorite: false,
-      coin_name: "마",
-      price: 59955000,
-      rate: "+0.49%",
-      volume: "37,611백만",
-    },
-    {
-      is_favorite: false,
-      coin_name: "라",
-      price: 59955000,
-      rate: "+0.49%",
-      volume: "37,611백만",
-    },
-    {
-      is_favorite: false,
-      coin_name: "다",
-      price: 59955000,
-      rate: "+0.49%",
-      volume: "37,611백만",
-    },
-    {
-      is_favorite: false,
-      coin_name: "나",
-      price: 59955000,
-      rate: "+0.49%",
-      volume: "37,611백만",
-    },
-    {
-      is_favorite: false,
-      coin_name: "가",
-      price: 59955000,
-      rate: "+0.49%",
-      volume: "37,611백만",
-    },
-    {
-      is_favorite: false,
-      coin_name: "카",
-      price: 59955000,
-      rate: "+0.49%",
-      volume: "37,611백만",
-    },
-    {
-      is_favorite: false,
-      coin_name: "타",
-      price: 59955000,
-      rate: "+0.49%",
-      volume: "37,611백만",
-    },
-    {
-      is_favorite: false,
-      coin_name: "파",
-      price: 59955000,
-      rate: "+0.49%",
-      volume: "37,611백만",
-    },
-  ],
 };
 
-const { dummy_coin, dummy_coins } = dummy_data;
+const { dummy_coin } = dummy_data;
 
 const exchange_components = [
   {
@@ -142,11 +34,11 @@ const exchange_components = [
   },
   {
     alt: "ranking",
-    component: <Ranking _arr_all={dummy_coins}></Ranking>,
+    component: <Ranking></Ranking>,
   },
   {
     alt: "order",
-    component: <Ask_price></Ask_price>,
+    component: <Ask_price _int_price={dummy_coin.price}></Ask_price>,
   },
   {
     alt: "trade",
@@ -155,9 +47,9 @@ const exchange_components = [
 ];
 
 const Coin = () => {
-  const set_order = useSetRecoilState(order_state);
+  const set_order_price = useSetRecoilState(price_state);
   useEffect(() => {
-    set_order({ price: dummy_coin.price, quantity: 1 });
+    set_order_price(dummy_coin.price);
   });
   return (
     <main className={styles.exchange_wrapper}>

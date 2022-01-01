@@ -21,7 +21,7 @@ const nav_items = [
 
 const ranking_item_nav = ["코인이름", "현재가", "전일대비", "거래량"];
 
-const Ranking = ({ _arr_all }) => {
+const Ranking = () => {
   // local state
   const [nav_idx, set_nav_idx] = useState(0);
 
@@ -58,7 +58,7 @@ const Ranking = ({ _arr_all }) => {
         </div>
       </nav>
       {nav_idx === 0 ? (
-        <All _arr_all={_arr_all}></All>
+        <All></All>
       ) : nav_idx === 1 ? (
         <Own></Own>
       ) : (

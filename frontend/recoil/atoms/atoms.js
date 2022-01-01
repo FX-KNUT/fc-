@@ -20,10 +20,7 @@ export const color = atom({
   default: "#F0E8E4",
 });
 
-export const order_state = atom({
-  key: "order_state",
-  default: {
-    price: 0,
-    quantity: 1,
-  },
+export const price_state = atom({
+  key: "price_state",
+  default: 0,
 });
