@@ -1,0 +1,13 @@
+.ask_price_wrapper {
+  display: flex;
+  height: 100%;
+  gap: 0.5rem;
+
+  .ask_buy_wrapper {
+    flex: 1;
+  }
+
+  .ask_sell_wrapper {
+    flex: 1;
+  }
+}

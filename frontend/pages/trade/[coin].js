@@ -5,6 +5,9 @@ import Trade from "../../components/Common/Main/trade/trade";
 import Chart from "../../components/Common/Main/trade/chart";
 import Ask_price from "../../components/Common/Main/trade/ask_price";
 import styles from "../../styles/main/trade/_coin.module.scss";
+import { useSetRecoilState } from "recoil";
+import { order_state } from "../../recoil/atoms/atoms";
+import { useEffect } from "react";
 
 const dummy_data = {
   dummy_coin: {
@@ -147,11 +150,15 @@ const exchange_components = [
   },
   {
     alt: "trade",
-    component: <Trade _obj_coin={dummy_coin}></Trade>,
+    component: <Trade></Trade>,
   },
 ];
 
 const Coin = () => {
+  const set_order = useSetRecoilState(order_state);
+  useEffect(() => {
+    set_order({ price: dummy_coin.price, quantity: 1 });
+  });
   return (
     <main className={styles.exchange_wrapper}>
       {exchange_components.map((component) => {

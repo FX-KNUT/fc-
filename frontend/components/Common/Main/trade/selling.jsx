@@ -1,16 +1,14 @@
-import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { order_state } from "../../../../recoil/atoms/atoms";
 import styles from "../../../../styles/main/trade/_selling.module.scss";
 
-const Selling = ({ _obj_coin }) => {
-  const [buy_info, set_buy_info] = useState({
-    price: _obj_coin.price,
-    quantity: 1,
-  });
-  const { price, quantity } = buy_info;
+const Selling = () => {
+  const [order, set_order] = useRecoilState(order_state);
+  const { price, quantity } = order;
 
   const on_change = (e) => {
-    set_buy_info({
-      ...buy_info,
+    set_order({
+      ...order,
       [e.target.name]: e.target.value,
     });
   };
@@ -33,18 +31,18 @@ const Selling = ({ _obj_coin }) => {
             <input
               type="text"
               name="price"
-              value={price}
+              value={price.toLocaleString()}
               onChange={on_change}
             />
             <button
               type="button"
-              onClick={() => set_buy_info({ ...buy_info, price: price - 1 })}
+              onClick={() => set_order({ ...order, price: price - 1 })}
             >
               -
             </button>
             <button
               type="button"
-              onClick={() => set_buy_info({ ...buy_info, price: price + 1 })}
+              onClick={() => set_order({ ...order, price: price + 1 })}
             >
               +
             </button>
@@ -52,22 +50,20 @@ const Selling = ({ _obj_coin }) => {
           <span>주문수량</span>
           <div className={styles.selling_quantity_wrapper}>
             <input
-              type="text"
+              type="number"
               name="quantity"
               value={quantity}
               onChange={on_change}
             />
             <button
               type="button"
-              onClick={() => set_buy_info({ ...buy_info, price: price - 1 })}
+              onClick={() => set_order({ ...order, quantity: quantity - 1 })}
             >
               -
             </button>
             <button
               type="button"
-              onClick={() =>
-                set_buy_info({ ...buy_info, quantity: quantity + 1 })
-              }
+              onClick={() => set_order({ ...order, quantity: quantity + 1 })}
             >
               +
             </button>

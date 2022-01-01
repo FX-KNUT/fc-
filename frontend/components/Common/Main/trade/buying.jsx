@@ -1,24 +1,17 @@
-import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { order_state } from "../../../../recoil/atoms/atoms";
 import styles from "../../../../styles/main/trade/_buying.module.scss";
 
-const buying_text = [
-  "주문구분",
-  "주문가능",
-  "매수가격",
-  "주문수량",
-  "주문총액",
-];
+const text_head = ["주문가능", "매수가격", "주문수량", "주문총액"];
 
-const Buying = ({ _obj_coin }) => {
-  const [buy_info, set_buy_info] = useState({
-    price: _obj_coin.price,
-    quantity: 1,
-  });
-  const { price, quantity } = buy_info;
+const Buying = () => {
+  const [order, set_order] = useRecoilState(order_state);
+  const { price, quantity } = order;
 
+  // input tag(price와 quantity)의 값을 변경할 경우 event
   const on_change = (e) => {
-    set_buy_info({
-      ...buy_info,
+    set_order({
+      ...order,
       [e.target.name]: e.target.value,
     });
   };
@@ -31,48 +24,54 @@ const Buying = ({ _obj_coin }) => {
     <div className={styles.buying_wrapper}>
       <form className={styles.buying_form} onSubmit={on_submit}>
         <div className={styles.buying_form_grid}>
-          <span>주문가능</span>
+          <span>{text_head[0]}</span>
           <div className={styles.order_wrapper}>
             <span>0</span>
             <span>KRW</span>
           </div>
-          <span>매수가격</span>
+          <span>{text_head[1]}</span>
           <div className={styles.buying_price_wrapper}>
             <input
               type="text"
               name="price"
-              value={price}
+              value={price.toLocaleString()}
               onChange={on_change}
             />
-            <button type="button">-</button>
-            <button type="button">+</button>
+            <button
+              type="button"
+              onClick={() => set_order({ ...order, price: price - 1 })}
+            >
+              -
+            </button>
+            <button
+              type="button"
+              onClick={() => set_order({ ...order, price: price + 1 })}
+            >
+              +
+            </button>
           </div>
-          <span>주문수량</span>
+          <span>{text_head[2]}</span>
           <div className={styles.buying_quantity_wrapper}>
             <input
-              type="text"
+              type="number"
               name="quantity"
               value={quantity}
               onChange={on_change}
             />
             <button
               type="button"
-              onClick={() =>
-                set_buy_info({ ...buy_info, quantity: quantity - 1 })
-              }
+              onClick={() => set_order({ ...order, quantity: quantity - 1 })}
             >
               -
             </button>
             <button
               type="button"
-              onClick={() =>
-                set_buy_info({ ...buy_info, quantity: quantity + 1 })
-              }
+              onClick={() => set_order({ ...order, quantity: quantity + 1 })}
             >
               +
             </button>
           </div>
-          <span>주문총액</span>
+          <span>{text_head[3]}</span>
           <div className={styles.total}>
             <span>{(price * quantity).toLocaleString()}</span>
           </div>
