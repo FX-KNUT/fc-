@@ -5,7 +5,7 @@ WORKDIR /usr/fc-frontend
 
 # timezone setting and frontend library install and build
 RUN  ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
-    && npm install \
+    && npm install --legacy-peer-deps \
     && npm run build
 
 WORKDIR /usr/fc-frontend/.next
