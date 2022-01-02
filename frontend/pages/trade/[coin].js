@@ -1,4 +1,4 @@
-import Ranking from "../../components/Common/Main/trade/Ranking";
+import Ranking from "../../components/Common/Main/trade/ranking";
 import Card_pad from "../../components/Reusable/t_fx__card_pad";
 import Summary from "../../components/Common/Main/trade/summary";
 import Trade from "../../components/Common/Main/trade/trade";
