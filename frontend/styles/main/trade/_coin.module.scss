@@ -7,36 +7,75 @@
 
 @include mobile {
   .exchange_wrapper {
-    padding: 1rem 6rem;
+    grid-template-rows: repeat(8, 1fr);
+    padding: 1rem 2rem;
     gap: 1rem;
+
+    .summary_wrapper {
+    }
+
+    .chart_wrapper {
+      grid-row: 2 / 5;
+    }
+
+    .ranking_wrapper {
+      display: none;
+    }
+
+    .order_wrapper {
+      grid-row: 5 / 7;
+    }
+
+    .trade_wrapper {
+      grid-row: 7 / 9;
+    }
+  }
+
+  .modal_ranking {
+    position: fixed;
+    right: 0.5rem;
+    font-size: 1.5rem;
   }
 }
 
 @include tablet {
   .exchange_wrapper {
-    padding: 1rem 6rem;
+    grid-template-rows: repeat(8, 1fr);
+    padding: 1rem 4rem;
     gap: 1rem;
-  }
-}
 
-@include laptop {
-  .exchange_wrapper {
-    padding: 1rem 6rem;
-    gap: 1rem;
+    .summary_wrapper {
+    }
+
+    .chart_wrapper {
+      grid-row: 2 / 5;
+    }
+
+    .ranking_wrapper {
+      display: none;
+    }
+
+    .order_wrapper {
+      grid-row: 5 / 7;
+    }
+
+    .trade_wrapper {
+      grid-row: 7 / 9;
+    }
   }
 
   .modal_ranking {
     position: fixed;
     right: 1rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 }
 
-@include desktop {
+@include laptop {
   .exchange_wrapper {
     grid-template-rows: repeat(6, 1fr);
     grid-template-columns: repeat(3, 1fr);
-    padding: 1rem 6rem;
+    padding: 1rem 4rem;
     gap: 1rem;
 
     .summary_wrapper {
@@ -66,7 +105,44 @@
   .modal_ranking {
     position: fixed;
     right: 1rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
+  }
+}
+
+@include desktop {
+  .exchange_wrapper {
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    padding: 1rem 4rem;
+    gap: 1rem;
+
+    .summary_wrapper {
+      grid-column: 1 / 3;
+    }
+
+    .chart_wrapper {
+      grid-column: 1 / 3;
+      grid-row: 2 / 5;
+    }
+
+    .ranking_wrapper {
+      grid-column: 3 / 4;
+      grid-row: 1 / 5;
+    }
+
+    .order_wrapper {
+      grid-column: 1 / 3;
+      grid-row: 5 / 7;
+    }
+
+    .trade_wrapper {
+      grid-column: 3 / 4;
+      grid-row: 5 / 7;
+    }
+  }
+
+  .modal_ranking {
+    display: none;
   }
 }
 
