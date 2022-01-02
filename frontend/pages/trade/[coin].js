@@ -18,7 +18,7 @@ const dummy_data = {
     rate: "+0.49%",
     volume: "37,611백만",
     high_price: 61000000,
-    low_price: 59000000,
+    low_price: 59000100,
   },
 };
 
