@@ -9,9 +9,9 @@ services:
       - TZ=Asia/Seoul
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 3
       update_config:
-        parallelism: 1
+        parallelism: 3
         delay: 10s
         order: stop-first
         failure_action: rollback
