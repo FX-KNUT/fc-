@@ -1,18 +1,13 @@
 import Link from "next/link";
 import { useState } from "react";
-import Ic_login from "../../../../../../public/ic_login.svg";
 import Modal from "../../../../../Reusable/t_fx__modal";
 import styles from "../../../../../../styles/header/main/session/login/_header_main_session_login.module.scss";
-import Language from "../language/language";
 import Logo from "../../logo/logo";
-import fn_REST_GET__signin from "../../../../../Logic/fn_REST_GET__signin";
+import axios from "axios";
+import fn_hashing from "../../../../../Logic/fn_hashing";
+import Ic_login from "../../../../../../public/ic_login.svg";
 
 const login_header_components = [
-  {
-    alt: "language",
-    class_name: styles.login_language_wrapper,
-    component: <Language />,
-  },
   {
     alt: "logo",
     class_name: styles.login_logo_wrapper,
@@ -23,21 +18,61 @@ const login_header_components = [
 const Login = () => {
   // state
   const [is_show__modal, set_is_show__modal] = useState(false);
+  const [obj_user_info, set_obj_user_info] = useState({
+    user_id: "",
+    user_pw: "",
+    chk_saved_id: [],
+    chk_keep_session_login_state: [],
+  });
+  const { user_id, user_pw, chk_saved_id, chk_keep_session_login_state } =
+    obj_user_info;
 
   // event
   const fn_on_close = () => {
     set_is_show__modal(false);
   };
 
-  const fn_on_submit = (e) => {
-    console.log(e);
-    // fn_REST_GET__signin();
+  const fn_on_submit = async (e) => {
+    e.preventDefault();
+    try {
+      const url = `${process.env.NEXT_PUBLIC_IP_2}${process.env.NEXT_PUBLIC_URL__SIGNIN}`;
+      const res = await axios.get(url, {
+        params: {
+          user_id: user_id,
+          user_pw: fn_hashing(user_pw),
+        },
+      });
+      console.log(user_id, fn_hashing(user_pw));
+      const { data } = res;
+      console.log(data);
+    } catch (err) {
+      console.error(`${__dirname}.fn_on_submit:\n${err}`);
+    }
+  };
+
+  const fn_on_change = (e) => {
+    set_obj_user_info({
+      ...obj_user_info,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const fn_on_change_chk = (is_checked, chk_id) => {
+    if (is_checked) {
+      obj_user_info[e.target.name].add(chk_id);
+      set_obj_user_info({
+        ...obj_user_info,
+        [e.currentTarget.name]: obj_user_info[e.target.name],
+      });
+    } else {
+    }
+    console.log("1", chk_saved_id, "\n2", chk_keep_session_login_state);
   };
 
   return (
     <div>
       <div
-        className={styles.login_wrapper}
+        className={styles.login_button_wrapper}
         onClick={() => set_is_show__modal(true)}
       >
         <Ic_login />
@@ -52,26 +87,69 @@ const Login = () => {
               </div>
             ))}
 
-            <form onSubmit={fn_on_submit}>
-              <input type="text" name="user_id" placeholder="ID" />
+            <form onSubmit={fn_on_submit} noValidate>
+              <input
+                type="text"
+                name="user_id"
+                placeholder="ID"
+                value={user_id}
+                onChange={fn_on_change}
+              />
               <br />
-              <input type="password" name="user_pw" placeholder="PASSWORD" />
+              <input
+                type="password"
+                name="user_pw"
+                placeholder="PASSWORD"
+                value={user_pw}
+                onChange={fn_on_change}
+              />
               <br />
               <button type="submit">Login</button>
               <br />
-              <label>
-                <input type="checkbox" name="" id="" />
-                아이디 저장
-              </label>
-              <label>
-                <input type="checkbox" name="" id="" />
-                로그인 상태 유지
-              </label>
+              <div className={styles.div_user_login_state}>
+                <input
+                  type="checkbox"
+                  name="chk_saved_id"
+                  id="chk_saved_id"
+                  checked={chk_saved_id}
+                  onChange={(e) => {
+                    fn_on_change_chk(e.currentTarget.checked, "chk_saved_id");
+                  }}
+                />
+                <label htmlFor="chk_saved_id">아이디 저장</label>
+
+                <input
+                  type="checkbox"
+                  name="chk_keep_session_login_state"
+                  id="chk_keep_session_login_state"
+                  checked={chk_keep_session_login_state}
+                  onChange={(e) => {
+                    fn_on_change_chk(
+                      e.currentTarget.checked,
+                      "chk_keep_session_login_state"
+                    );
+                  }}
+                />
+                <label htmlFor="chk_keep_session_login_state">
+                  로그인 상태 유지
+                </label>
+              </div>
             </form>
 
-            <a href="#" className={styles.another_login_method}>
-              다른 방법으로 로그인
-            </a>
+            <div className={styles.or}>or</div>
+
+            <div className={styles.another_login_method}>
+              <Link href="#">
+                <a>
+                  <i className="fab fa-google"></i>
+                </a>
+              </Link>
+              <Link href="#">
+                <a>
+                  <i className="fab fa-facebook-f"></i>
+                </a>
+              </Link>
+            </div>
 
             <ul className={styles.login_function}>
               <li>
@@ -90,16 +168,6 @@ const Login = () => {
                 </Link>
               </li>
             </ul>
-
-            <p
-              style={{
-                // display: "none",
-                overflow: "clip",
-              }}
-            >
-              COPYRIGHT BY 2021 KNUT DEPARTMENT OF SOFTWARE TEAM FX.ALL LIGHT
-              RESERVED
-            </p>
           </div>
         }
       </Modal>

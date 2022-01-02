@@ -1,2 +1,7 @@
 Left Arrow
 - <i class="fas fa-chevron-circle-left"></i>
+
+
+Login
+<i class="fab fa-google"></i>
+<i class="fab fa-facebook-f"></i>
