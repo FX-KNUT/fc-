@@ -19,7 +19,7 @@ services:
   frontend:
     image: 2mukee/fc-frontend:1.0
     ports: 
-      - 80:80
+      - 8088:80
     environment:
       - TZ=Asia/Seoul
     deploy:

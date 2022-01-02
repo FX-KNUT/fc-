@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # docker stack init (docker swarm)
-docker stack deploy -c /home/ec2-user/fc-jenkins/docker-compose.yml fc-stack
+docker stack deploy -c /var/lib/jenkins/workspace/fc/docker-compose.yml fc-stack
