@@ -1,10 +1,9 @@
 @import "./variable";
+@import "./mixin";
 
 .footer {
   font-size: 12px;
-  padding: 1em $gutter;
   border: 1px solid $default_color__footer_border;
-  background-color: $default_color__footer_bg;
   z-index: 3;
 
   .footer_wrapper {
@@ -37,6 +36,60 @@
 
     .copyright {
       display: flex;
+    }
+  }
+}
+
+@include mobile {
+  .footer {
+    .footer_wrapper {
+      .contact_wrapper {
+        .contact {
+        }
+        .sns_wrapper {
+          svg {
+            margin-left: 0.75rem;
+            fill: $default_color__footer_bg;
+          }
+        }
+      }
+      .copyright {
+      }
+    }
+  }
+}
+
+@include tablet {
+  .footer {
+    .footer_wrapper {
+      .contact_wrapper {
+        display: flex;
+        flex-direction: column;
+        .contact {
+        }
+        .sns_wrapper {
+        }
+      }
+      .copyright {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+@include desktop {
+  .footer {
+    padding: 1em $gutter;
+    .footer_wrapper {
+      .contact_wrapper {
+        .contact {
+        }
+        .sns_wrapper {
+        }
+      }
+      .copyright {
+      }
     }
   }
 }

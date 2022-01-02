@@ -2,12 +2,12 @@
 $breakpoint_mobile_min: 320px;
 $breakpoint_mobile_max: 480px;
 $breakpoint_tablet_min: 481px;
-$breakpoint_tablet_max: 1024px;
-// $breakpoint_laptop_min: 769px;
-// $breakpoint_laptop_max: 1024px;
+$breakpoint_tablet_max: 768px;
+$breakpoint_laptop_min: 769px;
+$breakpoint_laptop_max: 1024px;
 $breakpoint_desktop_min: 1025px;
-// $breakpoint_desktop_max: 1200px;
-// $breakpoint_tv_min: 1201px;
+$breakpoint_desktop_max: 1200px;
+$breakpoint_tv_min: 1201px;
 
 // color
 $separation_color: hsl(231, 9%, 85%);

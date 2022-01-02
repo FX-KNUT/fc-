@@ -7,7 +7,8 @@ import Ask_price from "../../components/Common/Main/trade/ask_price";
 import styles from "../../styles/main/trade/_coin.module.scss";
 import { useSetRecoilState } from "recoil";
 import { price_state } from "../../recoil/atoms/atoms";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Slide_modal from "../../components/Reusable/t_fx__slide_modal";
 
 const dummy_data = {
   dummy_coin: {
@@ -47,7 +48,16 @@ const exchange_components = [
 ];
 
 const Coin = () => {
+  // state
+  const [is_show__modal, set_is_show__modal] = useState(false);
+
+  // event
+  const fn_on_close = () => {
+    set_is_show__modal(false);
+  };
+
   const set_order_price = useSetRecoilState(price_state);
+
   useEffect(() => {
     set_order_price(dummy_coin.price);
   });
@@ -61,6 +71,17 @@ const Coin = () => {
           </div>
         );
       })}
+      <div className={styles.modal_ranking}>
+        <i
+          className="fas fa-chevron-circle-left"
+          onClick={() => set_is_show__modal(true)}
+        ></i>
+      </div>
+      <Slide_modal is_show__modal={is_show__modal} fn_on_close={fn_on_close}>
+        <Card_pad>
+          <Ranking></Ranking>
+        </Card_pad>
+      </Slide_modal>
     </main>
   );
 };

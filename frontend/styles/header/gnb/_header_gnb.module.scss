@@ -67,3 +67,16 @@
     }
   }
 }
+
+@include tv {
+  .gnb_wrapper {
+    .gnb_hamburger {
+      display: none;
+    }
+    .gnb_contents {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

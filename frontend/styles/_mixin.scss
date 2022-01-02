@@ -13,8 +13,20 @@
   }
 }
 
+@mixin laptop {
+  @media screen and (min-width: $breakpoint_laptop_min) and (max-width: $breakpoint_laptop_max) {
+    @content;
+  }
+}
+
 @mixin desktop {
-  @media screen and (min-width: $breakpoint_desktop_min) {
+  @media screen and (min-width: $breakpoint_desktop_min) and (max-width: $breakpoint_desktop_max) {
+    @content;
+  }
+}
+
+@mixin tv {
+  @media screen and (min-width: $breakpoint_tv_min) {
     @content;
   }
 }

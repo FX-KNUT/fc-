@@ -1,7 +1,5 @@
 import styles from "../../../../styles/main/trade/_ask_price.module.scss";
 import Card_pad from "../../../Reusable/t_fx__card_pad";
-import { useRecoilValue } from "recoil";
-import { price_state } from "../../../../recoil/atoms/atoms";
 import Ask_price_item from "./ask_price_item";
 
 const Ask_price = ({ _int_price }) => {
@@ -15,6 +13,7 @@ const Ask_price = ({ _int_price }) => {
         <Ask_price_item
           _int_price={price - minus_num}
           _int_volume={2}
+          key={price - minus_num}
         ></Ask_price_item>
       );
     }
@@ -28,6 +27,7 @@ const Ask_price = ({ _int_price }) => {
         <Ask_price_item
           _int_price={price + minus_num}
           _int_volume={2}
+          key={price + minus_num}
         ></Ask_price_item>
       );
     }
