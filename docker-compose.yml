@@ -24,9 +24,9 @@ services:
       - TZ=Asia/Seoul
     deploy:
       mode: replicated
-      replicas: 6
+      replicas: 8
       update_config:
-        parallelism: 6
+        parallelism: 8
         delay: 10s
         order: start-first
         failure_action: rollback
