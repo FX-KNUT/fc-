@@ -54,10 +54,21 @@ func fn_REST_get_ranking(c *gin.Context) {
 	}
 }
 
+func fn_REST_get_wallet_info(c *gin.Context) {
+	
+	id := c.Query("id")
+	
+	err := GET_user_controller.GetUserWallet(c, id)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
+
 // core
 func Get(c chan<- bool, r *gin.Engine) {
 	go r.GET("/signin", fn_REST_sign_in)
 	go r.GET("/checkid", fn_REST_check_id)
 	go r.GET("/ranking", fn_REST_get_ranking)
+	go r.GET("/wallet", fn_REST_get_wallet_info)
 	c <- true
 }

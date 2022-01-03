@@ -3,8 +3,10 @@ package api
 import (
 	"fmt"
 
+	ctrl_block "github.com/FX-KNUT/fc-/backend/controller/block"
 	ctrl_message "github.com/FX-KNUT/fc-/backend/controller/message"
 	ctrl_user "github.com/FX-KNUT/fc-/backend/controller/user"
+	logic_server "github.com/FX-KNUT/fc-/backend/server/logic"
 	"github.com/FX-KNUT/fc-/backend/service"
 
 	"github.com/gin-gonic/gin"
@@ -55,6 +57,12 @@ func Post(c chan<- bool, r *gin.Engine) {
 		report.POST("/:message_target/get", fn_REST_post__get_reports)
 	}
 
+	mine := r.Group("/mine")
+	{
+		mine.GET("/mineInfo", fn_REST_get__block_to_mine)
+		mine.PATCH("/", )
+	}
+
 	c <- true
 }
 
@@ -93,6 +101,34 @@ func fn_REST_post__update_comment(c *gin.Context) {
 	err := POST_message_controller.ControllerDMLComment(c, "U")
 	if err != nil {
 		fmt.Println(err.Error())
+	}
+}
+
+func fn_REST_post__nonce(c *gin.Context) {
+
+	nonce := c.Query("nonce")
+	owner := c.Query("owner")
+	index := c.Query("index")
+
+	err := logic_server.Validate_nonce(nonce, index)
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	
+	err = GET_user_controller.CheckDuplicatedId(owner)
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	err = POST_user_controller.UpdateOwnerAndNonce(owner, nonce)
+
+	err := GET_user_controller.Validate_nonce(nonce, index)
+
+	if err != nil {
+		err = POST_user_controller.UpdateOwnerAndNonce(owner, nonce)
+
 	}
 }
 
@@ -153,6 +189,13 @@ func fn_REST_post__contract_transaction(c *gin.Context) {
 	// if err != nil {
 	// 	fmt.Println(err.Error())
 	// }
+}
+
+func fn_REST_get__block_to_mine(c *gin.Context) {
+	_, err := ctrl_block.GetLatestUnminedBlock()
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 }
 
 // func fn_REST_post__create_post(c *gin.Context) {
