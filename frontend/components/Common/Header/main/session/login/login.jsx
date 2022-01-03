@@ -35,7 +35,7 @@ const Login = () => {
   const fn_on_submit = async (e) => {
     e.preventDefault();
     try {
-      const url = `${process.env.NEXT_PUBLIC_IP_2}${process.env.NEXT_PUBLIC_URL__SIGNIN}`;
+      const url = `${process.env.NEXT_PUBLIC_IP}${process.env.NEXT_PUBLIC_URL__SIGNIN}`;
       const res = await axios.get(url, {
         params: {
           user_id: user_id,
