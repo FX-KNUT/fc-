@@ -2,9 +2,14 @@ package ctrl_block
 
 import (
 	"errors"
+	"net/http"
+	"strconv"
 
+	ctrl_user "github.com/FX-KNUT/fc-/backend/controller/user"
 	"github.com/FX-KNUT/fc-/backend/entity"
+	logic_server "github.com/FX-KNUT/fc-/backend/server/logic"
 	"github.com/FX-KNUT/fc-/backend/service"
+	"github.com/gin-gonic/gin"
 )
 
 const ERR_GET__BLOCK string = "error while getting a block by Idx: block.go in controller"
@@ -28,6 +33,7 @@ type Block_controller interface {
 	GetLatestIndex() (int, error)
 	UpdateBlock(entity.Block) error
 	SaveBlock(entity.Block) error
+	UpdateOwnerAndNonce(*gin.Context, string, string, string) error
 }
 
 func New__Block(service service.Block_service) Block_controller {
@@ -110,4 +116,64 @@ func (c *controller) SaveBlock(block entity.Block) error {
 
 	return nil
 	
+}
+
+func (c *controller) validateNonce(ctx *gin.Context, owner string, nonce string, index string) error {
+
+	err := ctrl_user.New__User(service.New__User()).CheckDuplicatedId(ctx, owner)
+
+	if err != nil {
+		return err
+	}
+
+	err = logic_server.Validate_nonce(nonce, index)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (c *controller) UpdateOwnerAndNonce(ctx *gin.Context, owner string, nonce string, index string) error {
+
+	err := c.validateNonce(ctx, owner, nonce, index)
+
+	if err != nil {
+		ctx.String(http.StatusBadRequest, err.Error())
+		return err
+	}
+
+	block_index, err := strconv.Atoi(index)
+
+	if err != nil {
+		ctx.String(http.StatusBadGateway, err.Error())
+		return err
+	}
+
+	block, err := c.service.GetBlock(block_index)
+
+	if err != nil {
+		ctx.String(http.StatusBadGateway, err.Error())
+		return err
+	}
+
+	block_nonce, err := strconv.Atoi(nonce)
+	
+	if err != nil {
+		ctx.String(http.StatusBadGateway, err.Error())
+		return err
+	}
+
+	block.Block_owner = owner
+	block.Block_nonce = block_nonce
+
+	err = c.service.UpdateBlock(block)
+
+	if err != nil {
+		ctx.String(http.StatusBadGateway, err.Error())
+		return err
+	}
+
+	return nil
 }
