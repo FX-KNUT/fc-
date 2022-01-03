@@ -33,6 +33,8 @@ type User_controller interface {
 	SignUp(*gin.Context) error
 	CheckDuplicatedId(*gin.Context, string) error
 	GetUserRanking(*gin.Context) error
+	GetUserWallet(*gin.Context, string) error
+	UpdateOwnerAndNonce(string, string) error
 }
 
 func New__User(service service.User_service) User_controller {
@@ -172,5 +174,32 @@ func (c *controller) GetUserRanking(ctx *gin.Context) error {
 		ctx.String(http.StatusBadRequest, "Content is not written.")
 	}
 	ctx.JSON(http.StatusOK, es)
+	return nil
+}
+
+func (c *controller) GetUserWallet(ctx *gin.Context, id string) error {
+	
+	if len(id) == 0 {
+		ctx.String(http.StatusBadRequest, "잘못된 요청입니다.")
+		return err_ID__undefined
+	}
+	
+	data, err := c.service.GetUserWallet(id)	
+
+	if err != nil {
+		ctx.String(http.StatusBadGateway, "서버 에러입니다.")
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "OK",
+		"data": data,
+	})
+	return nil
+}
+
+func (c *controller) UpdateOwnerAndNonce(owner string, nonce string) error {
+
+	var block entity.Block
+
 	return nil
 }
