@@ -21,8 +21,8 @@ const Login = () => {
   const [obj_user_info, set_obj_user_info] = useState({
     user_id: "",
     user_pw: "",
-    chk_saved_id: [],
-    chk_keep_session_login_state: [],
+    chk_saved_id: false,
+    chk_keep_session_login_state: false,
   });
   const { user_id, user_pw, chk_saved_id, chk_keep_session_login_state } =
     obj_user_info;
@@ -46,7 +46,7 @@ const Login = () => {
       const { data } = res;
       console.log(data);
     } catch (err) {
-      console.error(`${__dirname}.fn_on_submit:\n${err}`);
+      console.error(`login.jsx.fn_on_submit:\n${err}`);
     }
   };
 
@@ -57,16 +57,11 @@ const Login = () => {
     });
   };
 
-  const fn_on_change_chk = (is_checked, chk_id) => {
-    if (is_checked) {
-      obj_user_info[e.target.name].add(chk_id);
-      set_obj_user_info({
-        ...obj_user_info,
-        [e.currentTarget.name]: obj_user_info[e.target.name],
-      });
-    } else {
-    }
-    console.log("1", chk_saved_id, "\n2", chk_keep_session_login_state);
+  const fn_on_change_chk = (e) => {
+    set_obj_user_info({
+      ...obj_user_info,
+      [e.target.name]: e.target.checked,
+    });
   };
 
   return (
@@ -112,9 +107,7 @@ const Login = () => {
                   name="chk_saved_id"
                   id="chk_saved_id"
                   checked={chk_saved_id}
-                  onChange={(e) => {
-                    fn_on_change_chk(e.currentTarget.checked, "chk_saved_id");
-                  }}
+                  onChange={fn_on_change_chk}
                 />
                 <label htmlFor="chk_saved_id">아이디 저장</label>
 
@@ -123,12 +116,7 @@ const Login = () => {
                   name="chk_keep_session_login_state"
                   id="chk_keep_session_login_state"
                   checked={chk_keep_session_login_state}
-                  onChange={(e) => {
-                    fn_on_change_chk(
-                      e.currentTarget.checked,
-                      "chk_keep_session_login_state"
-                    );
-                  }}
+                  onChange={fn_on_change_chk}
                 />
                 <label htmlFor="chk_keep_session_login_state">
                   로그인 상태 유지
