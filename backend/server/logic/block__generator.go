@@ -37,7 +37,11 @@ func initialize_block() (entity.Block, error) {
 
 	block_prev_hash := prev_block.Block_hash
 
-	block_timestamp := time.Now().String()
+	time_now := time.Now().String()
+
+	timestamp := []byte(time_now)
+
+	block_timestamp := string(timestamp[:19])
 	
 	block_txs, err := block_service.GetTxsOfBlock(block_index)
 	
@@ -53,16 +57,20 @@ func initialize_block() (entity.Block, error) {
 
 	block_hash := Block_get_hash(block_index, block_prev_hash, block_timestamp, block_txs__marshaled)
 
+	Block_difficulty, err := Block_get_difficulty(block_index)
+
+	if err != nil {
+		return entity.Block{}, err
+	}
+
 	// -1 means undefined yet but gonna be updated as soon as block is on stage...
 	new_block = entity.Block{
 		/* int */ 			Block_index: block_index,
 		/* varchar(256) */ 	Block_hash: block_hash,
 		/* varchar(256) */	Block_previous_hash: block_prev_hash,
 		/* varchar(18) */	Block_owner: "", // gonna be inserted as the block get mined
-		/* int unsigned	*/	Block_nonce: -1,
-		/* varchar(16) */	Block_created_at: block_timestamp,
-		/* int */			Block_difficulty: -1,
-		/* int */ 			Block_reward: -1,
+		/* int unsigned	*/	Block_difficulty: Block_difficulty,
+		/* varchar(36) */	Block_created_at: block_timestamp,
 	}
 
 	return new_block, nil
