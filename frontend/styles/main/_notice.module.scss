@@ -17,7 +17,23 @@
   }
 }
 
+@include laptop {
+  .notice_wrapper {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1rem;
+  }
+}
+
 @include desktop {
+  .notice_wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+}
+
+@include tv {
   .notice_wrapper {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

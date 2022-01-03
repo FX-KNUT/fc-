@@ -39,3 +39,9 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+.flex_start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
