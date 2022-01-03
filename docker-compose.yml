@@ -30,3 +30,10 @@ services:
         delay: 10s
         order: start-first
         failure_action: rollback
+  
+  databse:
+   image: 2mukee/fc-database:1.0
+   env_file:
+    - ./backend/tmp.env
+   volumes:
+    - /home/fc/data:/data/db
