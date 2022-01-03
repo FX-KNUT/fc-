@@ -6,7 +6,6 @@ import (
 	ctrl_block "github.com/FX-KNUT/fc-/backend/controller/block"
 	ctrl_message "github.com/FX-KNUT/fc-/backend/controller/message"
 	ctrl_user "github.com/FX-KNUT/fc-/backend/controller/user"
-	logic_server "github.com/FX-KNUT/fc-/backend/server/logic"
 	"github.com/FX-KNUT/fc-/backend/service"
 
 	"github.com/gin-gonic/gin"
@@ -20,6 +19,7 @@ var (
 
 	// -- Block
 	POST_block_service service.Block_service
+	GET_block_controller ctrl_block.Block_controller = ctrl_block.New__Block(GET_block_service)
 
 	// -- Message
 	// -- -- Post
@@ -110,25 +110,10 @@ func fn_REST_post__nonce(c *gin.Context) {
 	owner := c.Query("owner")
 	index := c.Query("index")
 
-	err := logic_server.Validate_nonce(nonce, index)
+	err := GET_block_controller.New__Block(service.Block_service).UpdateOwnerAndNonce(c, owner, nonce, index)
 
 	if err != nil {
 		fmt.Println(err.Error())
-	}
-	
-	err = GET_user_controller.CheckDuplicatedId(owner)
-
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-
-	err = POST_user_controller.UpdateOwnerAndNonce(owner, nonce)
-
-	err := GET_user_controller.Validate_nonce(nonce, index)
-
-	if err != nil {
-		err = POST_user_controller.UpdateOwnerAndNonce(owner, nonce)
-
 	}
 }
 
@@ -192,7 +177,7 @@ func fn_REST_post__contract_transaction(c *gin.Context) {
 }
 
 func fn_REST_get__block_to_mine(c *gin.Context) {
-	_, err := ctrl_block.GetLatestUnminedBlock()
+	_, err := GET_block_controller.GetLatestUnminedBlock()
 	if err != nil {
 		fmt.Println(err.Error())
 	}

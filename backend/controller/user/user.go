@@ -34,7 +34,6 @@ type User_controller interface {
 	CheckDuplicatedId(*gin.Context, string) error
 	GetUserRanking(*gin.Context) error
 	GetUserWallet(*gin.Context, string) error
-	UpdateOwnerAndNonce(string, string) error
 }
 
 func New__User(service service.User_service) User_controller {
@@ -194,12 +193,5 @@ func (c *controller) GetUserWallet(ctx *gin.Context, id string) error {
 		"message": "OK",
 		"data": data,
 	})
-	return nil
-}
-
-func (c *controller) UpdateOwnerAndNonce(owner string, nonce string) error {
-
-	var block entity.Block
-
 	return nil
 }
