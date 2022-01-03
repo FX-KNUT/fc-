@@ -37,11 +37,7 @@ func initialize_block() (entity.Block, error) {
 
 	block_prev_hash := prev_block.Block_hash
 
-	time_now := time.Now().String()
-
-	timestamp := []byte(time_now)
-
-	block_timestamp := string(timestamp[:19])
+	block_timestamp := time.Now().String()
 	
 	block_txs, err := block_service.GetTxsOfBlock(block_index)
 	

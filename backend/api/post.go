@@ -60,7 +60,7 @@ func Post(c chan<- bool, r *gin.Engine) {
 	mine := r.Group("/mine")
 	{
 		mine.GET("/mineInfo", fn_REST_get__block_to_mine)
-		mine.PATCH("/", )
+		mine.PATCH("/", fn_REST_patch__block_mined)
 	}
 
 	c <- true
@@ -104,13 +104,13 @@ func fn_REST_post__update_comment(c *gin.Context) {
 	}
 }
 
-func fn_REST_post__nonce(c *gin.Context) {
+func fn_REST_patch__block_mined(c *gin.Context) {
 
 	nonce := c.Query("nonce")
 	owner := c.Query("owner")
 	index := c.Query("index")
 
-	err := GET_block_controller.New__Block(service.Block_service).UpdateOwnerAndNonce(c, owner, nonce, index)
+	err := GET_block_controller.UpdateOwnerAndNonce(c, owner, nonce, index)
 
 	if err != nil {
 		fmt.Println(err.Error())

@@ -30,7 +30,7 @@ func New__Block() Block_service {
 func (s *struct_block_service) GetBlock(Idx int) (entity.Block, error) {
 
 	var block entity.Block
-
+	
 	db := db.Fn_open__db()
 
 	query := fmt.Sprintf("SELECT * FROM BLOCK WHERE Block_index == %d", Idx)

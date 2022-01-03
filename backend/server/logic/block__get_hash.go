@@ -3,6 +3,7 @@ package logic_server
 import (
 	"crypto/sha256"
 	"encoding/hex"
+	"fmt"
 	"strconv"
 
 	"github.com/FX-KNUT/fc-/backend/server/logic/fx_framework"
@@ -46,4 +47,34 @@ func Block_get_hash(index int, prev_hash string, timestamp string, tx_id string)
 	ret_bin = fx_framework.Reverse(bin)
 
 	return
+}
+
+func Block_compare_hash(_hash string, nonce int, difficulty int) bool {
+
+	target_hash := sha256.New()
+
+	mixed_str := _hash + strconv.Itoa(nonce)
+
+	target_hash.Write([]byte(mixed_str))
+
+	md := target_hash.Sum(nil)
+
+	str := hex.EncodeToString(md)
+
+	bin := fn_conv_hex_to_bin(str)
+
+	sliced := bin[:difficulty]
+
+	converted, err := strconv.Atoi(sliced)
+
+	if err != nil {
+		fmt.Println("Error occured on block__get_hash.go > Block_compare_hash")
+		return false
+	}
+
+	if converted == 0 {
+		return true
+	}
+
+	return false
 }

@@ -76,7 +76,7 @@ func (s *struct_tx_service) ContractTx(from entity.User, to entity.User, amount 
 	query__withdraw_from := 
 		fmt.Sprintf("UPDATE wallet" +
 					"SET wallet_balance = wallet_balance - %d" +
-					"where wallet_owner == '%s';",
+					"where wallet_owner = '%s';",
 					amount, from.User_id)
 
 	_, err = db.Query(query__withdraw_from)
@@ -89,7 +89,7 @@ func (s *struct_tx_service) ContractTx(from entity.User, to entity.User, amount 
 	query__deposit_to :=
 		fmt.Sprintf("UPDATE wallet" +
 					"SET wallet_balance = wallet_balance + %d" +
-					"where wallet_owner == '%s';",
+					"where wallet_owner = '%s';",
 			amount, to.User_id)
 
 	_, err = db.Query(query__deposit_to)

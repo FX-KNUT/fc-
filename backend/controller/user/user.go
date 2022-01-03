@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	logic_hashing "github.com/FX-KNUT/fc-/backend/controller/logic"
+	ctrl_wallet "github.com/FX-KNUT/fc-/backend/controller/wallet"
 	"github.com/FX-KNUT/fc-/backend/entity"
 	"github.com/FX-KNUT/fc-/backend/service"
 	"github.com/gin-gonic/gin"
@@ -17,7 +18,6 @@ var err_wrong__user error = errors.New("wrong user info comes from client while 
 var err_wrong__hashing error = errors.New("error comes within server while hashing pw on Fn_sign_up")
 var err_wrong__nickname error = errors.New("wrong nickname comes from client while executing Fn_sign_up")
 var err_wrong__email error = errors.New("wrong email comes from client while executing Fn_sign_up")
-var err_ID__invalid_size error = errors.New("size of id is invalid at Fn_check_ID on sign_up")
 var err_ID__duplicated error = errors.New("duplicated id at Fn_check_ID on sign_up")
 var err_ID__undefined error = errors.New("id is undefined")
 
@@ -61,9 +61,7 @@ func (c *controller) SignIn(ctx *gin.Context, id, pw string) error {
 		return err_wrong__hashing
 	}
 
-	////// !!!!!!!!! SERVICE PART !!!!!!!!!!! //////////
 	user, err := c.service.SignIn(id, pw)
-	////// !!!!!!!!! SERVICE PART !!!!!!!!!!! //////////
 
 	if err != nil {
 		ctx.String(http.StatusBadRequest, "일치하는 회원 정보가 없습니다.")
@@ -77,20 +75,7 @@ func (c *controller) SignIn(ctx *gin.Context, id, pw string) error {
 	return nil
 }
 
-func (c *controller) SignUp(ctx *gin.Context) error {
-	var user entity.User
-
-	const USER_DEFAULT_BALANCE int = 10000
-
-	err := ctx.ShouldBindJSON(&user)
-
-	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{
-			"message": "유효하지 않은 정보가 있습니다.",
-			"error": err.Error(),
-		})
-		return err
-	}
+func validateSignUp(ctx *gin.Context, user entity.User) error {
 
 	if len(user.User_id) < 4 || len(user.User_id) > 18 {
 		ctx.String(http.StatusBadRequest, "유효하지 않은 정보가 있습니다.")
@@ -113,6 +98,31 @@ func (c *controller) SignUp(ctx *gin.Context) error {
 		return err_wrong__email
 	}
 
+	return nil
+
+}
+
+func (c *controller) SignUp(ctx *gin.Context) error {
+	var user entity.User
+
+	const USER_DEFAULT_BALANCE int = 10000
+
+	err := ctx.ShouldBindJSON(&user)
+
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"message": "유효하지 않은 정보가 있습니다.",
+			"error": err.Error(),
+		})
+		return err
+	}
+
+	err = validateSignUp(ctx, user)
+
+	if err != nil {
+		return err
+	}
+
 	user.User_hashed_pw, err = logic_hashing.Fn_hashing(&user.User_hashed_pw)
 
 	if err != nil {
@@ -120,12 +130,16 @@ func (c *controller) SignUp(ctx *gin.Context) error {
 		return err
 	}
 
-	////// !!!!!!!!! SERVICE PART !!!!!!!!!!! //////////
 	err = c.service.SignUp(user, USER_DEFAULT_BALANCE)
-	////// !!!!!!!!! SERVICE PART !!!!!!!!!!! //////////
 
 	if err != nil {
 		ctx.String(http.StatusBadGateway, "Error occured while inserting user information on server, sorry.")
+		return err
+	}
+
+	err = ctrl_wallet.New__Wallet(service.New__Wallet()).CreateWallet(ctx, user, USER_DEFAULT_BALANCE)
+
+	if err != nil {
 		return err
 	}
 
@@ -143,9 +157,7 @@ func (c *controller) CheckDuplicatedId(ctx *gin.Context, id string) error {
 		return err_ID__undefined
 	}
 
-	////// !!!!!!!!! SERVICE PART !!!!!!!!!!! //////////
 	err := c.service.CheckDuplicatedId(id)
-	////// !!!!!!!!! SERVICE PART !!!!!!!!!!! //////////
 
 	if err == nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
