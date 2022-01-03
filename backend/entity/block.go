@@ -9,7 +9,6 @@ type Block struct {
 	Block_nonce         int
 	Block_created_at    string
 	Block_difficulty    int
-	Block_reward        int
 }
 
 type Blockchain []Block

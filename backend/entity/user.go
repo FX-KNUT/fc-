@@ -12,6 +12,7 @@ package entity
 // ======================================================
 // 서비스나 컨트롤러 관련 문제가 있을 수 있으므로 일단 내 쪽에서 바꾸지는 않음.
 
+// public
 type User struct {
 	User_id        string `json:"id" binding:"required"`
 	User_nickname  string `json:"nickname" binding:"required"`
@@ -21,3 +22,16 @@ type User struct {
 }
 
 type Users []User
+type User_wallet struct {
+	User_wallet_coins []user_wallet_coin
+}
+
+// private
+type user_wallet_coin struct {
+	Wallet_coin_name 			string
+	Wallet_coin_price 			int
+	Wallet_coin_price_unit 		string
+	Wallet_coin_stock 			int
+	Wallet_coin_avarage_buy 	int
+	Wallet_coin_profit 			int
+}
