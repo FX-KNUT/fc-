@@ -8,13 +8,47 @@
   & > div {
     margin-left: 0.5rem;
   }
+
+  .hamburger {
+    display: none;
+  }
 }
 
 @include mobile {
+  .session_wrapper {
+    display: flex;
+    align-items: center;
+
+    & > div {
+      display: none;
+    }
+
+    .hamburger {
+      display: flex;
+    }
+  }
 }
 
 @include tablet {
+  .session_wrapper {
+    display: flex;
+    align-items: center;
+
+    & > div {
+      display: none;
+    }
+
+    .hamburger {
+      display: flex;
+    }
+  }
+}
+
+@include laptop {
 }
 
 @include desktop {
+}
+
+@include tv {
 }

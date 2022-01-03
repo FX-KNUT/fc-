@@ -1,82 +1,21 @@
 @import "../../variable";
-@import "../../mixin";
 
 .gnb_wrapper {
-  display: flex;
-  flex-direction: column;
   font-weight: 700;
 
   .gnb_contents {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     a {
       margin: 0.5rem 2rem;
       color: $default_color__gnb;
       &:hover {
         color: $default_sns;
       }
-    }
-  }
-}
-
-@include mobile {
-  .gnb_wrapper {
-    .gnb_hamburger {
-      display: flex;
-      justify-content: center;
-    }
-
-    .gnb_contents {
-      display: none;
-    }
-
-    .active_gnb {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-}
-
-@include tablet {
-  .gnb_wrapper {
-    .gnb_hamburger {
-      display: flex;
-      justify-content: center;
-    }
-
-    .gnb_contents {
-      display: none;
-    }
-
-    .active_gnb {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-}
-
-@include desktop {
-  .gnb_wrapper {
-    .gnb_hamburger {
-      display: none;
-    }
-    .gnb_contents {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  }
-}
-
-@include tv {
-  .gnb_wrapper {
-    .gnb_hamburger {
-      display: none;
-    }
-    .gnb_contents {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      & > span {
+        white-space: nowrap;
+      }
     }
   }
 }

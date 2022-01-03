@@ -23,7 +23,9 @@ const Header_main = () => {
   return (
     <div className={styles.header_main_wrapper}>
       {header_main_components.map((component) => (
-        <div key={component.alt}>{component.component}</div>
+        <div key={component.alt} className={styles[component.alt]}>
+          {component.component}
+        </div>
       ))}
     </div>
   );

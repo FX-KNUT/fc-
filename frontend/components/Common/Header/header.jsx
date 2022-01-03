@@ -1,4 +1,3 @@
-import Sns from "./sns/sns";
 import Header_main from "./main/header_main";
 import Gnb from "./gnb/gnb";
 import styles from "../../../styles/header/_header.module.scss";
@@ -24,7 +23,9 @@ const Header = () => {
     <>
       <header className={styles.header}>
         {header_components.map((component) => (
-          <div key={component.alt}>{component.component}</div>
+          <div key={component.alt} className={styles[component.alt]}>
+            {component.component}
+          </div>
         ))}
       </header>
       <style jsx>{`

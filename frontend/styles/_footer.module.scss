@@ -78,6 +78,47 @@
   }
 }
 
+@include laptop {
+  .footer {
+    font-size: 12px;
+    border: 1px solid $default_color__footer_border;
+    z-index: 3;
+
+    .footer_wrapper {
+      .contact_wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .contact {
+          display: flex;
+          & > div {
+            &:first-child {
+              margin-right: 2.5rem;
+            }
+          }
+        }
+        .sns_wrapper {
+          display: flex;
+          svg {
+            margin-left: 0.75rem;
+            fill: $default_color__footer_bg;
+          }
+        }
+      }
+
+      hr {
+        background-color: white;
+        border: 0;
+        height: 1px;
+      }
+
+      .copyright {
+        display: flex;
+      }
+    }
+  }
+}
+
 @include desktop {
   .footer {
     padding: 1em $gutter;
@@ -89,6 +130,44 @@
         }
       }
       .copyright {
+      }
+    }
+  }
+}
+
+@include tv {
+  .footer {
+    .footer_wrapper {
+      padding: 1rem $gutter;
+      .contact_wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .contact {
+          display: flex;
+          & > div {
+            &:first-child {
+              margin-right: 2.5rem;
+            }
+          }
+        }
+        .sns_wrapper {
+          display: flex;
+          svg {
+            margin-left: 0.75rem;
+            fill: $default_color__footer_bg;
+          }
+        }
+      }
+
+      hr {
+        background-color: white;
+        border: 0;
+        height: 1px;
+      }
+
+      .copyright {
+        display: flex;
       }
     }
   }

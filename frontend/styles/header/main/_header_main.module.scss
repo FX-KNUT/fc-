@@ -19,11 +19,18 @@
 
 @include mobile {
   .header_main_wrapper {
-    // padding: 1rem 5vw;
+    .search {
+      display: none;
+    }
   }
 }
 
 @include tablet {
+  .header_main_wrapper {
+    .search {
+      display: none;
+    }
+  }
 }
 
 @include desktop {

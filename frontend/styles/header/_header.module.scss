@@ -2,10 +2,6 @@
 @import "../mixin";
 
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 3;
-
   & > div::after {
     content: "";
     display: block;
@@ -13,4 +9,29 @@
     height: 1px;
     background-color: $default_color__logo;
   }
+}
+
+@include mobile {
+  .header {
+    .gnb {
+      display: none;
+    }
+  }
+}
+
+@include tablet {
+  .header {
+    .gnb {
+      display: none;
+    }
+  }
+}
+
+@include laptop {
+}
+
+@include desktop {
+}
+
+@include tv {
 }

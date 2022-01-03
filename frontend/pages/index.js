@@ -2,6 +2,7 @@ import Notice from "../components/Common/Main/Index/notice";
 import Container from "../components/Reusable/t_fx__container";
 import CoinInfo from "../components/Common/Main/Index/coin_info";
 import News from "../components/Common/Main/Index/news";
+import styles from "../styles/main/index/_index.module.scss";
 import axios from "axios";
 
 const main_contents = [
@@ -21,7 +22,7 @@ const main_contents = [
 
 export default function Home() {
   return (
-    <main>
+    <main className={styles.index_container}>
       <Container _str_title="Coin information"></Container>
       {main_contents.map((content) => {
         return (
