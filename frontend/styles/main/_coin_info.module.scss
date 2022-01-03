@@ -35,7 +35,41 @@
   }
 }
 
+@include laptop {
+  .coin_info_wrapper {
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+    gap: 1rem;
+    .coin_behind {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .coin_behind_title {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}
+
 @include desktop {
+  .coin_info_wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    .coin_behind {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .coin_behind_title {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+@include tv {
   .coin_info_wrapper {
     display: grid;
     grid-template-columns: 2fr 1fr;

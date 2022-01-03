@@ -123,18 +123,14 @@
   left: 0;
   display: flex;
   justify-content: flex-end;
-  align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
 
   .comp_modal_content {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: hsl(0, 0%, 100%);
     width: 40%;
     height: 100%;
-    border-radius: 12px 0 0 12px;
+    border-radius: 6px 0 0 6px;
     scrollbar-width: 0;
 
     .comp_modal_btn_close {
@@ -149,40 +145,14 @@
 }
 
 @include mobile {
-  .comp_container {
-    padding: 1rem 5vw;
-    overflow-x: scroll;
-  }
-
   .comp_slide_modal_container {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.8);
-
     .comp_modal_content {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: hsl(0, 0%, 100%);
-      width: 100%;
-      height: 60%;
-      border-radius: 12px 0 0 12px;
-      scrollbar-width: 0;
+      width: 80%;
+      height: 100%;
 
       .comp_modal_btn_close {
-        position: absolute;
         top: 0.5rem;
         right: 0.5rem;
-        cursor: pointer;
-        font-size: 1.25rem;
-        font-weight: 700;
       }
     }
   }
@@ -190,34 +160,13 @@
 
 @include tablet {
   .comp_slide_modal_container {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.8);
-
     .comp_modal_content {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: hsl(0, 0%, 100%);
-      width: 500px;
+      width: 70%;
       height: 100%;
-      border-radius: 12px 0 0 12px;
-      scrollbar-width: 0;
 
       .comp_modal_btn_close {
-        position: absolute;
         top: 0.5rem;
         right: 0.5rem;
-        cursor: pointer;
-        font-size: 1.25rem;
-        font-weight: 700;
       }
     }
   }
@@ -225,34 +174,13 @@
 
 @include laptop {
   .comp_slide_modal_container {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.8);
-
     .comp_modal_content {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: hsl(0, 0%, 100%);
-      width: 600px;
+      width: 50%;
       height: 100%;
-      border-radius: 12px 0 0 12px;
-      scrollbar-width: 0;
 
       .comp_modal_btn_close {
-        position: absolute;
         top: 0.5rem;
         right: 0.5rem;
-        cursor: pointer;
-        font-size: 1.25rem;
-        font-weight: 700;
       }
     }
   }

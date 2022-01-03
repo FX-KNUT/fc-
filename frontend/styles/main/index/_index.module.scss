@@ -1,6 +1,32 @@
 @import "../../variable";
 @import "../../mixin";
 
-.index_container {
-  padding: 1rem $gutter;
+@include mobile {
+  .index_container {
+    padding: 1rem;
+  }
+}
+
+@include tablet {
+  .index_container {
+    padding: 1rem 2rem;
+  }
+}
+
+@include laptop {
+  .index_container {
+    padding: 1rem 4rem;
+  }
+}
+
+@include desktop {
+  .index_container {
+    padding: 1rem 8rem;
+  }
+}
+
+@include tv {
+  .index_container {
+    padding: 1rem $gutter;
+  }
 }
