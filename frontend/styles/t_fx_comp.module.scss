@@ -263,3 +263,14 @@
 
 @include tv {
 }
+
+@media screen and (max-width: 600px) {
+  .comp_modal_wrapper {
+    flex-shrink: 0;
+    .comp_modal_content {
+      width: 80%;
+      height: 550px;
+      flex-shrink: 0;
+    }
+  }
+}
