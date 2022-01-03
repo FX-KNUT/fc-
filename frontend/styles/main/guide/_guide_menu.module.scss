@@ -1,0 +1,11 @@
+@import "../../variable";
+
+.guide_menu_wrapper {
+  width: 100vw;
+  height: 40px;
+  border-bottom: 2px solid $default_color__guide_menu_border;
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
