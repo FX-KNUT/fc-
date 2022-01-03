@@ -1,0 +1,53 @@
+// 현재 코인 출판 현황
+
+- 고려 (아시아)
+| 건원중보 - 철 gunwonjungbo
+| 해동통보 - 동 haedongtongbo
+| 활구 - 은     hwalgu
+
+- 중국 (아시아)
+| 반냥전 - 동   bannyangjun
+| 명도전 - 철   myungdojun
+
+- 일본 (아시아)
+| 오반 - 금     oban
+
+- 인도 (아시아)
+| 타인화폐 - 은 tainhwapye
+
+- 미국 (아메리카)
+| 달러 - 지폐   dollar
+
+// 특성
+1. Continent => 대륙
+2. Country => 나라
+3. Material => 재질(금, 은, 동, 철 등)
+
+// 대륙 지표
+- 유럽      europe
+- 아시아    asia
+- 아프리카  africa
+- 아메리카  america
+- 중동      middle_east
+
+** 현재는 아시아, 아메리카 만 구현할 예정 **
+
+// 재질 지표
+- 철        iron
+- 석유      oil
+- 식량      food
+- 금        gold
+- 은        silver
+- 동        cooper
+- 지폐      paper
+
+** 추가 예정 **
+
+// 나라 지표
+- 고려      goryeo
+- 일본      japan
+- 중국      china
+- 인도      india
+- 미국      america
+
+** 추가 예정 
