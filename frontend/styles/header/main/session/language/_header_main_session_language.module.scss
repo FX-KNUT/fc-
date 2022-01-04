@@ -32,7 +32,7 @@
     cursor: pointer;
 
     color: $default_color__logo;
-    font-family: "Noto Sans KR", sans-serif;
+    // font-family: "Noto Sans KR", sans-serif; // 폰트 오버라이딩 되길래 주석처리 함. 문제 시 건의 바람 - 신이종
     font-size: 1rem;
   }
 

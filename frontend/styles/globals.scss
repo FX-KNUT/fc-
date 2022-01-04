@@ -10,7 +10,7 @@ body {
   margin: 0;
   font-family: -apple-system, InkLipquid, sans-serif, BlinkMacSystemFont,
     Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
-    Helvetica Neue;
+    Helvetica Neue !important;
 
   font-size: 18px;
 
@@ -35,6 +35,10 @@ img {
 
 svg {
   cursor: pointer;
+}
+
+select {
+  font-family: inherit;
 }
 
 i {

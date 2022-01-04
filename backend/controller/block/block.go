@@ -33,7 +33,7 @@ type Block_controller interface {
 	GetLatestIndex() (int, error)
 	UpdateBlock(entity.Block) error
 	SaveBlock(entity.Block) error
-	UpdateOwnerAndNonce(*gin.Context, string, string, string) error
+	UpdateOwnerAndNonce(*gin.Context) error
 }
 
 func New__Block(service service.Block_service) Block_controller {
@@ -55,7 +55,6 @@ func (c *controller) GetBlock(idx int) (entity.Block, error) {
 }
 
 func (c *controller) GetAllBlocks() ([]entity.Block, error) {
-	blocks := []entity.Block{}
 
 	blocks, err := c.service.GetAllBlocks()
 	if err != nil {
@@ -135,7 +134,11 @@ func (c *controller) validateNonce(ctx *gin.Context, owner string, nonce string,
 	return nil
 }
 
-func (c *controller) UpdateOwnerAndNonce(ctx *gin.Context, owner string, nonce string, index string) error {
+func (c *controller) UpdateOwnerAndNonce(ctx *gin.Context) error {
+
+	nonce := ctx.Query("nonce")
+	owner := ctx.Query("owner")
+	index := ctx.Query("index")
 
 	err := c.validateNonce(ctx, owner, nonce, index)
 

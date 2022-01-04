@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	ctrl_block "github.com/FX-KNUT/fc-/backend/controller/block"
+	ctrl_coin "github.com/FX-KNUT/fc-/backend/controller/coin"
 	ctrl_message "github.com/FX-KNUT/fc-/backend/controller/message"
 	ctrl_tx "github.com/FX-KNUT/fc-/backend/controller/tx"
 	ctrl_user "github.com/FX-KNUT/fc-/backend/controller/user"
@@ -31,6 +32,11 @@ var (
 	// -- Tx
 	POST_tx_service service.Tx_service = service.New__Tx()
 	POST_tx_controller ctrl_tx.Tx_controller = ctrl_tx.New__Tx(POST_tx_service)
+
+	// -- coin
+	POST_coin_service service.Coin_service = service.New__Coin()
+	POST_coin_controller ctrl_coin.Coin_controller = ctrl_coin.New__Coin(POST_coin_service)
+
 )
 
 
@@ -39,6 +45,7 @@ func Post(c chan<- bool, r *gin.Engine) {
 	go r.POST("/signup", fn_REST_post__signup)
 	go r.POST("/change_profile_picture", fn_REST_post__profile_picture)
 	go r.POST("/contract_transaction", fn_REST_post__contract_transaction)
+	go r.PATCH("/like/:coin_name/:user_id", fn_REST_patch__like_coin)
 
 	post := r.Group("/post")
 	{
@@ -111,11 +118,16 @@ func fn_REST_post__update_comment(c *gin.Context) {
 
 func fn_REST_patch__block_mined(c *gin.Context) {
 
-	nonce := c.Query("nonce")
-	owner := c.Query("owner")
-	index := c.Query("index")
+	err := GET_block_controller.UpdateOwnerAndNonce(c)
 
-	err := GET_block_controller.UpdateOwnerAndNonce(c, owner, nonce, index)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
+
+func fn_REST_patch__like_coin(c *gin.Context) {
+
+	err := POST_coin_controller.LikeCoin(c)
 
 	if err != nil {
 		fmt.Println(err.Error())
