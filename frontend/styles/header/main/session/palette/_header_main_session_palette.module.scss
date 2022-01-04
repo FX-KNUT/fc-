@@ -3,8 +3,13 @@
 .palette_wrapper {
   display: flex;
   align-items: center;
+  color: #755139;
 
   i {
     font-size: $ic_session_size;
   }
+}
+
+.on {
+  color: #f2edd7;
 }

@@ -1,5 +1,8 @@
 import styles from "../../../../../../styles/header/main/session/language/_header_main_session_language.module.scss";
-import { language_state } from "../../../../../../recoil/atoms/atoms.js";
+import {
+  dark_state,
+  language_state,
+} from "../../../../../../recoil/atoms/atoms.js";
 import { useState, useRef } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
@@ -11,6 +14,7 @@ const Language = () => {
 
   // Global state
   const [curr_lang, set_curr_lang] = useRecoilState(language_state);
+  const is_dark = useRecoilValue(dark_state);
 
   // Local ref
   const ref_lang = useRef();
@@ -29,7 +33,7 @@ const Language = () => {
     <div
       className={`${styles.language_wrapper} ${
         is_focus && styles.active_arrow
-      }`}
+      } ${styles[is_dark && "on"]}`}
     >
       <i className="fas fa-globe"></i>
       <select
@@ -38,6 +42,7 @@ const Language = () => {
         onBlur={fn_on_blur_language}
         ref={ref_lang}
         defaultValue={curr_lang}
+        className={`${styles.select} ${styles[is_dark && "on"]}`}
       >
         {language_list.map((lang) => {
           return (

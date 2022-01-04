@@ -5,7 +5,7 @@ import styles from "../../../../../../styles/header/main/session/palette/_header
 const Palette = () => {
   const [is_dark, set_is_dark] = useRecoilState(dark_state);
   return (
-    <div className={styles.palette_wrapper}>
+    <div className={`${styles.palette_wrapper} ${styles[is_dark && "on"]}`}>
       {is_dark ? (
         <div onClick={() => set_is_dark(false)}>
           <i className="fas fa-toggle-on"></i>

@@ -5,8 +5,9 @@
   position: sticky;
   top: 0;
   z-index: 3;
-  background-color: #755139;
-  color: #f2edd7;
+
+  background-color: #f2edd7;
+  color: #755139;
 
   & > div::after {
     content: "";
@@ -18,8 +19,8 @@
 }
 
 .on {
-  background-color: #f2edd7;
-  color: #755139;
+  background-color: #755139;
+  color: #f2edd7;
 }
 
 @include mobile {

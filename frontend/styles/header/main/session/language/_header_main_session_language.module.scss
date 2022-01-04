@@ -10,15 +10,20 @@
   margin: 0;
   padding: 0;
 
+  color: #755139;
+
   cursor: pointer;
 
   i {
     font-size: $ic_session_size;
   }
 
-  select {
+  .select {
     outline: none;
     border: none;
+    background-color: transparent;
+
+    color: #755139;
 
     min-width: 3.3rem;
     width: 60px;
@@ -30,10 +35,13 @@
     -moz-appearance: none;
 
     cursor: pointer;
-
-    color: $default_color__logo;
     // font-family: "Noto Sans KR", sans-serif; // 폰트 오버라이딩 되길래 주석처리 함. 문제 시 건의 바람 - 신이종
     font-size: 1rem;
+  }
+
+  .on {
+    background-color: #755139;
+    color: #f2edd7;
   }
 
   &:hover {
@@ -71,4 +79,9 @@
     top: -2px;
     transform: rotate(-225deg);
   }
+}
+
+.on {
+  background-color: #755139;
+  color: #f2edd7;
 }

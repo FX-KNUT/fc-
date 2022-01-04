@@ -3,10 +3,15 @@
 .login_button_wrapper {
   display: flex;
   align-items: center;
+  color: #755139;
   cursor: pointer;
   i {
     font-size: 1.75rem;
   }
+}
+
+.on {
+  color: #f2edd7;
 }
 
 .login_modal_children_wrapper {
