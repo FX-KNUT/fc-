@@ -175,7 +175,8 @@ func fn_REST_post__profile_picture(c *gin.Context) {
 }
 
 func fn_REST_post__contract_transaction(c *gin.Context) {
-	err := POST_tx_controller.ContractTx(c, from, to, amount, coin_name, coin_quantity)
+
+	err := POST_tx_controller.ContractTx(c)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
