@@ -97,7 +97,7 @@ func (s *struct_block_service) GetLatestUnminedBlock() (entity.Block, error) {
 
 	db := db.Fn_open__db()
 
-	query := "SELECT * FROM block WHERE block_owner IS NULL ORDER BY Block_index limit 1"
+	query := "SELECT * FROM block WHERE block_owner LIKE ('% %') ORDER BY Block_index limit 1"
 
 	err := db.QueryRow(query).Scan(&block)
 

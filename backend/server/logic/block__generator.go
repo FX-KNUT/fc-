@@ -59,7 +59,6 @@ func initialize_block() (entity.Block, error) {
 		return entity.Block{}, err
 	}
 
-	// -1 means undefined yet but gonna be updated as soon as block is on stage...
 	new_block = entity.Block{
 		/* int */ 			Block_index: block_index,
 		/* varchar(256) */ 	Block_hash: block_hash,
