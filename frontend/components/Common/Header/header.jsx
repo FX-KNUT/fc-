@@ -3,6 +3,7 @@ import Gnb from "./gnb/gnb";
 import styles from "../../../styles/header/_header.module.scss";
 import { useRecoilValue } from "recoil";
 import { color } from "../../../recoil/atoms/atoms";
+import { useState } from "react";
 
 const header_components = [
   {
