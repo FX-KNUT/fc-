@@ -31,7 +31,7 @@ const Login = () => {
         className={styles.login_button_wrapper}
         onClick={() => set_is_show__modal(true)}
       >
-        <Ic_login />
+        <i className="fas fa-user-circle"></i>
         <span>LOGIN</span>
       </div>
       <Modal is_show__modal={is_show__modal} fn_on_close={fn_on_close}>
