@@ -10,6 +10,7 @@ import (
 
 const ERR_GETTING_WALLET 		string = "error occurred while getting a coin"
 const ERR_GETTING_COIN_DETAIL 	string = "error occurred while getting a detail of coin"
+const ERR_UPDATING_COIN_LIKE	string = "error occurred while updating like request of coin"
 
 type Coin entity.Coin
 
@@ -20,6 +21,7 @@ type controller struct {
 type Coin_controller interface {
 	GetCoin(*gin.Context, string) error
 	GetCoinDetail(*gin.Context, string, string) error
+	LikeCoin(*gin.Context) error
 }
 
 func New__Coin(service service.Coin_service) Coin_controller {
@@ -57,5 +59,24 @@ func (c *controller) GetCoinDetail(ctx *gin.Context, coin_name string, user_id s
 		"data": detail,
 	})
 	
+	return nil
+}
+
+func (c *controller) LikeCoin(ctx *gin.Context) error {
+
+	coin_name := ctx.Param("coin_name")
+	user_id := ctx.Param("user_id")
+
+	coin_status, err := c.service.LikeCoin(coin_name, user_id)
+
+	if err != nil {
+		ctx.String(http.StatusBadGateway, ERR_UPDATING_COIN_LIKE)
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "OK",
+		"data": coin_status,
+	})
+
 	return nil
 }

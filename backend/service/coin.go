@@ -14,6 +14,7 @@ type struct_coin_service struct {
 type Coin_service interface {
 	GetCoin(string) (entity.Coin, error)
 	GetCoinDetail(string, string) (entity.Coin_Detail, error)
+	LikeCoin(string, string) (bool, error)
 }
 
 func New__Coin() Coin_service {
@@ -97,4 +98,37 @@ func (s *struct_coin_service) GetCoinDetail(coin_name string, user_id string) (e
 	detail.Coin_price_now = coin.Coin_price__now
 
 	return detail, nil
+}
+
+func (s *struct_coin_service) LikeCoin(coin_name string, user_id string) (bool, error) {
+
+	var bookmark_int int
+	var bookmark_status bool
+
+	db := db.Fn_open__db()
+
+	query__bookmark__setter := fmt.Sprintf("UPDATE bookmark SET bookmark_%s = (bookmark_%s + 1) % 2 where user_id = '%s';",
+							coin_name, coin_name, user_id)
+
+	err := db.QueryRow(query__bookmark__setter).Scan(&bookmark_status)
+
+	if err != nil {
+		return false, err
+	}
+
+	query__bookmark__getter := fmt.Sprintf("SELECT bookmark_%s from bookmark where user_id = '%s';"
+							coin_name, coin_name, user_id)
+
+	err := db.QueryRow(query__bookmark__getter).Scan(&bookmark_int)
+
+	if err != nil {
+		return false, err
+	}
+
+	if bookmark_int == 1 {
+		return true, err
+	}
+
+	return false, err
+	
 }
