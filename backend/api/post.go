@@ -5,6 +5,7 @@ import (
 
 	ctrl_block "github.com/FX-KNUT/fc-/backend/controller/block"
 	ctrl_message "github.com/FX-KNUT/fc-/backend/controller/message"
+	ctrl_tx "github.com/FX-KNUT/fc-/backend/controller/tx"
 	ctrl_user "github.com/FX-KNUT/fc-/backend/controller/user"
 	"github.com/FX-KNUT/fc-/backend/service"
 
@@ -26,6 +27,10 @@ var (
 	// -- -- Comment
 	// -- -- Report
 	POST_message_controller ctrl_message.Interface_message_controller
+
+	// -- Tx
+	POST_tx_service service.Tx_service = service.New__Tx()
+	POST_tx_controller ctrl_tx.Tx_controller = ctrl_tx.New__Tx(POST_tx_service)
 )
 
 
@@ -170,10 +175,10 @@ func fn_REST_post__profile_picture(c *gin.Context) {
 }
 
 func fn_REST_post__contract_transaction(c *gin.Context) {
-	// err := ctrl_tx.Fn_ContractTx(c, from, to, amount)
-	// if err != nil {
-	// 	fmt.Println(err.Error())
-	// }
+	err := POST_tx_controller.ContractTx(c, from, to, amount, coin_name, coin_quantity)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 }
 
 func fn_REST_get__block_to_mine(c *gin.Context) {
