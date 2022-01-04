@@ -11,7 +11,7 @@ module.exports = {
 
   // AVIF
   images: {
-    formats: ["image/avif", "image/webp"],
+    deviceSizes: [480, 768, 1280],
   },
 
   // svg

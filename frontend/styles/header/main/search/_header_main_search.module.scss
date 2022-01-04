@@ -9,12 +9,15 @@
   border: 1px solid;
   border-radius: 0.5rem;
   input {
+    flex: auto;
+    font-size: 0.8rem;
     outline: none;
     padding: 0.5rem;
     border: none;
     background-color: transparent;
   }
   .ic_search {
+    font-size: 1.25rem;
     border: none;
     background-color: transparent;
     display: flex;

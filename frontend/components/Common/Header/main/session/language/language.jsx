@@ -1,8 +1,10 @@
 import styles from "../../../../../../styles/header/main/session/language/_header_main_session_language.module.scss";
-import { language_state } from "../../../../../../recoil/atoms/atoms.js";
+import {
+  color_bg_state,
+  language_state,
+} from "../../../../../../recoil/atoms/atoms.js";
 import { useState, useRef } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { color } from "../../../../../../recoil/atoms/atoms";
 
 const language_list = ["한국어", "English"];
 
@@ -12,7 +14,7 @@ const Language = () => {
 
   // Global state
   const [curr_lang, set_curr_lang] = useRecoilState(language_state);
-  const curr_color = useRecoilValue(color);
+  const curr_color = useRecoilValue(color_bg_state);
 
   // Local ref
   const ref_lang = useRef();

@@ -15,9 +15,14 @@ export const logged = atom({
   default: false,
 });
 
-export const color = atom({
-  key: "color",
-  default: "#F0E8E4",
+export const color_bg_state = atom({
+  key: "color_bg_state",
+  default: "#F9EBDE",
+});
+
+export const color_font_state = atom({
+  key: "color_font_state",
+  default: "#815854",
 });
 
 export const price_state = atom({

@@ -15,7 +15,7 @@ const main_contents = [
     component: <Notice />,
   },
   {
-    str_title: "CoinInfo",
+    str_title: "CoinBoard",
     component: <CoinInfo />,
   },
 ];

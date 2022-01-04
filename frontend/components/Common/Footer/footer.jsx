@@ -3,7 +3,7 @@ import Facebook from "../../../public/ic_facebook.svg";
 import Kakao from "../../../public/ic_kakao.svg";
 import Instagram from "../../../public/ic_instagram.svg";
 import { useRecoilValue } from "recoil";
-import { color } from "../../../recoil/atoms/atoms";
+import { color_bg_state } from "../../../recoil/atoms/atoms";
 
 const TEXT__CONTACT = "Contact us: 0000-0000";
 const TEXT__ADDRESS = "충청북도 충주시 대학로 50 한국교통대학교 중앙정보관";
@@ -12,7 +12,7 @@ const TEXT__COPYRIGHT =
 
 const Footer = () => {
   // global state
-  const curr_color = useRecoilValue(color);
+  const curr_color = useRecoilValue(color_bg_state);
 
   return (
     <>

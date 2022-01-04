@@ -2,7 +2,7 @@ import Header_main from "./main/header_main";
 import Gnb from "./gnb/gnb";
 import styles from "../../../styles/header/_header.module.scss";
 import { useRecoilValue } from "recoil";
-import { color } from "../../../recoil/atoms/atoms";
+import { color_bg_state } from "../../../recoil/atoms/atoms";
 import { useState } from "react";
 
 const header_components = [
@@ -18,7 +18,7 @@ const header_components = [
 
 const Header = () => {
   // global state
-  const curr_color = useRecoilValue(color);
+  const curr_color = useRecoilValue(color_bg_state);
 
   return (
     <>

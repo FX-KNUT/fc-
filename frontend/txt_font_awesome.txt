@@ -5,3 +5,9 @@ Left Arrow
 Login
 <i class="fab fa-google"></i>
 <i class="fab fa-facebook-f"></i>
+
+User
+- <i class="fas fa-user-circle"></i>
+
+Search
+- <i class="fas fa-search"></i>

@@ -2,7 +2,6 @@
 @import "./mixin";
 
 .comp_container {
-  border: 1px solid orange;
   .comp_container_header {
     display: flex;
     justify-content: space-between;
@@ -105,7 +104,6 @@
 
 .comp_card {
   padding: 1rem;
-  border: 1px solid red;
 }
 
 .card_pad_wrapper {
@@ -127,11 +125,10 @@
 
   .comp_modal_content {
     position: relative;
-    background-color: hsl(0, 0%, 100%);
-    width: 40%;
     height: 100%;
     border-radius: 6px 0 0 6px;
     scrollbar-width: 0;
+    padding: 2rem 1rem;
 
     .comp_modal_btn_close {
       position: absolute;
@@ -148,7 +145,6 @@
   .comp_slide_modal_container {
     .comp_modal_content {
       width: 80%;
-      height: 100%;
 
       .comp_modal_btn_close {
         top: 0.5rem;
@@ -162,7 +158,6 @@
   .comp_slide_modal_container {
     .comp_modal_content {
       width: 70%;
-      height: 100%;
 
       .comp_modal_btn_close {
         top: 0.5rem;
@@ -176,7 +171,6 @@
   .comp_slide_modal_container {
     .comp_modal_content {
       width: 50%;
-      height: 100%;
 
       .comp_modal_btn_close {
         top: 0.5rem;

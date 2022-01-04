@@ -1,32 +1,46 @@
 @import "../variable";
 
-.header_hamburger_container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  .hamburger_session_container {
-    width: 100%;
+.hamburger_container {
+  & > div {
     &::after {
-      content: "";
       display: block;
+      content: "";
       width: 100%;
       height: 1px;
       background-color: $separation_color;
+      margin: 1rem 0;
     }
   }
-  .hamburger_gnb_container {
-    .gnb_contents {
+  .user_wrapper {
+    .user_container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 0.5rem;
+      i {
+        font-size: 3.75rem;
+      }
+
+      span {
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .gnb_wrapper {
+    .gnb_container {
       display: flex;
       flex-direction: column;
       gap: 1rem;
     }
+  }
 
-    &::after {
-      content: "";
-      display: block;
-      width: 100%;
-      height: 1px;
-      background-color: $separation_color;
+  .setting_wrapper {
+    .setting_container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
   }
 }

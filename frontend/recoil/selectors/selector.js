@@ -2,6 +2,7 @@ import { selector } from "recoil";
 import { language, language_state } from "../atoms/atoms";
 
 const korea = [
+  { href: "/", span: "홈" },
   {
     href: "/guide",
     span: "가이드",
@@ -30,6 +31,7 @@ const korea = [
 
 //
 const english = [
+  { href: "/", span: "Home" },
   {
     href: "/guide",
     span: "Guide",
