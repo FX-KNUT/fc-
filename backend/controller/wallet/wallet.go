@@ -8,7 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const err_creating_wallet string = "error occurred while creating wallet"
+const ERR_CREATING_WALLET string = "error occurred while creating wallet"
+const ERR_GETTING_WALLET string = "error occurred while getting A wallet"
 
 type Wallet entity.Wallet
 
@@ -17,6 +18,7 @@ type controller struct {
 }
 
 type Wallet_controller interface {
+	GetWallet(*gin.Context, string) error
 	CreateWallet(*gin.Context, entity.User, int) error
 }
 
@@ -26,12 +28,28 @@ func New__Wallet(service service.Wallet_service) Wallet_controller {
 	}
 }
 
+func (c *controller) GetWallet(ctx *gin.Context, owner string) error {
+
+	wallet, err := c.service.GetWallet(owner)
+
+	if err != nil {
+		ctx.String(http.StatusBadGateway, ERR_GETTING_WALLET)
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "OK",
+		"data": wallet,
+	})
+
+	return nil
+}
+
 func (c *controller) CreateWallet(ctx *gin.Context, user entity.User, balance int) error {
 
 	err := c.service.CreateWallet(user, balance)
 
 	if err != nil {
-		ctx.String(http.StatusBadGateway, err_creating_wallet)
+		ctx.String(http.StatusBadGateway, ERR_CREATING_WALLET)
 		return err
 	}
 
