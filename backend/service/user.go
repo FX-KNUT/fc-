@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 
-	database "github.com/FX-KNUT/fc-/backend/database"
 	db "github.com/FX-KNUT/fc-/backend/database"
 	"github.com/FX-KNUT/fc-/backend/entity"
 )
@@ -31,7 +30,7 @@ func New__User() User_service {
 
 func (s *struct_user_service) addUserToWallet(id string, balance int) error {
 
-	db := database.Fn_open__db()
+	db := db.Fn_open__db()
 
 	query := fmt.Sprintf("INSERT INTO wallet VALUES('%s', '%d')", id, balance)
 
@@ -44,7 +43,7 @@ func (s *struct_user_service) SignIn(id, pw string) (entity.User, error) {
 
 	var user entity.User
 
-	db := database.Fn_open__db()
+	db := db.Fn_open__db()
 
 	query := fmt.Sprintf("SELECT id from users where id = '%s' and hashed_pw = '%s'", id, pw)
 
@@ -59,7 +58,7 @@ func (s *struct_user_service) SignIn(id, pw string) (entity.User, error) {
 
 func (s *struct_user_service) SignUp(user entity.User, balance int) error {
 
-	db := database.Fn_open__db()
+	db := db.Fn_open__db()
 
 	query := fmt.Sprintf("INSERT INTO users VALUES('%s', '%s', '%s', '%s')",
 		user.User_id, user.User_nickname, user.User_hashed_pw, user.User_email)
@@ -79,7 +78,7 @@ func (s *struct_user_service) CheckDuplicatedId(id string) error {
 
 	var ret_id string
 
-	db := database.Fn_open__db()
+	db := db.Fn_open__db()
 
 	query := fmt.Sprintf("SELECT id from users where id = '%s'", id)
 
