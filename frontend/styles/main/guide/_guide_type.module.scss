@@ -1,0 +1,74 @@
+@import "../../variable";
+
+.guide_article_wrapper {
+  &,
+  * {
+    box-sizing: border-box;
+  }
+
+  & {
+    width: 95%;
+    // height: 120px;
+    border: 1px solid hsl(0, 0%, 70%);
+
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+
+    padding: 0 10px;
+
+    margin-top: 20px;
+
+    cursor: pointer;
+  }
+
+  &:hover {
+    background-color: hsl(0, 0%, 98%);
+  }
+
+  &:hover > .guide_article_content_wrapper {
+    display: block;
+  }
+
+  .guide_article_post {
+    & {
+      max-width: 90%;
+
+      display: flex;
+      align-items: center;
+
+      cursor: pointer;
+    }
+
+    .guide_article_image {
+      width: 100px;
+      height: 100px;
+      border: 1px solid hsl(0, 0%, 70%);
+      border-radius: 50%;
+
+      margin-right: 20px;
+
+      flex-shrink: 0;
+
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .guide_article_title {
+      // min-width: 100px;
+      max-width: 80%;
+      // border: 1px solid black; // tmp
+      word-wrap: break-word;
+      // overflow: hidden;
+      // text-overflow: ellipsis;
+      font-size: 1.5rem;
+    }
+  }
+
+  .guide_article_content_wrapper {
+    // background-color: hsl(0, 0%, 70%);
+    display: none;
+    margin: 20px 0 10px 0;
+    font-size: 1.5rem;
+  }
+}

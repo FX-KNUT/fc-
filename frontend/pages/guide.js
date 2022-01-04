@@ -2,42 +2,35 @@ import Card_pad from "../components/Reusable/t_fx__card_pad";
 import styles from "../styles/main/guide/_guide.module.scss";
 import Link from "next/link";
 import Guide_wrapper from "../components/Common/Main/guide/guide_wrapper";
+import Guide_all_types_wrapper from "../components/Common/Main/guide/guide_all_types_wrapper";
+import Guide_type_wrapper from "../components/Common/Main/guide/guide_type_wrapper";
+import Guide_type from "../components/Common/Main/guide/guide_type";
 
-const guide_components = [
+const guide_all_list = [
   {
-    alt: "",
-    image_component: <div></div>,
-    text_component: <div></div>,
+    alt: "buying",
+    type: "buying",
   },
   {
-    alt: "",
-    image_component: <div></div>,
-    text_component: <div></div>,
+    alt: "selling",
+    type: "selling",
   },
   {
-    alt: "",
-    image_component: <div></div>,
-    text_component: <div></div>,
+    alt: "coin_info",
+    type: "coin_info",
   },
 ];
 
 const guide = () => {
   return (
-    <Guide_wrapper className={styles.guide_wrapper}>
-      <div className={styles.guide_element_wrapper}>
-        <h2>Guide</h2>
-        {guide_components.map((g_component) => {
-          return (
-            <div
-              key={g_component.alt}
-              className={styles[`${g_component.alt}_wrapper`]}
-            >
-              <Card_pad>{g_component.image_component}</Card_pad>
-              <Card_pad>{g_component.text_component}</Card_pad>
-            </div>
-          );
-        })}
-      </div>
+    <Guide_wrapper>
+      <Guide_all_types_wrapper>
+        {guide_all_list.map((g_list, i) => (
+          <Guide_type_wrapper key={g_list.alt} g_type={g_list.type}>
+            <Guide_type g_type={g_list.type}></Guide_type>
+          </Guide_type_wrapper>
+        ))}
+      </Guide_all_types_wrapper>
     </Guide_wrapper>
   );
 };
