@@ -1,8 +1,5 @@
 import styles from "../../../../../../styles/header/main/session/language/_header_main_session_language.module.scss";
-import {
-  color_bg_state,
-  language_state,
-} from "../../../../../../recoil/atoms/atoms.js";
+import { language_state } from "../../../../../../recoil/atoms/atoms.js";
 import { useState, useRef } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
@@ -14,7 +11,6 @@ const Language = () => {
 
   // Global state
   const [curr_lang, set_curr_lang] = useRecoilState(language_state);
-  const curr_color = useRecoilValue(color_bg_state);
 
   // Local ref
   const ref_lang = useRef();
@@ -42,7 +38,6 @@ const Language = () => {
         onBlur={fn_on_blur_language}
         ref={ref_lang}
         defaultValue={curr_lang}
-        style={{ backgroundColor: curr_color }}
       >
         {language_list.map((lang) => {
           return (

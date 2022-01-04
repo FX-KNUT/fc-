@@ -5,6 +5,9 @@
   position: sticky;
   top: 0;
   z-index: 3;
+  background-color: #755139;
+  color: #f2edd7;
+
   & > div::after {
     content: "";
     display: block;
@@ -12,6 +15,11 @@
     height: 1px;
     background-color: $default_color__logo;
   }
+}
+
+.on {
+  background-color: #f2edd7;
+  color: #755139;
 }
 
 @include mobile {

@@ -1,10 +1,10 @@
 import ReactDOM from "react-dom";
 import { useRecoilValue } from "recoil";
-import { color_bg_state } from "../../recoil/atoms/atoms";
+import { dark_state } from "../../recoil/atoms/atoms";
 import styles from "../../styles/t_fx_comp.module.scss";
 
 const T_fx__slide_modal = ({ children, is_show__modal, fn_on_close }) => {
-  const curr_color = useRecoilValue(color_bg_state);
+  const is_dark = useRecoilValue(dark_state);
   return (
     is_show__modal &&
     ReactDOM.createPortal(
@@ -14,8 +14,9 @@ const T_fx__slide_modal = ({ children, is_show__modal, fn_on_close }) => {
           onClick={() => fn_on_close()}
         >
           <div
-            className={styles.comp_modal_content}
-            id="slide_modal_content"
+            className={`${styles.comp_modal_content} ${
+              styles[is_dark && "on"]
+            }`}
             onClick={(e) => {
               e.stopPropagation();
             }}
@@ -29,11 +30,6 @@ const T_fx__slide_modal = ({ children, is_show__modal, fn_on_close }) => {
             <div>{children}</div>
           </div>
         </div>
-        <style jsx>{`
-          #slide_modal_content {
-            background-color: ${curr_color};
-          }
-        `}</style>
       </>,
       document.getElementById("modal")
     )

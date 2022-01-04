@@ -1,29 +1,20 @@
 import { useRecoilState } from "recoil";
+import { dark_state } from "../../../../../../recoil/atoms/atoms";
 import styles from "../../../../../../styles/header/main/session/palette/_header_main_session_palette.module.scss";
-import { color_bg_state } from "../../../../../../recoil/atoms/atoms";
 
 const Palette = () => {
-  // global state
-  const [curr_color, set_curr_color] = useRecoilState(color_bg_state);
-
-  // event
-  const on_change_color = (e) => {
-    set_curr_color(e.target.value);
-  };
-
+  const [is_dark, set_is_dark] = useRecoilState(dark_state);
   return (
     <div className={styles.palette_wrapper}>
-      <label htmlFor="colorpicker">
-        <i className="fas fa-palette"></i>
-      </label>
-      <input
-        id="colorpicker"
-        type="color"
-        role="colorpicker"
-        aria-roledescription="colorpicker"
-        value={curr_color}
-        onChange={on_change_color}
-      />
+      {is_dark ? (
+        <div onClick={() => set_is_dark(false)}>
+          <i className="fas fa-toggle-on"></i>
+        </div>
+      ) : (
+        <div onClick={() => set_is_dark(true)}>
+          <i className="fas fa-toggle-off"></i>
+        </div>
+      )}
     </div>
   );
 };

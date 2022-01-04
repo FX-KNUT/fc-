@@ -122,6 +122,8 @@
   display: flex;
   justify-content: flex-end;
   background-color: rgba(0, 0, 0, 0.8);
+  font-size: 1.25rem;
+  font-weight: 600;
 
   .comp_modal_content {
     position: relative;
@@ -129,6 +131,8 @@
     border-radius: 6px 0 0 6px;
     scrollbar-width: 0;
     padding: 2rem 1rem;
+    background-color: #f2edd7;
+    color: #755139;
 
     .comp_modal_btn_close {
       position: absolute;
@@ -139,6 +143,16 @@
       font-weight: 700;
     }
   }
+
+  .on {
+    background-color: #755139;
+    color: #f2edd7;
+  }
+}
+
+.on {
+  background-color: #755139;
+  color: #f2edd7;
 }
 
 @include mobile {

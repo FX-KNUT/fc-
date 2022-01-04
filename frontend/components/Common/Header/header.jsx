@@ -2,8 +2,7 @@ import Header_main from "./main/header_main";
 import Gnb from "./gnb/gnb";
 import styles from "../../../styles/header/_header.module.scss";
 import { useRecoilValue } from "recoil";
-import { color_bg_state } from "../../../recoil/atoms/atoms";
-import { useState } from "react";
+import { dark_state } from "../../../recoil/atoms/atoms";
 
 const header_components = [
   {
@@ -17,24 +16,15 @@ const header_components = [
 ];
 
 const Header = () => {
-  // global state
-  const curr_color = useRecoilValue(color_bg_state);
-
+  const is_dark = useRecoilValue(dark_state);
   return (
-    <>
-      <header className={styles.header}>
-        {header_components.map((component) => (
-          <div key={component.alt} className={styles[component.alt]}>
-            {component.component}
-          </div>
-        ))}
-      </header>
-      <style jsx>{`
-        header {
-          background-color: ${curr_color};
-        }
-      `}</style>
-    </>
+    <header className={`${styles.header} ${styles[is_dark && "on"]}`}>
+      {header_components.map((component) => (
+        <div key={component.alt} className={styles[component.alt]}>
+          {component.component}
+        </div>
+      ))}
+    </header>
   );
 };
 
