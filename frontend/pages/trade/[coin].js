@@ -8,6 +8,7 @@ import styles from "../../styles/main/trade/_coin.module.scss";
 import { useSetRecoilState } from "recoil";
 import { price_state } from "../../recoil/atoms/atoms";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Slide_modal from "../../components/Reusable/t_fx__slide_modal";
 
 const dummy_data = {
@@ -48,15 +49,20 @@ const exchange_components = [
 ];
 
 const Coin = () => {
-  // state
+  // local state
   const [is_show__modal, set_is_show__modal] = useState(false);
+
+  // global state
+  const set_order_price = useSetRecoilState(price_state);
 
   // event
   const fn_on_close = () => {
     set_is_show__modal(false);
   };
 
-  const set_order_price = useSetRecoilState(price_state);
+  // useRouter
+  const router = useRouter();
+  console.log(router);
 
   useEffect(() => {
     set_order_price(dummy_coin.price);
