@@ -1,6 +1,7 @@
 package server
 
 import (
+	"fmt"
 	"log"
 
 	logic_server "github.com/FX-KNUT/fc-/backend/server/logic"
@@ -10,6 +11,7 @@ var err_executing_block_generator string = "Failed to execute block generator"
 var err_recording_price_history string = "Failed to record price history"
 
 func Init() {
+	fmt.Println("Server is initializing")
 	c_is_block_generator_ok := make(chan bool)
 	c_is_record_price_history := make(chan bool)
 	

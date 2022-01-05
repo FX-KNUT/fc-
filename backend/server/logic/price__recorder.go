@@ -7,7 +7,7 @@ import (
 	db "github.com/FX-KNUT/fc-/backend/database"
 )
 
-const INTERVAL_RECORD_PRICE time.Duration = time.Second
+const INTERVAL_RECORD_PRICE time.Duration = time.Second * 2
 
 func save_price_history() error {
 
@@ -42,7 +42,13 @@ func save_price_history() error {
 	
 	query__record_price = query__record_price + "("
 
-	for price := range coin_prices {
+	time := time.Now().String()
+
+	timestamp := time[:19]
+
+	query__record_price = fmt.Sprintf("%s'%s', ", query__record_price, timestamp)
+
+	for _, price := range coin_prices {
 		query__record_price = 
 			fmt.Sprintf("%s%d, ", query__record_price, price)
 	}
@@ -53,9 +59,7 @@ func save_price_history() error {
 
 	query__record_price = fmt.Sprintf("%s)", formatter)
 
-	fmt.Println(query__record_price)
-
-	// _, err := db.Query(query__record_price)
+	_, err = db.Query(query__record_price)
 
 	return err
 
@@ -69,6 +73,9 @@ func record_price() error {
 }
 
 func Price_recorder(c chan<- bool) {
+
+	fmt.Println("Start Recording Price History To DB Per 2 Seconds...")
+
 	interval := INTERVAL_RECORD_PRICE
 	ticker := time.NewTicker(interval)
 	clear := make(chan bool)
