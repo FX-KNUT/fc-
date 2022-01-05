@@ -16,7 +16,7 @@ const korea = [
     span: "투자정보",
   },
   {
-    href: "/trade/BTC",
+    href: "/trade/차",
     span: "거래소",
   },
   {
@@ -45,7 +45,7 @@ const english = [
     span: "Info",
   },
   {
-    href: "/trade/BTC",
+    href: "/trade/차",
     span: "Trade",
   },
   {

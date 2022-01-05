@@ -182,17 +182,15 @@
 
 .sign_up_wrapper {
   position: relative;
-  z-index: 999;
-  width: 100%;
-  height: 100%;
-  padding: 2rem;
+  // z-index: 999;
+  // width: 100%;
+  // height: 100%;
+  // padding: 2rem;
 
   & .sign_up_container {
-
     & #sign_up_title {
-    
       &::after {
-        content: '';
+        content: "";
         display: block;
         position: relative;
         width: 100%;
@@ -204,13 +202,33 @@
     }
 
     & #sign_up_content {
-      height: 40%;
-      overflow: hidden;
+      max-height: 300px;
+      overflow-y: scroll;
       padding: 0.5rem;
       padding-top: unset;
 
-      & fieldset {
+      /* width */
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
 
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 6px;
+
+        /* Handle on hover */
+        &:hover {
+          background: rgba(0, 0, 0, 0.3);
+        }
+      }
+
+      & fieldset {
         margin-bottom: 1rem;
 
         & legend {
@@ -234,6 +252,9 @@
       display: flex;
       justify-content: space-evenly;
       height: 2.5rem;
+      & > div {
+        cursor: pointer;
+      }
     }
   }
 }
@@ -264,7 +285,6 @@
   }
 
   & fieldset {
-
     margin-bottom: 1rem;
 
     & legend {
