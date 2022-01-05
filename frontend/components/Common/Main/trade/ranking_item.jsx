@@ -16,7 +16,7 @@ const Ranking_item = ({ _obj_coin }) => {
         )}
       </div>
       <div className={styles.item_name}>
-        <Link href={`/exchange/${coin_name}`}>
+        <Link href={`/trade/${coin_name}`}>
           <a>
             <div className={styles.coin_name}>{coin_name}</div>
           </a>
