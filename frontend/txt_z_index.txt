@@ -5,3 +5,6 @@ header에 sticky가 있어서 modal을 킬 때 sticky가 포함안되는 문제 
 modal에 z-index를 5줬습니다. 그리고 position fixed도 줬어요(inline으로 줬습니다.)
 
 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+
+22.01.05
+candlestick chart에서 .apexcharts-toolbar이런게 있는데 이게 z-index default값이 11이여서 0으로 고쳤습니당

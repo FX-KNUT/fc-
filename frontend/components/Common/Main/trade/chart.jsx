@@ -253,10 +253,6 @@ const dummy_data = {
       type: "candlestick",
       height: 350,
     },
-    title: {
-      text: "차",
-      align: "left",
-    },
     xaxis: {
       type: "datetime",
     },
