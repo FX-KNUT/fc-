@@ -26,7 +26,7 @@ const find_id: React.FC = () => {
           <input
             type="text"
             value={state__email}
-            onChange={(e) => set_state__email(e)}
+            onChange={(e) => set_state__email(e.target.value)}
             placeholder={str_PLACEHOLDER_EMAIL}
           />
         </fieldset>

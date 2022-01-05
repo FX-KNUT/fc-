@@ -29,7 +29,7 @@ const find_pw: React.FC = () => {
           <input
             type="text"
             value={state__id}
-            onChange={(e) => set_state__id(e)}
+            onChange={(e) => set_state__id(e.target.value)}
             placeholder={str_PLACEHOLDER_ID}
           />
         </fieldset>
@@ -39,7 +39,7 @@ const find_pw: React.FC = () => {
           <input
             type="text"
             value={state__email}
-            onChange={(e) => set_state__email(e)}
+            onChange={(e) => set_state__email(e.target.value)}
             placeholder={str_PLACEHOLDER_EMAIL}
           />
         </fieldset>
