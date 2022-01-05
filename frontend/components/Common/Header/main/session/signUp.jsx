@@ -27,10 +27,10 @@ const sign_up = ({fn_toggle_sign_up_modal}) => {
     const [state__is_sign_up_success, set_state__is_sign_up_success] = useState(false);
     const [state__is_sign_up_failed, set_state__is_sign_up_failed] = useState(false);
 
-    const fn_on_change__id = () => set_state__id(state__id);
-    const fn_on_change__pw = () => set_state__pw(state__pw);
-    const fn_on_change__nickname = () => set_state__nickname(state__nickname);
-    const fn_on_change__email = () => set_state__email(state__email);
+    const fn_on_change__id = (e) => set_state__id(e.target.value);
+    const fn_on_change__pw = (e) => set_state__pw(e.target.value);
+    const fn_on_change__nickname = (e) => set_state__nickname(e.target.value);
+    const fn_on_change__email = (e) => set_state__email(e.target.value);
     const fn_close_sign_up_result_modal = () => {
         set_state__is_sign_up_success(false);
         set_state__is_sign_up_failed(false);
