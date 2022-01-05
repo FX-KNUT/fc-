@@ -116,10 +116,10 @@ func (s *struct_coin_service) LikeCoin(coin_name string, user_id string) (bool, 
 		return false, err
 	}
 
-	query__bookmark__getter := fmt.Sprintf("SELECT bookmark_%s from bookmark where user_id = '%s';"
-							coin_name, coin_name, user_id)
+	query__bookmark__getter := fmt.Sprintf("SELECT bookmark_%s from bookmark where user_id = '%s';",
+							coin_name, user_id)
 
-	err := db.QueryRow(query__bookmark__getter).Scan(&bookmark_int)
+	err = db.QueryRow(query__bookmark__getter).Scan(&bookmark_int)
 
 	if err != nil {
 		return false, err
