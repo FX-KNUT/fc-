@@ -5,6 +5,7 @@ import (
 	"time"
 
 	db "github.com/FX-KNUT/fc-/backend/database"
+	"github.com/FX-KNUT/fc-/backend/server/logic/fx_framework"
 )
 
 const INTERVAL_RECORD_PRICE time.Duration = time.Second * 2
@@ -42,9 +43,7 @@ func save_price_history() error {
 	
 	query__record_price = query__record_price + "("
 
-	time := time.Now().String()
-
-	timestamp := time[:19]
+	timestamp := fx_framework.Timestamp()
 
 	query__record_price = fmt.Sprintf("%s'%s', ", query__record_price, timestamp)
 

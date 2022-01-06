@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/FX-KNUT/fc-/backend/api/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,6 +22,8 @@ func Init() {
 	c_is_ready_POST := make(chan bool)
 
 	r := gin.Default() // router
+
+	r.Use(middleware.CORS())
 
 	go Get(c_is_ready_GET, r)
 	go Post(c_is_ready_POST, r)

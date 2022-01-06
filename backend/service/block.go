@@ -187,9 +187,9 @@ func (s *struct_block_service) SaveBlock(block entity.Block) error {
 
 	db := db.Fn_open__db()
 
-	query := fmt.Sprintf("INSERT INTO BLOCK VALUES (%d, '%s', '%s', '%s', '%d',)",
+	query := fmt.Sprintf("INSERT INTO BLOCK VALUES (%d, '%s', '%s', '%s', '%s', %d,)",
 		block.Block_index, block.Block_hash, block.Block_previous_hash, block.Block_owner,
-		block.Block_difficulty)
+		block.Block_created_at, block.Block_difficulty)
 
 	_, err := db.Query(query)
 

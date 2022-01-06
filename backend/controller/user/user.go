@@ -109,6 +109,8 @@ func (c *controller) SignUp(ctx *gin.Context) error {
 
 	err := ctx.ShouldBindJSON(&user)
 
+	fmt.Println(user)
+
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"message": "유효하지 않은 정보가 있습니다.",

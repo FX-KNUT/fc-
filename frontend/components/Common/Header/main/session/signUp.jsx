@@ -38,8 +38,7 @@ const sign_up = ({fn_toggle_sign_up_modal}) => {
 
     const fn_on_OK = () => {
         if(!fn_validate()) return;
-        const hashed_pw = fn_hash_pw(state__pw);
-        fn_submit(hashed_pw);
+        fn_submit();
     };
     const fn_on_cancel = () => fn_toggle_sign_up_modal(false);
     const fn_on_init = () => {
@@ -49,7 +48,25 @@ const sign_up = ({fn_toggle_sign_up_modal}) => {
         set_state__email("");
     };
 
-    const fn_validate = () => {
+    const fn_validate = async () => {
+
+        const IP = "http://localhost:8096";
+        const ENDPOINT = "/checkid";
+        const QUERY = `?id=${state__id}`;
+
+        const url = `${IP}${ENDPOINT}${QUERY}`;
+        const res = await axios.get(url, {
+            headers: {
+
+            }
+        });
+        const { statusCode } = res;
+
+        if(statusCode === 400)
+            return window.alert("중복된 ID가 있습니다.");
+        else if(statusCode !== 200)
+            return window.alert("알 수 없는 에러가 발생하였습니다.");
+
         const regex_id = /^[a-zA-Z0-9]{4,12}$/;
         const regex_pw = /^[a-zA-Z0-9]{8,20}$/;
         const regex_mail =
@@ -87,8 +104,12 @@ const sign_up = ({fn_toggle_sign_up_modal}) => {
     }
 
     const fn_hash_pw = (pw) => {
-        const missing = process.env.HASH_LENGTH - pw.length; // 36-pw개수 = 빈 부분 채우기
-        let temp = pw + process.env.SALT.substr(0, missing); // process.env.NEXT_PUBLIC_SALT.substr(0)
+
+        const HASH_LENGTH = 60;
+        const SALT = "angksehwjsshfausanjgksldbznlwmdhsejqmffjrdbwotjrsjanwhgdkdysosusdpeheotkd";
+
+        const missing = HASH_LENGTH - pw.length; // 36-pw개수 = 빈 부분 채우기
+        let temp = pw + SALT.substring(0, missing); // process.env.NEXT_PUBLIC_SALT.substr(0)
         temp = temp
           .split("")
           .map((t, idx) => {
@@ -101,18 +122,23 @@ const sign_up = ({fn_toggle_sign_up_modal}) => {
         return temp;
       };
 
-    const fn_submit = async (e, hashed_pw) => {
-        console.log(e, hashed_pw);
-        e.preventDefault();
-        try {
-            const url = `${process.env.NEXT_PUBLIC_IP}${process.env.NEXT_PUBLIC_URL__SIGNUP}`;
+    const fn_submit = async () => {
 
-            const res = await axios.get(url, {
+        const hashed_pw = fn_hash_pw(state__pw);
+        event.preventDefault();
+
+        const IP = "http://localhost:8096";
+        const ENDPOINT = "/signup";
+
+        try {
+            const url = `${IP}${ENDPOINT}`;
+
+            const res = await axios.post(url, {
                 params: {
-                    'id': state__id,
-                    'nickname': state__nickname,
-                    'hashed_pw': hashed_pw,
-                    'email': state__email,
+                    'User_id': state__id,
+                    'User_nickname': state__nickname,
+                    'User_hashed_pw': hashed_pw,
+                    'User_email': state__email,
                 }
             });
 
@@ -142,7 +168,7 @@ const sign_up = ({fn_toggle_sign_up_modal}) => {
                     </fieldset>
                     <fieldset>
                         <legend>{str_LABEL__PW}</legend>
-                        <input type="text" value={state__pw} onChange={fn_on_change__pw} placeholder={str_PLACEHOLDER__PW} />
+                        <input type="password" value={state__pw} onChange={fn_on_change__pw} placeholder={str_PLACEHOLDER__PW} />
                     </fieldset>
                     <fieldset>
                         <legend>{str_LABEL__NICKNAME}</legend>

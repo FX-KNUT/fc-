@@ -12,7 +12,7 @@ import (
 
 const INTERVAL_GENERATE_BLOCK time.Duration = (time.Minute * 10)
 
-const ERR_GETTING_BLOCK__LATEST_BLOCK string = "Error occured while getting the latest blcok"
+const ERR_GETTING_BLOCK__LATEST_BLOCK string = "Error occured while getting the latest block"
 const ERR_SAVING_BLOCK string = "Error occured while saving a block"
 
 const LOGGER_BLOCK_BEING_GENERATED string = "block is being generated!"
@@ -30,6 +30,7 @@ func initialize_block() (entity.Block, error) {
 	prev_block, err := block_service.GetLatestBlock()
 	
 	if err != nil {
+		fmt.Println("error here: 1")
 		return entity.Block{}, err
 	}
 
@@ -37,17 +38,19 @@ func initialize_block() (entity.Block, error) {
 
 	block_prev_hash := prev_block.Block_hash
 
-	block_timestamp := time.Now().String()
+	block_timestamp := fx_framework.Timestamp()
 	
 	block_txs, err := block_service.GetTxsOfBlock(block_index)
 	
 	if err != nil {
+		fmt.Println("error here: 2")
 		return entity.Block{}, err
 	}
 
 	block_txs__marshaled, err := fx_framework.Stringify(block_txs)
 
 	if err != nil {
+		fmt.Println("error here: 3")
 		return entity.Block{}, err
 	}
 
@@ -56,6 +59,7 @@ func initialize_block() (entity.Block, error) {
 	Block_difficulty, err := Block_get_difficulty(block_index)
 
 	if err != nil {
+		fmt.Println("error here: 4")
 		return entity.Block{}, err
 	}
 

@@ -28,13 +28,9 @@ func fn_conv_hex_to_bin(s string) (ret_str string) {
 	return
 }
 
-func Block_get_hash(index int, prev_hash string, timestamp string, tx_id string) (ret_bin string) {
+func block_calculator(cuisine string) string {
 
 	hash := sha256.New()
-
-	mixed_str := strconv.Itoa(index) + prev_hash + timestamp + tx_id
-
-	cuisine := mixed_str + salt
 
 	hash.Write([]byte(cuisine))
 
@@ -44,6 +40,18 @@ func Block_get_hash(index int, prev_hash string, timestamp string, tx_id string)
 
 	bin := fn_conv_hex_to_bin(str)
 
+	return bin
+
+}
+
+func Block_get_hash(index int, prev_hash string, timestamp string, tx_id string) (ret_bin string) {
+
+	mixed_str := strconv.Itoa(index) + prev_hash + timestamp + tx_id
+
+	cuisine := mixed_str + salt
+
+	bin := block_calculator(cuisine)
+
 	ret_bin = fx_framework.Reverse(bin)
 
 	return
@@ -51,17 +59,9 @@ func Block_get_hash(index int, prev_hash string, timestamp string, tx_id string)
 
 func Block_compare_hash(_hash string, nonce int, difficulty int) bool {
 
-	target_hash := sha256.New()
+	cuisine := _hash + strconv.Itoa(nonce)
 
-	mixed_str := _hash + strconv.Itoa(nonce)
-
-	target_hash.Write([]byte(mixed_str))
-
-	md := target_hash.Sum(nil)
-
-	str := hex.EncodeToString(md)
-
-	bin := fn_conv_hex_to_bin(str)
+	bin := block_calculator(cuisine)
 
 	sliced := bin[:difficulty]
 
