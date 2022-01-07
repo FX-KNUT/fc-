@@ -14,7 +14,7 @@ type struct_block_service struct {
 type Block_service interface {
 	GetBlock(int) (entity.Block, error)
 	GetAllBlocks() ([]entity.Block, error)
-	GetLatestBlock() (entity.Block, error)
+	GetLatestBlock() (entity.Block_as_entity, error)
 	GetLatestUnminedBlock() (entity.Block, error)
 	GetLatestIndex() (int, error)
 	GetFullBlockInfo(entity.Block) (entity.Block, error)
@@ -75,9 +75,9 @@ func (s *struct_block_service) GetAllBlocks() ([]entity.Block, error) {
 	return blocks, nil
 }
 
-func (s *struct_block_service) GetLatestBlock() (entity.Block, error) {
+func (s *struct_block_service) GetLatestBlock() (entity.Block_as_entity, error) {
 
-	var block entity.Block
+	var block entity.Block_as_entity
 
 	db := db.Fn_open__db()
 
@@ -86,7 +86,7 @@ func (s *struct_block_service) GetLatestBlock() (entity.Block, error) {
 	err := db.QueryRow(query).Scan(&block)
 
 	if err != nil {
-		return entity.Block{}, err
+		return entity.Block_as_entity{}, err
 	}
 
 	return block, nil

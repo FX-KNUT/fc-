@@ -173,9 +173,6 @@ func fn_REST_post__get_reports(c *gin.Context) {
 
 func fn_REST_post__signup(c *gin.Context) {
 	err := POST_user_controller.SignUp(c)
-
-	fmt.Println(c.Params)
-	fmt.Println("Am I doing wrong?")
 	
 	if err != nil {
 		fmt.Println(err.Error())

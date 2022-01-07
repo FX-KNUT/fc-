@@ -40,17 +40,11 @@ func (s *struct_wallet_service) GetWallet(owner string) (entity.Wallet, error) {
 
 func (s *struct_wallet_service) CreateWallet(user entity.User, balance int) error {
 
-	var is_success error
-
 	db := db.Fn_open__db()
 
 	query := fmt.Sprintf("INSERT INTO wallet(wallet_owner, wallet_balance) VALUES ('%s', %d)", user.User_id, balance)
 
-	err := db.QueryRow(query).Scan(&is_success)
+	_, err := db.Query(query)
 
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return err
 }

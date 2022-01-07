@@ -32,7 +32,7 @@ func (s *struct_user_service) addUserToWallet(id string, balance int) error {
 
 	db := db.Fn_open__db()
 
-	query := fmt.Sprintf("INSERT INTO wallet VALUES('%s', '%d')", id, balance)
+	query := fmt.Sprintf("INSERT INTO wallet(wallet_owner, wallet_balance) VALUES('%s', '%d')", id, balance)
 
 	_, err := db.Query(query)
 
@@ -45,7 +45,7 @@ func (s *struct_user_service) SignIn(id, pw string) (entity.User, error) {
 
 	db := db.Fn_open__db()
 
-	query := fmt.Sprintf("SELECT id from users where id = '%s' and hashed_pw = '%s'", id, pw)
+	query := fmt.Sprintf("SELECT user_id from users where user_id = '%s' and hashed_pw = '%s'", id, pw)
 
 	err := db.QueryRow(query).Scan(&user)
 
@@ -69,8 +69,6 @@ func (s *struct_user_service) SignUp(user entity.User, balance int) error {
 		return err
 	}
 
-	err = s.addUserToWallet(user.User_id, balance)
-
 	return err
 }
 
@@ -80,7 +78,7 @@ func (s *struct_user_service) CheckDuplicatedId(id string) error {
 
 	db := db.Fn_open__db()
 
-	query := fmt.Sprintf("SELECT id from users where id = '%s'", id)
+	query := fmt.Sprintf("SELECT user_id from users where user_id = '%s'", id)
 
 	row := db.QueryRow(query)
 

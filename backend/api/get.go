@@ -30,10 +30,7 @@ var (
 
 func fn_REST_sign_in(c *gin.Context) {
 
-	id := c.Query("id")
-	pw := c.Query("pw")
-
-	err := GET_user_controller.SignIn(c, id, pw)
+	err := GET_user_controller.SignIn(c)
 
 	if err != nil {
 		fmt.Println(err.Error())

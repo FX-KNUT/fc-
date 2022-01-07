@@ -24,7 +24,7 @@ func initialize_block() (entity.Block, error) {
 
 	var (
 		new_block entity.Block
-		prev_block entity.Block
+		prev_block entity.Block_as_entity
 	)
 
 	prev_block, err := block_service.GetLatestBlock()

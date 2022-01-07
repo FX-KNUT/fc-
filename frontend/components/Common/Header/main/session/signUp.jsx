@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import SignUpSuccess from "./signUpSuccess.tsx";
 import SignUpFail from "./signUpFail.tsx";
+import fn_hashing from "../../../../Logic/fn_hashing";
 
 const STR_SIGN_UP__TITLE = "회원 가입";
 const STR_SIGN_UP__OK = "가입";
@@ -36,8 +37,9 @@ const sign_up = ({fn_toggle_sign_up_modal}) => {
         set_state__is_sign_up_failed(false);
     }
 
-    const fn_on_OK = () => {
-        if(!fn_validate()) return;
+    const fn_on_OK = async () => {
+        const result_account_validation = await fn_validate();
+        if(!result_account_validation) return;
         fn_submit();
     };
     const fn_on_cancel = () => fn_toggle_sign_up_modal(false);
@@ -55,77 +57,60 @@ const sign_up = ({fn_toggle_sign_up_modal}) => {
         const QUERY = `?id=${state__id}`;
 
         const url = `${IP}${ENDPOINT}${QUERY}`;
-        const res = await axios.get(url, {
-            headers: {
 
-            }
-        });
-        const { statusCode } = res;
+        let is_error = false;
 
-        if(statusCode === 400)
-            return window.alert("중복된 ID가 있습니다.");
-        else if(statusCode !== 200)
-            return window.alert("알 수 없는 에러가 발생하였습니다.");
+            await axios
+                .get(url)
+                .then(() => {
+        
+                    const regex_id = /^[a-zA-Z0-9]{4,12}$/;
+                    const regex_pw = /^[a-zA-Z0-9]{8,20}$/;
+                    const regex_mail =
+                    /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[a-z0-9]+[a-z0-9]*[.]{1}[a-z0-9]{1,48}$/;
+                    const regex_nickname = /^[A-Za-z0-9가-힣]{2,12}$/;
+            
+                    let ERRORS = '';
+            
+                    if(!regex_id.test(state__id)) {
+                        ERRORS += "아이디는 영문 대소문자와 숫자만으로, 4자 이상 12자 이내로 입력해주세요.";
+                        ERRORS += "\n";
+                    }
+            
+                    if(!regex_pw.test(state__pw)) {
+                        ERRORS += "비밀번호는 영문 대소문자와 숫자만으로, 8자 이상 20자 이내로 입력해주세요.";
+                        ERRORS += "\n";
+                    }
+            
+                    if(!regex_mail.test(state__email)) {
+                        ERRORS += "이메일 형식이 올바르지 않습니다.";
+                        ERRORS += "\n";
+                    }
+            
+                    if(!regex_nickname.test(state__nickname)) {
+                        ERRORS += "별명은 영문 대소문자와 숫자 및 한글의 조합으로, 2자 이상 12자 이하로 입력해주세요.";
+                        ERRORS += "\n";
+                    }
+            
+                    if(ERRORS !== '') {
+                        window.alert(ERRORS);
+                        is_error = true;
+                    }
 
-        const regex_id = /^[a-zA-Z0-9]{4,12}$/;
-        const regex_pw = /^[a-zA-Z0-9]{8,20}$/;
-        const regex_mail =
-        /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[a-z0-9]+[a-z0-9]*[.]{1}[a-z0-9]{1,48}$/;
-        const regex_nickname = /^[A-Za-z0-9가-힣]{2,12}$/;
+                })
+                .catch(() => {
+                    window.alert("중복된 ID가 있습니다.");
+                    is_error = true;
+                });
 
-        let ERRORS = '';
-
-        if(!regex_id.test(state__id)) {
-            ERRORS += "아이디는 영문 대소문자와 숫자만으로, 4자 이상 12자 이내로 입력해주세요.";
-            ERRORS += "\n";
-        }
-
-        if(!regex_pw.test(state__pw)) {
-            ERRORS += "비밀번호는 영문 대소문자와 숫자만으로, 8자 이상 20자 이내로 입력해주세요.";
-            ERRORS += "\n";
-        }
-
-        if(!regex_mail.test(state__email)) {
-            ERRORS += "이메일 형식이 올바르지 않습니다.";
-            ERRORS += "\n";
-        }
-
-        if(!regex_nickname.test(state__nickname)) {
-            ERRORS += "별명은 영문 대소문자와 숫자 및 한글의 조합으로, 2자 이상 12자 이하로 입력해주세요.";
-            ERRORS += "\n";
-        }
-
-        if(ERRORS !== '') {
-            window.alert(ERRORS);
-            return false;
-        }
-
-        return true;
+        return !is_error
     }
-
-    const fn_hash_pw = (pw) => {
-
-        const HASH_LENGTH = 60;
-        const SALT = "angksehwjsshfausanjgksldbznlwmdhsejqmffjrdbwotjrsjanwhgdkdysosusdpeheotkd";
-
-        const missing = HASH_LENGTH - pw.length; // 36-pw개수 = 빈 부분 채우기
-        let temp = pw + SALT.substring(0, missing); // process.env.NEXT_PUBLIC_SALT.substr(0)
-        temp = temp
-          .split("")
-          .map((t, idx) => {
-            const something = (t.charCodeAt() * (idx + 3)) % 127;
-            return something > 33 ? something : something + 33;
-          })
-          .map((t) => (t = String.fromCharCode(t)))
-          .join("");
-      
-        return temp;
-      };
 
     const fn_submit = async () => {
 
-        const hashed_pw = fn_hash_pw(state__pw);
-        event.preventDefault();
+        window.event.preventDefault();
+
+        const hashed_pw = fn_hashing(state__pw);
 
         const IP = "http://localhost:8096";
         const ENDPOINT = "/signup";
@@ -134,19 +119,17 @@ const sign_up = ({fn_toggle_sign_up_modal}) => {
             const url = `${IP}${ENDPOINT}`;
 
             const res = await axios.post(url, {
-                params: {
-                    'User_id': state__id,
-                    'User_nickname': state__nickname,
-                    'User_hashed_pw': hashed_pw,
-                    'User_email': state__email,
-                }
+                id: state__id,
+                hashed_pw: window.encodeURIComponent(hashed_pw).slice(0, 60),
+                nickname: state__nickname,
+                email: state__email,
             });
 
-            const { statusCode } = res;
+            const { status } = res;
 
-            if(statusCode === 500 || statusCode === 502)
+            if(status === 500 || status === 502)
                 set_state__is_sign_up_failed(true);
-            if(statusCode === 200)
+            if(status === 200)
                 set_state__is_sign_up_success(true);
 
         } catch (err) {

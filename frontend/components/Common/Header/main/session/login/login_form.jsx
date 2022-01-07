@@ -32,23 +32,62 @@ const Login_form = () => {
   const [is_show__find_pw, set_is_show__find_pw] = useState(false);
 
   // event
-  const fn_on_submit = async (e) => {
-    e.preventDefault();
+  const fn_on_submit = async () => {
+
+    window.event.preventDefault();
+
+    const hashed_pw = fn_hashing(obj_user_info.user_pw);
+
+    const IP = "http://localhost:8096";
+    const ENDPOINT = "/signin";
+    const QUERY_ID = `id=${user_id}`;
+    const QUERY_PW = `pw=${window.encodeURIComponent(hashed_pw).slice(0, 60)}`;
+
+    console.log(QUERY_PW.length);
+    console.log(QUERY_PW);
+
     try {
-      const url = `${process.env.NEXT_PUBLIC_IP}${process.env.NEXT_PUBLIC_URL__SIGNIN}`;
-      const res = await axios.get(url, {
-        params: {
-          user_id: user_id,
-          user_pw: fn_hashing(user_pw),
-        },
-      });
-      console.log(user_id, fn_hashing(user_pw));
-      const { data } = res;
-      console.log(data);
-      // console.log(obj_user_info);
+      const url = `${IP}${ENDPOINT}?${QUERY_ID}&${QUERY_PW}`;
+      
+      const res = await axios.get(url);
+
+      // status => statusCode
+      const { status } = res;
+
+      // 200번 status가 아니거나 하는 등, Response 확인 원할 시
+      // 개발자 도구(브라우저) > Network > Name에서 선택 > Response 혹은 Preview에서 확인 가능
+
+      // 502, 400 등 임시로 작성한 코드이므로 당연히 커스텀하여도 됨. 그냥 써도 OK
+
+      // 백엔드에서 비밀번호 해싱이 잘 안 돼서 생긴 문제
+      if(status === 502) {
+        const text = "서버 문제가 발생하였습니다."
+        return window.alert(text);
+      }
+
+      // 일치하는 회원 정보가 없음
+      if(status === 400) {
+        const text = "일치하는 회원 정보가 없습니다."
+                    + "\n"
+                    + "다시 시도해주세요.";
+
+        return window.alert(text);
+      }
+
+      // 정상
+      if(status === 200) {
+        /* some logic here */
+
+        return;
+      }
+
+      /* 여기서 부턴 예기치 못한 status에 대한 로직 */
+      return window.alert("알 수 없는 에러가 발생하였습니다.");
+
     } catch (err) {
       console.error(`login.jsx.fn_on_submit:\n${err}`);
     }
+
   };
 
   const fn_on_change = (e) => {

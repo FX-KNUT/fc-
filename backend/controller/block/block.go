@@ -28,7 +28,7 @@ type controller struct {
 type Block_controller interface {
 	GetBlock(int) (entity.Block, error)
 	GetAllBlocks() ([]entity.Block, error)
-	GetLatestBlock() (entity.Block, error)
+	GetLatestBlock() (entity.Block_as_entity, error)
 	GetLatestUnminedBlock() (entity.Block, error)
 	GetLatestIndex() (int, error)
 	UpdateBlock(entity.Block) error
@@ -64,8 +64,8 @@ func (c *controller) GetAllBlocks() ([]entity.Block, error) {
 	return blocks, nil
 }
 
-func (c *controller) GetLatestBlock() (entity.Block, error) {
-	block := entity.Block{}
+func (c *controller) GetLatestBlock() (entity.Block_as_entity, error) {
+	block := entity.Block_as_entity{}
 	block, err := c.service.GetLatestBlock()
 	if err != nil {
 		return block, errors.New(ERR_GET__LATEST__BLOCK)

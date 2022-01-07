@@ -12,12 +12,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var err_wrong__ID error = errors.New("wrong id comes from client while executing Fn_sign_up")
-var err_wrong__pw error = errors.New("wrong id comes from client while executing Fn_sign_up")
-var err_wrong__user error = errors.New("wrong user info comes from client while executing Fn_sign_up")
-var err_wrong__hashing error = errors.New("error comes within server while hashing pw on Fn_sign_up")
+var err_wrong__ID error = errors.New("wrong id comes from client")
+var err_wrong__pw error = errors.New("wrong pw comes from client")
+var err_wrong__user error = errors.New("wrong user info comes from client")
+var err_wrong__hashing error = errors.New("error comes within server")
 var err_wrong__nickname error = errors.New("wrong nickname comes from client while executing Fn_sign_up")
-var err_wrong__email error = errors.New("wrong email comes from client while executing Fn_sign_up")
+var err_wrong__email error = errors.New("wrong email comes from client")
 var err_ID__duplicated error = errors.New("duplicated id at Fn_check_ID on sign_up")
 var err_ID__undefined error = errors.New("id is undefined")
 
@@ -29,7 +29,7 @@ type controller struct {
 }
 
 type User_controller interface {
-	SignIn(*gin.Context, string, string) error
+	SignIn(*gin.Context) error
 	SignUp(*gin.Context) error
 	CheckDuplicatedId(*gin.Context, string) error
 	GetUserRanking(*gin.Context) error
@@ -42,17 +42,24 @@ func New__User(service service.User_service) User_controller {
 	}
 }
 
-func (c *controller) SignIn(ctx *gin.Context, id, pw string) error {
+func (c *controller) SignIn(ctx *gin.Context) error {
+
+	id := ctx.Query("id")
+	pw := ctx.Query("pw")
+
+	fmt.Println(id);
+	fmt.Println(pw);
 
 	if len(id) < 4 || len(id) > 12 {
 		ctx.String(http.StatusBadRequest, "정보가 잘못 입력되었습니다.")
 		return err_wrong__ID
 	}
 
-	if len(pw) != 36 {
-		ctx.String(http.StatusBadRequest, "클라이언트 단에서 해싱이 잘못 된 것 같습니다. 비밀번호가 36자가 아닙니다.")
-		return err_wrong__pw
-	}
+	// bug here. why this mf takes 60 length pw and consider it as 40?
+	// if len(pw) != 60 {
+	// 	ctx.String(http.StatusBadRequest, "클라이언트 단에서 해싱이 잘못 된 것 같습니다. 비밀번호가 60자가 아닙니다.")
+	// 	return err_wrong__pw
+	// }
 
 	pw, err := logic_hashing.Fn_hashing(&pw)
 
@@ -82,7 +89,7 @@ func validateSignUp(ctx *gin.Context, user entity.User) error {
 		return err_wrong__ID
 	}
 
-	if len(user.User_hashed_pw) != 36 {
+	if len(user.User_hashed_pw) != 60 {
 		ctx.String(http.StatusBadGateway, "유효하지 않은 정보가 있습니다.")
 		fmt.Println(errors.New("error occured at Fn_sign_up on sign_up"))
 		return err_wrong__pw
@@ -108,8 +115,6 @@ func (c *controller) SignUp(ctx *gin.Context) error {
 	const USER_DEFAULT_BALANCE int = 10000
 
 	err := ctx.ShouldBindJSON(&user)
-
-	fmt.Println(user)
 
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
