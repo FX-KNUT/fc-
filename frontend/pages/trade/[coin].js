@@ -10,6 +10,7 @@ import { price_state } from "../../recoil/atoms/atoms";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Slide_modal from "../../components/Reusable/t_fx__slide_modal";
+import axios from "axios";
 
 const dummy_data = {
   dummy_coin: {
@@ -49,6 +50,9 @@ const exchange_components = [
 ];
 
 const Coin = () => {
+  //
+  const [fetch_data, set_fetch_data] = useState({});
+
   // local state
   const [is_show__modal, set_is_show__modal] = useState(false);
 
@@ -67,6 +71,23 @@ const Coin = () => {
   useEffect(() => {
     set_order_price(dummy_coin.price);
   });
+
+  const fetch = async () => {
+    try {
+      const res = axios.get(`${router}`);
+      set_fetch_data(res.data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    fetch();
+    setInterval(() => {
+      const res = axios.get(``);
+    });
+  });
+
   return (
     <main className={styles.exchange_wrapper}>
       {exchange_components.map((component) => {

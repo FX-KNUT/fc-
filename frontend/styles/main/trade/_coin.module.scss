@@ -8,7 +8,7 @@
 @include mobile {
   .exchange_wrapper {
     grid-template-rows: repeat(8, 1fr);
-    padding: 1rem 2rem;
+    padding: 1rem 1.5rem;
     gap: 1rem;
 
     .summary_wrapper {
