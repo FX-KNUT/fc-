@@ -20,6 +20,10 @@ var err_wrong__nickname error = errors.New("wrong nickname comes from client whi
 var err_wrong__email error = errors.New("wrong email comes from client")
 var err_ID__duplicated error = errors.New("duplicated id at Fn_check_ID on sign_up")
 var err_ID__undefined error = errors.New("id is undefined")
+// var err_unescaping_pw error = errors.New("error while unescaping pw query")
+var err_binding_user_info error = errors.New("error while binding id and password on server > ctrller > SignIn(API)")
+// var err_parsing_query_string error = errors.New("error while parsing the whole query string")
+// var err_parsing_query error = errors.New("error while parsing the query into an array")
 
 type User entity.User
 type Users entity.Users
@@ -44,24 +48,27 @@ func New__User(service service.User_service) User_controller {
 
 func (c *controller) SignIn(ctx *gin.Context) error {
 
-	id := ctx.Query("id")
-	pw := ctx.Query("pw")
+	var user_info struct {
+		Id  string `json:"id" binding:"required"`
+		Pw  string `json:"pw" binding:"required"`
+	}
 
-	fmt.Println(id);
-	fmt.Println(pw);
+	ctx.ShouldBindJSON(&user_info)
+
+	id := user_info.Id
+	pw := user_info.Pw
 
 	if len(id) < 4 || len(id) > 12 {
 		ctx.String(http.StatusBadRequest, "정보가 잘못 입력되었습니다.")
 		return err_wrong__ID
 	}
+	
+	if len(pw) != 60 {
+		ctx.String(http.StatusBadRequest, "클라이언트 단에서 해싱이 잘못 된 것 같습니다. 비밀번호가 60자가 아닙니다.")
+		return err_wrong__pw
+	}
 
-	// bug here. why this mf takes 60 length pw and consider it as 40?
-	// if len(pw) != 60 {
-	// 	ctx.String(http.StatusBadRequest, "클라이언트 단에서 해싱이 잘못 된 것 같습니다. 비밀번호가 60자가 아닙니다.")
-	// 	return err_wrong__pw
-	// }
-
-	pw, err := logic_hashing.Fn_hashing(&pw)
+	pw, err := logic_hashing.Fn_hashing(pw)
 
 	if err != nil {
 		ctx.String(http.StatusBadGateway, "서버 단에서 비밀번호를 해싱하는 중에 문제가 생겼습니다")
@@ -130,7 +137,9 @@ func (c *controller) SignUp(ctx *gin.Context) error {
 		return err
 	}
 
-	user.User_hashed_pw, err = logic_hashing.Fn_hashing(&user.User_hashed_pw)
+	fmt.Println("signup, password got " + user.User_hashed_pw)
+
+	user.User_hashed_pw, err = logic_hashing.Fn_hashing(user.User_hashed_pw)
 
 	if err != nil {
 		ctx.String(http.StatusBadGateway, "Error occurred while hashing on server, sorry.")
@@ -147,6 +156,14 @@ func (c *controller) SignUp(ctx *gin.Context) error {
 	err = ctrl_wallet.New__Wallet(service.New__Wallet()).CreateWallet(ctx, user, USER_DEFAULT_BALANCE)
 
 	if err != nil {
+		ctx.String(http.StatusBadGateway, "Error occured while creating your wallet.")
+		return err
+	}
+
+	err = service.New__Bookmark().InitBookmark(user.User_id)
+
+	if err != nil {
+		ctx.String(http.StatusBadGateway, "Error occured while initialize your bookmark information.")
 		return err
 	}
 

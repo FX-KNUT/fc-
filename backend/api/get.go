@@ -28,15 +28,6 @@ var (
 
 /* ************************************* */
 
-func fn_REST_sign_in(c *gin.Context) {
-
-	err := GET_user_controller.SignIn(c)
-
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-}
-
 func fn_REST_check_id(c *gin.Context) {
 
 	id := c.Query("id")
@@ -78,7 +69,6 @@ func fn_REST_get_coin_detail(c *gin.Context) {
 
 // core
 func Get(c chan<- bool, r *gin.Engine) {
-	go r.GET("/signin", fn_REST_sign_in)
 	go r.GET("/checkid", fn_REST_check_id)
 	go r.GET("/ranking", fn_REST_get_ranking)
 	go r.GET("/wallet", fn_REST_get_wallet_info)

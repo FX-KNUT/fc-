@@ -1,25 +1,22 @@
 package logic_hashing
 
 import (
-	"errors"
-
-	"golang.org/x/crypto/bcrypt"
+	"crypto/sha256"
+	"encoding/hex"
 )
 
-func Fn_hashing(s *string) (string, error) {
-	if len(*s) == 0 {
-		panic(errors.New("fn:Fn_hashsing"))
-	}
+func Fn_hashing(cuisine string) (string, error) {
 
-	sBytes := []byte(*s)
+	hash := sha256.New()
 
-	hashedBytes, err := bcrypt.GenerateFromPassword(sBytes, bcrypt.DefaultCost)
-	if err != nil {
-		panic(err)
-	}
+	hash.Write([]byte(cuisine))
 
-	*s = string(hashedBytes[:])
-	return *s, nil
+	md := hash.Sum(nil)
+
+	str := hex.EncodeToString(md)
+
+	return str[:60], nil
+
 }
 
 // func Fn_hashing(password string) (string, error) {

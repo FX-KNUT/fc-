@@ -17,7 +17,7 @@ type User_service interface {
 	addUserToWallet(string, int) error
 
 	// public
-	SignIn(string, string) (entity.User, error)
+	SignIn(string, string) (entity.User_as_response, error)
 	SignUp(entity.User, int) error
 	CheckDuplicatedId(string) error
 	GetRanking100() ([]entity.Ranking, error)
@@ -39,18 +39,28 @@ func (s *struct_user_service) addUserToWallet(id string, balance int) error {
 	return err
 }
 
-func (s *struct_user_service) SignIn(id, pw string) (entity.User, error) {
+func (s *struct_user_service) SignIn(id, pw string) (entity.User_as_response, error) {
 
-	var user entity.User
+	var user entity.User_as_response
 
 	db := db.Fn_open__db()
 
-	query := fmt.Sprintf("SELECT user_id from users where user_id = '%s' and hashed_pw = '%s'", id, pw)
+	query := fmt.Sprintf("SELECT user_id, user_nickname, user_email from users where user_id = '%s' and user_hashed_pw = '%s'", id, pw)
 
-	err := db.QueryRow(query).Scan(&user)
+	err := db.QueryRow(query).Scan(&user.User_id, &user.User_nickname, &user.User_email)
+
+	fmt.Println(err)
 
 	if err != nil {
-		return entity.User{}, err
+		return entity.User_as_response{}, err
+	}
+
+	user.User_stars, err = New__Bookmark().GetBookmarks(user.User_id)
+
+	fmt.Println(err)
+
+	if err != nil {
+		return entity.User_as_response{}, err
 	}
 	
 	return user, nil

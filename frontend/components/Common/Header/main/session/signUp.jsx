@@ -111,16 +111,20 @@ const sign_up = ({fn_toggle_sign_up_modal}) => {
         window.event.preventDefault();
 
         const hashed_pw = fn_hashing(state__pw);
+        const hashed_pw__encoded = window.encodeURI(hashed_pw).slice(0, 60);
 
         const IP = "http://localhost:8096";
         const ENDPOINT = "/signup";
+
+        console.log(("signup.length - " + hashed_pw__encoded).length);
+        console.log("signup - " + hashed_pw__encoded);
 
         try {
             const url = `${IP}${ENDPOINT}`;
 
             const res = await axios.post(url, {
                 id: state__id,
-                hashed_pw: window.encodeURIComponent(hashed_pw).slice(0, 60),
+                hashed_pw: hashed_pw__encoded,
                 nickname: state__nickname,
                 email: state__email,
             });

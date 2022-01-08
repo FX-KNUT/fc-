@@ -12,7 +12,7 @@ const fn_hashing = (pw) => {
     })
     .map((t) => (t = String.fromCharCode(t)))
     .join("");
-
+    
   return temp;
 };
 

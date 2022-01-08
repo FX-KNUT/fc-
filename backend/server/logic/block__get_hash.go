@@ -11,23 +11,6 @@ import (
 
 const salt string = "hello world! hail to f(x) and KNUT."
 
-func fn_conv_hex_to_bin(s string) (ret_str string) {
-	for _, hex := range s {
-		str := string(hex)
-		parsed, _ := strconv.ParseInt(str, 16, 64)
-		concat := ""
-		for i := 0; i < 4; i++ {
-			remainder := parsed % 2
-			int64_to_int := int(remainder)
-			Itoa := strconv.Itoa(int64_to_int)
-			concat = Itoa + concat
-			parsed = parsed / 2
-		}
-		ret_str = ret_str + string(concat)
-	}
-	return
-}
-
 func block_calculator(cuisine string) string {
 
 	hash := sha256.New()
@@ -38,7 +21,7 @@ func block_calculator(cuisine string) string {
 
 	str := hex.EncodeToString(md)
 
-	bin := fn_conv_hex_to_bin(str)
+	bin := fx_framework.Conv_hex_to_bin(str)
 
 	return bin
 

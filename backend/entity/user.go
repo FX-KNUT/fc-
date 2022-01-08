@@ -18,12 +18,26 @@ type User struct {
 	User_nickname  string `json:"nickname" binding:"required"`
 	User_hashed_pw string `json:"hashed_pw" binding:"required"`
 	User_email     string `json:"email" binding:"required"`
-	User_stars		[]string
+	User_stars		Bookmark
 }
 
 type Users []User
 type User_wallet struct {
 	User_wallet_coins []user_wallet_coin
+}
+
+type User_as_entity struct {
+	User_id        string
+	User_nickname  string
+	User_hashed_pw string
+	User_email     string
+}
+
+type User_as_response struct {
+	User_id			string
+	User_nickname	string
+	User_email		string
+	User_stars		Bookmark
 }
 
 // private
