@@ -3,7 +3,9 @@ package ctrl_user
 import (
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"net/http"
+	"os"
 
 	logic_hashing "github.com/FX-KNUT/fc-/backend/controller/logic"
 	ctrl_wallet "github.com/FX-KNUT/fc-/backend/controller/wallet"
@@ -48,6 +50,8 @@ func New__User(service service.User_service) User_controller {
 
 func (c *controller) SignIn(ctx *gin.Context) error {
 
+	var f Form_File
+
 	var user_info struct {
 		Id  string `json:"id" binding:"required"`
 		Pw  string `json:"pw" binding:"required"`
@@ -85,6 +89,13 @@ func (c *controller) SignIn(ctx *gin.Context) error {
 	ctx.JSON(http.StatusOK, gin.H{
 		"user": user,
 	})
+
+	path :=  fmt.Sprintf("/asset/user/profile_picture/%s", f.id)
+
+	img,_ := os.Open(path)
+	img_data, _ := ioutil.ReadAll(img)
+	
+	ctx.Data(http.StatusOK, "image/png", img_data)
 
 	return nil
 }

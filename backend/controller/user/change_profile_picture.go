@@ -4,17 +4,26 @@ import (
 	"fmt"
 	"mime/multipart"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
 
 type Form_File struct {
-	id string `form:"id" binding:"required"`
+	id   string                `form:"id" binding:"required"`
 	file *multipart.FileHeader `form:"file" binding:"required"`
 }
 
-func Fn_change_profile_picture(c *gin.Context) error {
+// type Form_File Form_File
 
+func fn_file_exists(path string) bool {
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		return false;
+	}
+	return true;
+}
+
+func Fn_change_profile_picture(c *gin.Context) error {
 	var f Form_File
 
 	err := c.ShouldBind(&f)
@@ -31,6 +40,10 @@ func Fn_change_profile_picture(c *gin.Context) error {
 	c.String(http.StatusOK, str_uploaded)
 
 	path :=  fmt.Sprintf("/asset/user/profile_picture/%s", f.id)
+
+	if fn_file_exists(path) {
+		os.Remove(path);
+	}
 
 	c.SaveUploadedFile(f.file, path)
 
