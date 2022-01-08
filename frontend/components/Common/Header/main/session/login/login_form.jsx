@@ -8,6 +8,8 @@ import Modal from "../../../../../Reusable/t_fx__modal";
 import SignUp from "../signUp";
 import FindId from "../findId.tsx";
 import FindPw from "../findPw.tsx";
+import { useSetRecoilState } from "recoil";
+import { user_state } from "../../../../../../recoil/atoms/atoms";
 
 const login_header_components = [
   {
@@ -31,9 +33,10 @@ const Login_form = () => {
   const [is_show__find_id, set_is_show__find_id] = useState(false);
   const [is_show__find_pw, set_is_show__find_pw] = useState(false);
 
+  const set_user_state = useSetRecoilState(user_state);
+
   // event
   const fn_on_submit = async () => {
-
     window.event.preventDefault();
 
     const hashed_pw = fn_hashing(obj_user_info.user_pw);
@@ -42,11 +45,11 @@ const Login_form = () => {
 
     const hashed_pw__encoded = window.encodeURI(hashed_pw).slice(0, 60);
 
-    const IP = "http://localhost:8096";
-    const ENDPOINT = "signin";
+    const IP = process.env.NEXT_PUBLIC_IP;
+    const ENDPOINT = process.env.NEXT_PUBLIC_URL__SIGNIN;
 
     try {
-      const url = `${IP}/${ENDPOINT}`
+      const url = `${IP}${ENDPOINT}`;
 
       const res = await axios.post(url, {
         id: user_id,
@@ -57,7 +60,7 @@ const Login_form = () => {
 
       console.log(res);
 
-      const { status } = res;
+      const { status, data } = res;
 
       // 200번 status가 아니거나 하는 등, Response 확인 원할 시
       // 개발자 도구(브라우저) > Network > Name에서 선택 > Response 혹은 Preview에서 확인 가능
@@ -65,34 +68,37 @@ const Login_form = () => {
       // 502, 400 등 임시로 작성한 코드이므로 당연히 커스텀하여도 됨. 그냥 써도 OK
 
       // 백엔드에서 비밀번호 해싱이 잘 안 돼서 생긴 문제
-      if(status === 502) {
-        const text = "서버 문제가 발생하였습니다."
+      if (status === 502) {
+        const text = "서버 문제가 발생하였습니다.";
         return window.alert(text);
       }
 
       // 일치하는 회원 정보가 없음
-      if(status === 400) {
-        const text = "일치하는 회원 정보가 없습니다."
-                    + "\n"
-                    + "다시 시도해주세요.";
+      if (status === 400) {
+        const text =
+          "일치하는 회원 정보가 없습니다." + "\n" + "다시 시도해주세요.";
 
         return window.alert(text);
       }
 
       // 정상
-      if(status === 200) {
+      if (status === 200) {
         /* some logic here */
+        console.log(data.user);
+        sessionStorage.setItem("user-fc", JSON.stringify(data.user));
+        sessionStorage.getItem("user-fc");
+        set_user_state(JSON.stringify(data.user));
+
+        location.replace("/");
 
         return;
       }
 
       /* 여기서 부턴 예기치 못한 status에 대한 로직 */
       return window.alert("알 수 없는 에러가 발생하였습니다.");
-
     } catch (err) {
       console.error(`login.jsx.fn_on_submit:\n${err}`);
     }
-
   };
 
   const fn_on_change = (e) => {
@@ -113,7 +119,6 @@ const Login_form = () => {
   const fn_toggle_find_id_modal = () => set_is_show__find_id(!is_show__find_id);
   const fn_toggle_find_pw_modal = () => set_is_show__find_pw(!is_show__find_pw);
 
-  
   return (
     <>
       <div className={styles.login_modal_children_wrapper}>
@@ -159,7 +164,9 @@ const Login_form = () => {
               checked={chk_keep_session_login_state}
               onChange={fn_on_change_chk}
             />
-            <label htmlFor="chk_keep_session_login_state">로그인 상태 유지</label>
+            <label htmlFor="chk_keep_session_login_state">
+              로그인 상태 유지
+            </label>
           </div>
         </form>
 
@@ -190,13 +197,22 @@ const Login_form = () => {
           </li>
         </ul>
       </div>
-      <Modal is_show__modal={is_show__sign_up} fn_on_close={fn_toggle_sign_up_modal}>
+      <Modal
+        is_show__modal={is_show__sign_up}
+        fn_on_close={fn_toggle_sign_up_modal}
+      >
         <SignUp fn_on_close={fn_toggle_sign_up_modal}></SignUp>
       </Modal>
-      <Modal is_show__modal={is_show__find_id} fn_on_close={fn_toggle_find_id_modal}>
+      <Modal
+        is_show__modal={is_show__find_id}
+        fn_on_close={fn_toggle_find_id_modal}
+      >
         <FindId fn_on_close={fn_toggle_find_id_modal}></FindId>
       </Modal>
-      <Modal is_show__modal={is_show__find_pw} fn_on_close={fn_toggle_find_pw_modal}>
+      <Modal
+        is_show__modal={is_show__find_pw}
+        fn_on_close={fn_toggle_find_pw_modal}
+      >
         <FindPw fn_on_close={fn_toggle_find_pw_modal}></FindPw>
       </Modal>
     </>
@@ -204,3 +220,14 @@ const Login_form = () => {
 };
 
 export default Login_form;
+
+// export const getStaticProps = async () => {
+//   const IP = process.env.IP;
+//   const ENDPOINT = process.env.URL__SIGNIN;
+//   return {
+//     props: {
+//       IP,
+//       ENDPOINT,
+//     },
+//   };
+// };

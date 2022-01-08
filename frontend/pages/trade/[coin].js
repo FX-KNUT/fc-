@@ -15,7 +15,7 @@ import axios from "axios";
 const dummy_data = {
   dummy_coin: {
     is_favorite: true,
-    coin_name: "차",
+    coin_name: "cha",
     price: 59955000,
     rate: "+0.49%",
     volume: "37,611백만",
@@ -70,22 +70,6 @@ const Coin = () => {
 
   useEffect(() => {
     set_order_price(dummy_coin.price);
-  });
-
-  const fetch = async () => {
-    try {
-      const res = axios.get(`${router}`);
-      set_fetch_data(res.data);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(() => {
-    fetch();
-    setInterval(() => {
-      const res = axios.get(``);
-    });
   });
 
   return (
