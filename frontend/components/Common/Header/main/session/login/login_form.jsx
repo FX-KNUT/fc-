@@ -44,32 +44,14 @@ const Login_form = () => {
 
     const IP = "http://localhost:8096";
     const ENDPOINT = "signin";
-    // const QUERY_ID = `id=${user_id}`;
-    // const QUERY_PW = `pw=${window.encodeURIComponent(hashed_pw).slice(0, 60)}`;
-
-    // console.log("signin.length - " + QUERY_PW.length);
-    // console.log("signin - " + QUERY_PW);
 
     try {
-      // const url = `${IP}/${ENDPOINT}/${user_id}/${hashed_pw__encoded}`;
-
       const url = `${IP}/${ENDPOINT}`
-
-      // console.log(url);
-      // console.log(hashed_pw__encoded);
-      // // const url = `${IP}${ENDPOINT}/${user_id}/${window.encodeURIComponent(hashed_pw).slice(0, 60)}`;
 
       const res = await axios.post(url, {
         id: user_id,
         pw: hashed_pw__encoded,
       });
-
-      // const url = `${IP}${ENDPOINT}`;
-
-      // const res = await axios.get(url, {
-      //   id: user_id,
-      //   pw: window.encodeURIComponent(hashed_pw).slice(0, 60),
-      // })
 
       // status => statusCode
 
