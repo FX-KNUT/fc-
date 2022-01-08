@@ -83,7 +83,7 @@ func (s *struct_block_service) GetLatestBlock() (entity.Block_as_entity, error) 
 
 	query := "SELECT * FROM BLOCK ORDER BY Block_index desc limit 1"
 
-	err := db.QueryRow(query).Scan(&block)
+	err := db.QueryRow(query).Scan(&block.Block_index, &block.Block_hash, &block.Block_previous_hash, &block.Block_owner, &block.Block_created_at, &block.Block_difficulty)
 
 	if err != nil {
 		return entity.Block_as_entity{}, err

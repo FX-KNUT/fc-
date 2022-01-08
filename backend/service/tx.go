@@ -18,6 +18,7 @@ const ERR_GETTING_COIN_PRICES				string = "couldn't get informations of coin pri
 const ERR_UPDATING_COIN_HIGHEST_PRICES		string = "couldn't update coin_highest_price"
 const ERR_UPDATING_COIN_LOWEST_PRICES		string = "couldn't update coin_lowest_price"
 const ERR_RECORDING_TRADE_TIMES				string = "couldn't record coin_trade_times"
+const ERR_RECORDING_TX						string = "couldn't record tx"
 
 type struct_tx_service struct {
 	Txs []entity.Tx
@@ -181,6 +182,19 @@ func (s *struct_tx_service) ContractTx(tx_info entity.Tx_json) error {
 	if err != nil {
 		return errors.New(ERR_RECORDING_TRADE_TIMES)
 	}
+
+	// 5. record tx
+
+	// curr_index := logic_server.CURRENT_SERVER_BLOCK_INDEX
+
+	// query__record_tx := fmt.Sprintf("INSERT INTO txs VALUES(%d, '%s', '%s', %d);",
+	// 							curr_index, tx_info.From, tx_info.To, tx_info.Amount)
+
+	// _, err = db.Query(query__record_tx)
+
+	// if err != nil {
+	// 	return errors.New(ERR_RECORDING_TX)
+	// }
 
 	return nil
 }

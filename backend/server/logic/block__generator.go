@@ -7,10 +7,10 @@ import (
 
 	"github.com/FX-KNUT/fc-/backend/entity"
 	"github.com/FX-KNUT/fc-/backend/server/logic/fx_framework"
-	"github.com/FX-KNUT/fc-/backend/service"
+	service "github.com/FX-KNUT/fc-/backend/service"
 )
 
-const INTERVAL_GENERATE_BLOCK time.Duration = (time.Minute * 10)
+const INTERVAL_GENERATE_BLOCK time.Duration = (time.Minute * 5)
 
 const ERR_GETTING_BLOCK__LATEST_BLOCK string = "Error occured while getting the latest block"
 const ERR_SAVING_BLOCK string = "Error occured while saving a block"
