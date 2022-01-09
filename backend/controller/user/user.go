@@ -3,9 +3,7 @@ package ctrl_user
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"net/http"
-	"os"
 
 	logic_hashing "github.com/FX-KNUT/fc-/backend/controller/logic"
 	ctrl_wallet "github.com/FX-KNUT/fc-/backend/controller/wallet"
@@ -27,8 +25,10 @@ var err_binding_user_info error = errors.New("error while binding id and passwor
 // var err_parsing_query_string error = errors.New("error while parsing the whole query string")
 // var err_parsing_query error = errors.New("error while parsing the query into an array")
 
+// Structs
 type User entity.User
 type Users entity.Users
+type S_user_as_login_info entity.User_as_login_info
 
 type controller struct {
 	service service.User_service
@@ -50,17 +50,21 @@ func New__User(service service.User_service) User_controller {
 
 func (c *controller) SignIn(ctx *gin.Context) error {
 
-	var f Form_File
+	// var f Form_File
 
-	var user_info struct {
-		Id  string `json:"id" binding:"required"`
-		Pw  string `json:"pw" binding:"required"`
-	}
+	// var user_info struct {
+	// 	Id  string `json:"id" binding:"required"`
+	// 	Pw  string `json:"pw" binding:"required"`
+	// }
+
+	var user_info S_user_as_login_info
 
 	ctx.ShouldBindJSON(&user_info)
 
-	id := user_info.Id
-	pw := user_info.Pw
+	id := user_info.User_id
+	pw := user_info.User_hashed_pw
+	// chk1 := user_info.User_chk_saved_id
+	// chk2 := user_info.User_chk_keep_session_login_state
 
 	if len(id) < 4 || len(id) > 12 {
 		ctx.String(http.StatusBadRequest, "정보가 잘못 입력되었습니다.")
@@ -90,12 +94,12 @@ func (c *controller) SignIn(ctx *gin.Context) error {
 		"user": user,
 	})
 
-	path :=  fmt.Sprintf("/asset/user/profile_picture/%s", f.id)
+	// path :=  fmt.Sprintf("/asset/user/profile_picture/%s", f.id)
 
-	img,_ := os.Open(path)
-	img_data, _ := ioutil.ReadAll(img)
-	
-	ctx.Data(http.StatusOK, "image/png", img_data)
+	// img,_ := os.Open(path)
+	// img_data, _ := ioutil.ReadAll(img)
+
+	// ctx.Data(http.StatusOK, "image/png", img_data)
 
 	return nil
 }
