@@ -19,6 +19,9 @@ const login_header_components = [
   },
 ];
 
+const IP = process.env.NEXT_PUBLIC_IP;
+const ENDPOINT = process.env.NEXT_PUBLIC_URL__SIGNIN;
+
 const Login_form = () => {
   const [obj_user_info, set_obj_user_info] = useState({
     user_id: "",
@@ -44,9 +47,6 @@ const Login_form = () => {
     console.log(hashed_pw);
 
     const hashed_pw__encoded = window.encodeURI(hashed_pw).slice(0, 60);
-
-    const IP = process.env.NEXT_PUBLIC_IP;
-    const ENDPOINT = process.env.NEXT_PUBLIC_URL__SIGNIN;
 
     try {
       const url = `${IP}${ENDPOINT}`;
@@ -89,7 +89,7 @@ const Login_form = () => {
         sessionStorage.getItem("user-fc");
         set_user_state(JSON.stringify(data.user));
 
-        location.replace("/");
+        // location.replace("/");
 
         return;
       }

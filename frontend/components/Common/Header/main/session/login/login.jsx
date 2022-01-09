@@ -12,7 +12,11 @@ const Login = () => {
   // global state
   const is_dark = useRecoilValue(dark_state);
   const [user, set_user] = useRecoilState(user_state);
-  console.log(user);
+  try {
+    set_user(sessionStorage.getItem("user-fc"));
+  } catch (e) {
+    // console.error(e);
+  }
 
   // event
   const fn_on_close = () => {
@@ -20,7 +24,7 @@ const Login = () => {
   };
 
   const login_logout_text = () => {
-    return user === undefined ? (
+    return user === null ? (
       <span onClick={() => set_is_show__modal(true)}>LOGIN</span>
     ) : (
       <span

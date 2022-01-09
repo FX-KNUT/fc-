@@ -49,6 +49,8 @@ const exchange_components = [
   },
 ];
 
+const IP = process.env.NEXT_PUBLIC_IP;
+
 const Coin = () => {
   //
   const [fetch_data, set_fetch_data] = useState({});
