@@ -7,5 +7,5 @@ create table price_history (
     price_myungdojun    int,
     price_oban          int,
     price_tainhwapye    int,
-    price_dollar        int,
+    price_dollar        int
 );

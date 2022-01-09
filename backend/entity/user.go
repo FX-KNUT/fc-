@@ -1,5 +1,7 @@
 package entity
 
+import "mime/multipart"
+
 // @신이종 1210
 // 이전에 Entity의 앞에 엔티티명을 붙인다고 했었음.
 // 수정 필요 사항
@@ -38,6 +40,18 @@ type User_as_response struct {
 	User_nickname	string
 	User_email		string
 	User_stars		Bookmark
+}
+
+type User_as_profile struct {
+	User
+	User_picture *multipart.FileHeader `json:"picture"`
+}
+
+type User_as_login_info struct {
+	User_id string `json:"id" binding:"required"`
+	User_hashed_pw string `json:"pw" binding:"required"`
+	User_chk_saved_id bool `json:"chk_saved_id"`
+	User_chk_keep_session_login_state bool `json:"chk_keep_session_login_state"`
 }
 
 // private

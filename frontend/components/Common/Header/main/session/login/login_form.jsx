@@ -53,7 +53,7 @@ const Login_form = () => {
 
       const res = await axios.post(url, {
         id: user_id,
-        pw: hashed_pw__encoded,
+        hashed_pw: hashed_pw__encoded,
       });
 
       // status => statusCode
