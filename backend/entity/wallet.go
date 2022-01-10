@@ -12,3 +12,10 @@ type Wallet struct {
 	Wallet_tainhwapye    int
 	Wallet_dollar        int
 }
+
+type My_Wallet struct {
+	Coin_name           string
+	Coin_price          int
+	Coin_stock          int
+	Coin_average_profit int
+}

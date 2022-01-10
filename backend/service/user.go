@@ -21,7 +21,6 @@ type User_service interface {
 	SignUp(entity.User, int) error
 	CheckDuplicatedId(string) error
 	GetRanking100() ([]entity.Ranking, error)
-	GetUserWallet(string) (entity.User_wallet, error)
 }
 
 func New__User() User_service {
@@ -45,9 +44,13 @@ func (s *struct_user_service) SignIn(id, pw string) (entity.User_as_response, er
 
 	db := db.Fn_open__db()
 
+	fmt.Println(pw)
+
 	query := fmt.Sprintf("SELECT user_id, user_nickname, user_email from users where user_id = '%s' and user_hashed_pw = '%s'", id, pw)
 
 	err := db.QueryRow(query).Scan(&user.User_id, &user.User_nickname, &user.User_email)
+
+	fmt.Println(err)
 
 	fmt.Println(err)
 
@@ -128,20 +131,4 @@ func (s *struct_user_service) GetRanking100() (es []entity.Ranking, err error) {
 	}
 
 	return es, nil
-} 
-
-func (s *struct_user_service) GetUserWallet(id string) (entity.User_wallet, error) {
-	var wallet entity.User_wallet
-
-	// 1. get name and stock of coins which I have
-
-	// 2. get price of coin and calculate total price with stock
-
-	// 3. get average buy of coins
-
-	// 4. calculate profit
-
-	// 5. summary
-
-	return wallet, nil
 } 

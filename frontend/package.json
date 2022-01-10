@@ -19,6 +19,7 @@
     "react-dom": "^18.0.0-rc.0",
     "react-google-charts": "^3.0.15",
     "recoil": "^0.4.1",
+    "recoil-persist": "^4.0.0",
     "sass": "^1.43.4",
     "styled-jsx": "^4.0.1",
     "svgo": "^2.8.0"

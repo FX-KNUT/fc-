@@ -24,9 +24,6 @@ type User struct {
 }
 
 type Users []User
-type User_wallet struct {
-	User_wallet_coins []user_wallet_coin
-}
 
 type User_as_entity struct {
 	User_id        string
@@ -52,6 +49,11 @@ type User_as_login_info struct {
 	User_hashed_pw string `json:"pw" binding:"required"`
 	User_chk_saved_id bool `json:"chk_saved_id"`
 	User_chk_keep_session_login_state bool `json:"chk_keep_session_login_state"`
+}
+
+type User_as_request_sign_in struct {
+	User_id string `json:"id" binding:"required"`
+	User_hashed_pw string `json:"pw" binding:"required"`
 }
 
 // private

@@ -14,6 +14,7 @@ type struct_wallet_service struct {
 type Wallet_service interface {
 	GetWallet(string) (entity.Wallet, error)
 	CreateWallet(entity.User, int) error
+	GetUserWallet(string) (entity.My_Wallet, error)
 }
 
 func New__Wallet() Wallet_service {
@@ -48,3 +49,19 @@ func (s *struct_wallet_service) CreateWallet(user entity.User, balance int) erro
 
 	return err
 }
+
+func (s *struct_wallet_service) GetUserWallet(id string) (entity.My_Wallet, error) {
+	var wallet entity.My_Wallet
+
+	// 1. get name and stock of coins which I have
+
+	// 2. get price of coin and calculate total price with stock
+
+	// 3. get average buy of coins
+
+	// 4. calculate profit
+
+	// 5. summary
+
+	return wallet, nil
+} 

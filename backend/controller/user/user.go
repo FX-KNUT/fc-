@@ -39,7 +39,6 @@ type User_controller interface {
 	SignUp(*gin.Context) error
 	CheckDuplicatedId(*gin.Context, string) error
 	GetUserRanking(*gin.Context) error
-	GetUserWallet(*gin.Context, string) error
 }
 
 func New__User(service service.User_service) User_controller {
@@ -57,7 +56,7 @@ func (c *controller) SignIn(ctx *gin.Context) error {
 	// 	Pw  string `json:"pw" binding:"required"`
 	// }
 
-	var user_info S_user_as_login_info
+	var user_info entity.User_as_request_sign_in
 
 	ctx.ShouldBindJSON(&user_info)
 
@@ -70,6 +69,10 @@ func (c *controller) SignIn(ctx *gin.Context) error {
 		ctx.String(http.StatusBadRequest, "정보가 잘못 입력되었습니다.")
 		return err_wrong__ID
 	}
+
+	fmt.Println(user_info)
+
+	fmt.Println(pw)
 	
 	if len(pw) != 60 {
 		ctx.String(http.StatusBadRequest, "클라이언트 단에서 해싱이 잘못 된 것 같습니다. 비밀번호가 60자가 아닙니다.")
@@ -224,25 +227,5 @@ func (c *controller) GetUserRanking(ctx *gin.Context) error {
 		ctx.String(http.StatusBadRequest, "Content is not written.")
 	}
 	ctx.JSON(http.StatusOK, es)
-	return nil
-}
-
-func (c *controller) GetUserWallet(ctx *gin.Context, id string) error {
-	
-	if len(id) == 0 {
-		ctx.String(http.StatusBadRequest, "잘못된 요청입니다.")
-		return err_ID__undefined
-	}
-	
-	data, err := c.service.GetUserWallet(id)	
-
-	if err != nil {
-		ctx.String(http.StatusBadGateway, "서버 에러입니다.")
-	}
-
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "OK",
-		"data": data,
-	})
 	return nil
 }

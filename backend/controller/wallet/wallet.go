@@ -1,6 +1,7 @@
 package ctrl_wallet
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/FX-KNUT/fc-/backend/entity"
@@ -10,6 +11,7 @@ import (
 
 const ERR_CREATING_WALLET string = "error occurred while creating wallet"
 const ERR_GETTING_WALLET string = "error occurred while getting A wallet"
+const ERR_ID__UNDEFINED string = "error ID undefined"
 
 type Wallet entity.Wallet
 
@@ -19,6 +21,7 @@ type controller struct {
 
 type Wallet_controller interface {
 	GetWallet(*gin.Context, string) error
+	GetUserWallet(*gin.Context, string) error
 	CreateWallet(*gin.Context, entity.User, int) error
 }
 
@@ -53,5 +56,25 @@ func (c *controller) CreateWallet(ctx *gin.Context, user entity.User, balance in
 		return err
 	}
 
+	return nil
+}
+
+func (c *controller) GetUserWallet(ctx *gin.Context, id string) error {
+	
+	if len(id) == 0 {
+		ctx.String(http.StatusBadRequest, "잘못된 요청입니다.")
+		return errors.New(ERR_ID__UNDEFINED)
+	}
+	
+	data, err := c.service.GetUserWallet(id)	
+
+	if err != nil {
+		ctx.String(http.StatusBadGateway, "서버 에러입니다.")
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "OK",
+		"data": data,
+	})
 	return nil
 }

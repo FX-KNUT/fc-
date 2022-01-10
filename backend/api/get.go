@@ -5,6 +5,7 @@ import (
 
 	ctrl_coin "github.com/FX-KNUT/fc-/backend/controller/coin"
 	ctrl_user "github.com/FX-KNUT/fc-/backend/controller/user"
+	ctrl_wallet "github.com/FX-KNUT/fc-/backend/controller/wallet"
 	"github.com/FX-KNUT/fc-/backend/service"
 	"github.com/gin-gonic/gin"
 )
@@ -19,6 +20,9 @@ var (
 
 	GET_coin_service service.Coin_service
 	GET_coin_controller ctrl_coin.Coin_controller = ctrl_coin.New__Coin(GET_coin_service)
+
+	GET_wallet_service service.Wallet_service
+	GET_wallet_controller ctrl_wallet.Wallet_controller = ctrl_wallet.New__Wallet(GET_wallet_service)
 )
 
 // block
@@ -50,7 +54,7 @@ func fn_REST_get_wallet_info(c *gin.Context) {
 	
 	id := c.Query("id")
 	
-	err := GET_user_controller.GetUserWallet(c, id)
+	err := GET_wallet_controller.GetUserWallet(c, id)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
