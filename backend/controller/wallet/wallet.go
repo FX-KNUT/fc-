@@ -71,7 +71,7 @@ func (c *controller) GetUserWallet(ctx *gin.Context) error {
 
 	fmt.Println("에러 점검 1")
 	
-	data, err := c.service.GetUserWallet(id)
+	/* data, */ err := c.service.GetUserWallet(id)
 
 	fmt.Println("에러 점검 4")	
 
@@ -81,7 +81,7 @@ func (c *controller) GetUserWallet(ctx *gin.Context) error {
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": "OK",
-		"data": data,
+		// "data": data,
 	})
 	return nil
 }

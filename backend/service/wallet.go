@@ -14,7 +14,7 @@ type struct_wallet_service struct {
 type Wallet_service interface {
 	GetWallet(string) (entity.Wallet, error)
 	CreateWallet(entity.User, int) error
-	GetUserWallet(string) (entity.My_Wallet, error)
+	GetUserWallet(string) (/* entity.My_Wallet, error */ error)
 }
 
 func New__Wallet() Wallet_service {
@@ -50,25 +50,26 @@ func (s *struct_wallet_service) CreateWallet(user entity.User, balance int) erro
 	return err
 }
 
-func (s *struct_wallet_service) GetUserWallet(id string) (entity.My_Wallet, error) {
+func (s *struct_wallet_service) GetUserWallet(id string) (/* entity.My_Wallet, error */ error) {
 	fmt.Println("에러점검 2")
-	var my_wallet entity.My_Wallet
-	var wallet entity.Wallet
+	return nil
+	// var my_wallet entity.My_Wallet
+	// var wallet entity.Wallet
 
-	fmt.Println("에러점검 2")
+	// fmt.Println("에러점검 2")
 
-	db := db.Fn_open__db()
+	// db := db.Fn_open__db()
 
-	// 1. get name and stock of coins which I have
-	query__first := fmt.Sprintf("select * from wallet where Wallet_owner = '%s' ;", id)
+	// // 1. get name and stock of coins which I have
+	// query__first := fmt.Sprintf("SELECT * FROM wallet WHERE Wallet_owner = '%s' ;", id)
 
-	err := db.QueryRow(query__first).Scan(&wallet)
+	// err := db.QueryRow(query__first).Scan(&wallet)
 
-	if err != nil {
-		return my_wallet, err
-	}
+	// if err != nil {
+	// 	return my_wallet, err
+	// }
 
-	fmt.Println(wallet)
+	// fmt.Println(wallet)
 
 
 	// 2. get price of coin and calculate total price with stock
@@ -79,5 +80,5 @@ func (s *struct_wallet_service) GetUserWallet(id string) (entity.My_Wallet, erro
 
 	// 5. summary
 
-	return my_wallet, nil
+	// return my_wallet, nil
 } 
