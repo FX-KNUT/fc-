@@ -53,7 +53,7 @@ type User_as_login_info struct {
 
 type User_as_request_sign_in struct {
 	User_id string `json:"id" binding:"required"`
-	User_hashed_pw string `json:"pw" binding:"required"`
+	User_hashed_pw string `json:"hashed_pw" binding:"required"`
 }
 
 // private
