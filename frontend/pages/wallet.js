@@ -2,6 +2,10 @@ import Pie_chart from "../components/Common/Main/wallet/pie_chart";
 import styles from "../styles/main/wallet/_wallet.module.scss";
 import Card from "../components/Reusable/t_fx__card";
 import Container from "../components/Reusable/t_fx__container";
+import { useEffect } from "react";
+import { atom, useRecoilValue } from "recoil";
+import { user_state } from "../recoil/atoms/atoms";
+import axios from "axios";
 
 const TITLE_WALLET = "Wallet";
 
@@ -254,6 +258,24 @@ const comp_children__wallet = (
 );
 
 const wallet = () => {
+
+  const user_id = atom({
+    key: ''
+  })
+
+  const IP = process.env.NEXT_PUBLIC_IP;
+  const ENDPOINT = process.env.NEXT_PUBLIC_URL__WALLET;
+  const QUERY = `?id=${JSON.parse(useRecoilValue(user_state))["User_id"]}`;
+
+  useEffect(() => {
+    const URI = `${IP}${ENDPOINT}${QUERY}`;
+
+    const res = axios.get(URI);
+
+    return console.log(res);
+
+  }, [])
+
   return (
     <Container _str_title={TITLE_WALLET} _is_show_more={false}>
       <div id={styles.wallet_container}>

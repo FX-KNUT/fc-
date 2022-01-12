@@ -52,9 +52,7 @@ func fn_REST_get_ranking(c *gin.Context) {
 
 func fn_REST_get_wallet_info(c *gin.Context) {
 	
-	id := c.Query("id")
-	
-	err := GET_wallet_controller.GetUserWallet(c, id)
+	err := GET_wallet_controller.GetUserWallet(c)
 	if err != nil {
 		fmt.Println(err.Error())
 	}

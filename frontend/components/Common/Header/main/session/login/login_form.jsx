@@ -44,8 +44,6 @@ const Login_form = () => {
 
     const hashed_pw = fn_hashing(obj_user_info.user_pw);
 
-    console.log(hashed_pw);
-
     const hashed_pw__encoded = window.encodeURI(hashed_pw).slice(0, 60);
 
     try {

@@ -2,6 +2,7 @@ package ctrl_wallet
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 
 	"github.com/FX-KNUT/fc-/backend/entity"
@@ -21,7 +22,7 @@ type controller struct {
 
 type Wallet_controller interface {
 	GetWallet(*gin.Context, string) error
-	GetUserWallet(*gin.Context, string) error
+	GetUserWallet(*gin.Context) error
 	CreateWallet(*gin.Context, entity.User, int) error
 }
 
@@ -59,17 +60,23 @@ func (c *controller) CreateWallet(ctx *gin.Context, user entity.User, balance in
 	return nil
 }
 
-func (c *controller) GetUserWallet(ctx *gin.Context, id string) error {
+func (c *controller) GetUserWallet(ctx *gin.Context) error {
+	
+	id := ctx.Query("id")
 	
 	if len(id) == 0 {
 		ctx.String(http.StatusBadRequest, "잘못된 요청입니다.")
 		return errors.New(ERR_ID__UNDEFINED)
 	}
+
+	fmt.Println("에러 점검 1")
 	
-	data, err := c.service.GetUserWallet(id)	
+	data, err := c.service.GetUserWallet(id)
+
+	fmt.Println("에러 점검 4")	
 
 	if err != nil {
-		ctx.String(http.StatusBadGateway, "서버 에러입니다.")
+		ctx.String(http.StatusInternalServerError, "서버 에러입니다.")
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{

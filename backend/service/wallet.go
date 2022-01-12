@@ -51,9 +51,25 @@ func (s *struct_wallet_service) CreateWallet(user entity.User, balance int) erro
 }
 
 func (s *struct_wallet_service) GetUserWallet(id string) (entity.My_Wallet, error) {
-	var wallet entity.My_Wallet
+	fmt.Println("에러점검 2")
+	var my_wallet entity.My_Wallet
+	var wallet entity.Wallet
+
+	fmt.Println("에러점검 2")
+
+	db := db.Fn_open__db()
 
 	// 1. get name and stock of coins which I have
+	query__first := fmt.Sprintf("select * from wallet where Wallet_owner = '%s' ;", id)
+
+	err := db.QueryRow(query__first).Scan(&wallet)
+
+	if err != nil {
+		return my_wallet, err
+	}
+
+	fmt.Println(wallet)
+
 
 	// 2. get price of coin and calculate total price with stock
 
@@ -63,5 +79,5 @@ func (s *struct_wallet_service) GetUserWallet(id string) (entity.My_Wallet, erro
 
 	// 5. summary
 
-	return wallet, nil
+	return my_wallet, nil
 } 

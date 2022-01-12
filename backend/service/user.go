@@ -44,23 +44,15 @@ func (s *struct_user_service) SignIn(id, pw string) (entity.User_as_response, er
 
 	db := db.Fn_open__db()
 
-	fmt.Println(pw)
-
 	query := fmt.Sprintf("SELECT user_id, user_nickname, user_email from users where user_id = '%s' and user_hashed_pw = '%s'", id, pw)
 
 	err := db.QueryRow(query).Scan(&user.User_id, &user.User_nickname, &user.User_email)
-
-	fmt.Println(err)
-
-	fmt.Println(err)
 
 	if err != nil {
 		return entity.User_as_response{}, err
 	}
 
 	user.User_stars, err = New__Bookmark().GetBookmarks(user.User_id)
-
-	fmt.Println(err)
 
 	if err != nil {
 		return entity.User_as_response{}, err

@@ -69,10 +69,6 @@ func (c *controller) SignIn(ctx *gin.Context) error {
 		ctx.String(http.StatusBadRequest, "정보가 잘못 입력되었습니다.")
 		return err_wrong__ID
 	}
-
-	fmt.Println(user_info)
-
-	fmt.Println(pw)
 	
 	if len(pw) != 60 {
 		ctx.String(http.StatusBadRequest, "클라이언트 단에서 해싱이 잘못 된 것 같습니다. 비밀번호가 60자가 아닙니다.")
