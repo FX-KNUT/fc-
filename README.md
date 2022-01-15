@@ -1,6 +1,9 @@
 ![학교 영문 로고](https://user-images.githubusercontent.com/76045212/149624074-d2b9ff60-0e6b-4e17-8b05-6257fc69a242.png)
 Introduce our project
 ====
+#### Project name : F(c) 누구나 쉽게 경험하는 블록체인 암호화폐거래 
+#### 주관기관 : 한국교통대학교 
+#### 개발분야 : 암호화폐 (블록체인암호화폐 / 웹 애플리케이션 기반)
 ##### We will create a cryptocurrency transaction app using blockchain.
 ##### 블록체인을 활용한 암호화폐 거래 앱을 만드는 것을 목적으로 합니다.  
 
