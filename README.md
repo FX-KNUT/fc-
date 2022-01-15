@@ -2,7 +2,7 @@ Introduce our project
 ====
 ##### We will create a cryptocurrency transaction app using blockchain.
 ##### 블록체인을 활용한 암호화폐 거래 앱을 만드는 것을 목적으로 합니다.  
-
+![학교 영문 로고](https://user-images.githubusercontent.com/76045212/149624074-d2b9ff60-0e6b-4e17-8b05-6257fc69a242.png)
 Team member 
 ====
 ##### We all belong to the Korea National university of Transportation department of Software.
