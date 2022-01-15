@@ -5,6 +5,8 @@ type Tx struct {
 	From        string
 	To          string
 	Amount      int
+	Quantity    int
+	Coin_name   string
 }
 
 type Txs struct {

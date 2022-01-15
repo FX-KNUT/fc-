@@ -24,3 +24,13 @@ export const dark_state = atom({
   key: "dark_state",
   default: false,
 });
+
+export const user_my_wallet = atom({
+  key: "my_wallet",
+  default: null,
+})
+
+export const user_balance = atom({
+  key: "user_balance",
+  default: 0,
+})

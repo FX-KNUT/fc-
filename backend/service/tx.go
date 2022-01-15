@@ -6,6 +6,7 @@ import (
 
 	db "github.com/FX-KNUT/fc-/backend/database"
 	"github.com/FX-KNUT/fc-/backend/entity"
+	server_value "github.com/FX-KNUT/fc-/backend/server/on_memory_storage"
 )
 
 const ERR_TRANSACTION_CANNOT_WITHDRAW 		string = "cannot withdraw the balance of user 'from' as his balance is below the amount of contract"
@@ -133,7 +134,6 @@ func (s *struct_tx_service) ContractTx(tx_info entity.Tx_json) error {
 	}
 
 	// 3. record coin price
-
 	var price struct {
 		coin_price_highest int
 		coin_price_lowest int
@@ -173,7 +173,6 @@ func (s *struct_tx_service) ContractTx(tx_info entity.Tx_json) error {
 	}
 
 	// 4. record coin trade times
-
 	query__record_trade := fmt.Sprintf("UPDATE wallet SET coin_trade_times = coin_trade_times + 1 where coin_name = '%s';",
 											tx_info.Coin_name)
 
@@ -184,17 +183,16 @@ func (s *struct_tx_service) ContractTx(tx_info entity.Tx_json) error {
 	}
 
 	// 5. record tx
+	curr_index := server_value.CURRENT_SERVER_BLOCK_INDEX
 
-	// curr_index := logic_server.CURRENT_SERVER_BLOCK_INDEX
+	query__record_tx := fmt.Sprintf("INSERT INTO txs VALUES(%d, '%s', '%s', %d, %d, '%s');",
+								curr_index, tx_info.From, tx_info.To, tx_info.Amount, tx_info.Quantity, tx_info.Coin_name)
 
-	// query__record_tx := fmt.Sprintf("INSERT INTO txs VALUES(%d, '%s', '%s', %d);",
-	// 							curr_index, tx_info.From, tx_info.To, tx_info.Amount)
+	_, err = db.Query(query__record_tx)
 
-	// _, err = db.Query(query__record_tx)
-
-	// if err != nil {
-	// 	return errors.New(ERR_RECORDING_TX)
-	// }
+	if err != nil {
+		return errors.New(ERR_RECORDING_TX)
+	}
 
 	return nil
 }

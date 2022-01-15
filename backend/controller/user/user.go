@@ -20,8 +20,10 @@ var err_wrong__nickname error = errors.New("wrong nickname comes from client whi
 var err_wrong__email error = errors.New("wrong email comes from client")
 var err_ID__duplicated error = errors.New("duplicated id at Fn_check_ID on sign_up")
 var err_ID__undefined error = errors.New("id is undefined")
+var err_getting_wallet error = errors.New("지갑 정보를 얻는 중 에러가 발생했습니다")
+var err_getting_balance error = errors.New("보유 잔액 정보를 얻는 중 에러가 발생했습니다")
 // var err_unescaping_pw error = errors.New("error while unescaping pw query")
-var err_binding_user_info error = errors.New("error while binding id and password on server > ctrller > SignIn(API)")
+// var err_binding_user_info error = errors.New("error while binding id and password on server_ctrller_signin(api)")
 // var err_parsing_query_string error = errors.New("error while parsing the whole query string")
 // var err_parsing_query error = errors.New("error while parsing the query into an array")
 
@@ -89,8 +91,24 @@ func (c *controller) SignIn(ctx *gin.Context) error {
 		return err_wrong__user
 	}
 
+	user_wallet, err := ctrl_wallet.New__Wallet(service.New__Wallet()).GetUserWallet(id)
+
+	if err != nil {
+		ctx.String(http.StatusInternalServerError, "지갑 정보를 얻는 중 에러가 발생했습니다.")
+		return err_getting_wallet
+	}
+
+	user_balance, err := service.New__Wallet().GetBalance(id)
+	
+	if err != nil {
+		ctx.String(http.StatusInternalServerError, "보유 잔액 정보를 얻는 중 에러가 발생했습니다.")
+		return err_getting_balance
+	}
+
 	ctx.JSON(http.StatusOK, gin.H{
 		"user": user,
+		"wallet": user_wallet,
+		"balance": user_balance,
 	})
 
 	// path :=  fmt.Sprintf("/asset/user/profile_picture/%s", f.id)

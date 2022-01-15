@@ -9,7 +9,7 @@ import SignUp from "../signUp";
 import FindId from "../findId.tsx";
 import FindPw from "../findPw.tsx";
 import { useSetRecoilState } from "recoil";
-import { user_state } from "../../../../../../recoil/atoms/atoms";
+import { user_state, user_my_wallet } from "../../../../../../recoil/atoms/atoms";
 
 const login_header_components = [
   {
@@ -37,6 +37,7 @@ const Login_form = () => {
   const [is_show__find_pw, set_is_show__find_pw] = useState(false);
 
   const set_user_state = useSetRecoilState(user_state);
+  const set_user__my_wallet = useSetRecoilState(user_my_wallet);
 
   // event
   const fn_on_submit = async () => {
@@ -86,6 +87,7 @@ const Login_form = () => {
         sessionStorage.setItem("user-fc", JSON.stringify(data.user));
         sessionStorage.getItem("user-fc");
         set_user_state(JSON.stringify(data.user));
+        set_user__my_wallet(JSON.stringify(data.wallet));
 
         // location.replace("/");
 

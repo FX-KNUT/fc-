@@ -13,6 +13,7 @@ type struct_coin_service struct {
 
 type Coin_service interface {
 	GetCoin(string) (entity.Coin, error)
+	GetCoinPrice(string) (int, error)
 	GetCoinDetail(string, string) (entity.Coin_Detail, error)
 	LikeCoin(string, string) (bool, error)
 }
@@ -36,6 +37,24 @@ func (s *struct_coin_service) GetCoin(name string) (entity.Coin, error) {
 	}
 
 	return coin, nil
+}
+
+func (s *struct_coin_service) GetCoinPrice(name string) (int, error) {
+
+	var price int
+
+	db := db.Fn_open__db()
+
+	query := fmt.Sprintf("SELECT coin_price FROM coins WHERE coin_name == '%s';", name)
+
+	err := db.QueryRow(query).Scan(&price)
+	
+	if err != nil {
+		return -1, err
+	}
+
+	return price, nil
+
 }
 
 func (s *struct_coin_service) GetCoinDetail(coin_name string, user_id string) (entity.Coin_Detail, error) {

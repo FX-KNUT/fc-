@@ -13,8 +13,9 @@ type struct_wallet_service struct {
 
 type Wallet_service interface {
 	GetWallet(string) (entity.Wallet, error)
+	GetBalance(string) (int, error)
 	CreateWallet(entity.User, int) error
-	GetUserWallet(string) (/* entity.My_Wallet, error */ error)
+	GetUserWallet(string) (entity.My_Wallet, error)
 }
 
 func New__Wallet() Wallet_service {
@@ -39,6 +40,25 @@ func (s *struct_wallet_service) GetWallet(owner string) (entity.Wallet, error) {
 
 }
 
+
+func (s *struct_wallet_service) GetBalance(owner string) (int, error) {
+
+	var balance int
+
+	db := db.Fn_open__db()
+
+	query := fmt.Sprintf("SELECT wallet_owner FROM wallet WHERE wallet_owner = '%s';", owner)
+
+	err := db.QueryRow(query).Scan(&balance)
+
+	if err != nil {
+		return -1, err
+	}
+
+	return balance, nil
+
+}
+
 func (s *struct_wallet_service) CreateWallet(user entity.User, balance int) error {
 
 	db := db.Fn_open__db()
@@ -50,26 +70,24 @@ func (s *struct_wallet_service) CreateWallet(user entity.User, balance int) erro
 	return err
 }
 
-func (s *struct_wallet_service) GetUserWallet(id string) (/* entity.My_Wallet, error */ error) {
+func (s *struct_wallet_service) GetUserWallet(id string) (entity.My_Wallet, error) {
+	var my_wallet entity.My_Wallet
+	var wallet entity.Wallet
+
 	fmt.Println("에러점검 2")
-	return nil
-	// var my_wallet entity.My_Wallet
-	// var wallet entity.Wallet
 
-	// fmt.Println("에러점검 2")
+	db := db.Fn_open__db()
 
-	// db := db.Fn_open__db()
+	// 1. get name and stock of coins which I have
+	query__first := fmt.Sprintf("SELECT * FROM wallet WHERE Wallet_owner = '%s' ;", id)
 
-	// // 1. get name and stock of coins which I have
-	// query__first := fmt.Sprintf("SELECT * FROM wallet WHERE Wallet_owner = '%s' ;", id)
+	err := db.QueryRow(query__first).Scan(&wallet)
 
-	// err := db.QueryRow(query__first).Scan(&wallet)
+	if err != nil {
+		return my_wallet, err
+	}
 
-	// if err != nil {
-	// 	return my_wallet, err
-	// }
-
-	// fmt.Println(wallet)
+	fmt.Println(wallet)
 
 
 	// 2. get price of coin and calculate total price with stock
@@ -80,5 +98,5 @@ func (s *struct_wallet_service) GetUserWallet(id string) (/* entity.My_Wallet, e
 
 	// 5. summary
 
-	// return my_wallet, nil
+	return my_wallet, nil
 } 

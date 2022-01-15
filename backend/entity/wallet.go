@@ -14,6 +14,7 @@ type Wallet struct {
 }
 
 type My_Wallet struct {
+	Balance             int
 	Coin_name           string
 	Coin_price          int
 	Coin_stock          int

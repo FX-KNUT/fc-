@@ -105,6 +105,14 @@
 
 .comp_card {
   padding: 1rem;
+
+  & .spacer {
+    flex-grow: 1;
+  }
+
+  & ._str_title_session {
+    padding-right: 0.5rem;
+  }
 }
 
 .card_pad_wrapper {
