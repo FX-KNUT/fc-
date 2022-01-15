@@ -9,7 +9,6 @@ Team member
 - Shin Leejong : Backend developer
 - Lee Jinhyeong : Backend developer
 - Yong Sihun : Infrastructure
-- Kim Hanbin : Frontend developer
 - Min Gyeongho : Frontend developer
 - Yang Hamin : Planning and design
 
