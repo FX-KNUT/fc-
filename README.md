@@ -4,6 +4,7 @@ Introduce our project
 #### Project name : F(c) 누구나 쉽게 경험하는 블록체인 암호화폐거래 
 #### 주관기관 : 한국교통대학교 
 #### 개발분야 : 암호화폐 (블록체인암호화폐 / 웹 애플리케이션 기반)
+#### 프로젝트 기간 : 2021.11.08 ~ 2022.01.31
 ##### We will create a cryptocurrency transaction app using blockchain.
 ##### 블록체인을 활용한 암호화폐 거래 앱을 만드는 것을 목적으로 합니다.  
 
