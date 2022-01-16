@@ -13,6 +13,7 @@ type struct_coin_service struct {
 
 type Coin_service interface {
 	GetCoin(string) (entity.Coin, error)
+	GetAllCoin() ([]entity.Coin, error)
 	GetCoinPrice(string) (int, error)
 	GetCoinDetail(string, string) (entity.Coin_Detail, error)
 	LikeCoin(string, string) (bool, error)
@@ -37,6 +38,32 @@ func (s *struct_coin_service) GetCoin(name string) (entity.Coin, error) {
 	}
 
 	return coin, nil
+}
+
+func (s *struct_coin_service) GetAllCoin() ([]entity.Coin, error) {
+
+	var coins []entity.Coin
+
+	db := db.Fn_open__db()
+
+	query := "SELECT * FROM coins;"
+
+	rows, err := db.Query(query)
+	
+	if err != nil {
+		return []entity.Coin{}, err
+	}
+
+	for rows.Next() {
+		var coin entity.Coin
+		err := rows.Scan(&coin)
+		if err != nil {
+			return []entity.Coin{}, err
+		}
+		coins = append(coins, coin)
+	}
+
+	return coins, nil
 }
 
 func (s *struct_coin_service) GetCoinPrice(name string) (int, error) {

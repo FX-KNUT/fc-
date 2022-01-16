@@ -50,6 +50,15 @@ func fn_REST_get_ranking(c *gin.Context) {
 	}
 }
 
+func fn_REST_get_coins(c *gin.Context) {
+
+	err := GET_coin_controller.GetAllCoin(c)
+	
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
+
 func fn_REST_get_wallet_info(c *gin.Context) {
 	
 	id := c.Query("id")
@@ -62,10 +71,7 @@ func fn_REST_get_wallet_info(c *gin.Context) {
 
 func fn_REST_get_coin_detail(c *gin.Context) {
 
-	coin_name := c.Query("coin_name")
-	user_id := c.Query("user_id")
-
-	err := GET_coin_controller.GetCoinDetail(c, coin_name, user_id)
+	err := GET_coin_controller.GetCoinDetail(c)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -75,6 +81,7 @@ func fn_REST_get_coin_detail(c *gin.Context) {
 func Get(c chan<- bool, r *gin.Engine) {
 	go r.GET("/checkid", fn_REST_check_id)
 	go r.GET("/ranking", fn_REST_get_ranking)
+	go r.GET("/coins", fn_REST_get_coins)
 	go r.GET("/wallet", fn_REST_get_wallet_info)
 	go r.GET("/trade", fn_REST_get_coin_detail)
 	c <- true
