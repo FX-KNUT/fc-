@@ -2,32 +2,27 @@ import Link from "next/link";
 import styles from "../../../../styles/main/trade/_ranking_item.module.scss";
 
 const Ranking_item = ({ _obj_coin }) => {
-  const { is_favorite, coin_name, price, rate, volume } = _obj_coin;
+  const { Coin_name, Coin_price__now, Coin_price__start, Coin_trade_times } =
+    _obj_coin;
 
-  const condition = rate.substring(0, 1) === "+" ? "plus" : "minus";
+  const condition = Coin_price__start - Coin_price__now < 0 ? "plus" : "minus";
 
   return (
     <div className={styles.ranking_item}>
-      <div>
-        {is_favorite ? (
-          <i className="fas fa-star"></i>
-        ) : (
-          <i className="far fa-star"></i>
-        )}
-      </div>
       <div className={styles.item_name}>
-        <Link href={`/trade/${coin_name}`}>
+        <Link href={`/trade/${Coin_name}`}>
           <a>
-            <div className={styles.coin_name}>{coin_name}</div>
+            <div className={styles.Coin_name}>{Coin_name}</div>
           </a>
         </Link>
       </div>
-
       <div className={`${styles.item_price} ${styles[condition]}`}>
-        {price.toLocaleString()}
+        {Coin_price__now}
       </div>
-      <div className={`${styles.item_rate} ${styles[condition]}`}>{rate}</div>
-      <div className={styles.item_volume}>{volume}</div>
+      <div className={`${styles.item_rate} ${styles[condition]}`}>
+        {Coin_price__now / (Coin_price__start + 1)}%
+      </div>
+      <div className={styles.item_volume}>{Coin_trade_times}</div>
     </div>
   );
 };
