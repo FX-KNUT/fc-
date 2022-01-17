@@ -11,3 +11,7 @@ User
 
 Search
 - <i class="fas fa-search"></i>
+
+Star
+- <i class="fas fa-star"></i>
+- <i class="far fa-star"></i>

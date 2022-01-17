@@ -50,6 +50,8 @@ const exchange_components = [
 ];
 
 const IP = process.env.NEXT_PUBLIC_IP;
+const ENDPOINT = "/trade";
+const URL = `${IP}${ENDPOINT}`;
 
 const Coin = () => {
   //
@@ -68,7 +70,17 @@ const Coin = () => {
 
   // useRouter
   const router = useRouter();
-  console.log(router);
+  const coin_name = router.query.coin;
+
+  const fetch = async () => {
+    try {
+      const res = await axios.get(URL + `?coin_name=${coin_name}&user_id=`);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {});
 
   useEffect(() => {
     set_order_price(dummy_coin.price);
