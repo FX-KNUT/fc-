@@ -24,12 +24,12 @@ const korea = [
     span: "관심종목",
   },
   {
-    href: "/help",
-    span: "고객센터",
-  },
-  {
     href: "/mining",
     span: "채굴"
+  },
+  {
+    href: "/help",
+    span: "고객센터",
   },
 ];
 
@@ -57,12 +57,12 @@ const english = [
     span: "Interest",
   },
   {
-    href: "/help",
-    span: "Customer",
-  },
-  {
     href: "/mining",
     span: "Mining"
+  },
+  {
+    href: "/help",
+    span: "Customer",
   },
 ];
 

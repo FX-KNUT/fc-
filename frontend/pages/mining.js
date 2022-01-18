@@ -1,9 +1,24 @@
 import axios from "axios";
 import styles from "../styles/main/mining/_mining.module.scss";
+import sha256 from "sha256"
+import { useState, useEffect } from "react";
 
 const mining = () => {
 
-    let expired__time = 0;
+    const [unminedBlock, setUnminedBlock] = useState({});
+
+    const parsingBinToHex = (_hex_str_message) => {
+
+        let message = _hex_str_message;
+        
+        for(let i = 0; i < 64; i++) {
+            const sliced = message.substring(i, i + 4);
+            const parsed = parseInt(sliced, 2).toString(16);
+            message = message.substring(0, i) + parsed + message.substring(i + 4, message.length);
+        }
+    
+        return message;
+    }
 
     const getBlock = async () => {
         const endpoint = "mineInfo";
@@ -11,10 +26,20 @@ const mining = () => {
 
         const result = await axios.get(URI);
 
-        console.log(result);
+        setUnminedBlock(result.data.data);
     }
 
-    getBlock();
+    const { Block_index: block_index, Block_hash: block_hash, Block_difficulty: block_difficulty } = unminedBlock;
+
+    const bin_hash = block_hash;
+    let hex_hash;
+
+    if(block_hash)
+        hex_hash = parsingBinToHex(block_hash);
+
+    useEffect(() => {
+        getBlock();
+    }, []);
 
     return (
         <div className={styles.mining_wrapper}>
@@ -38,11 +63,11 @@ const mining = () => {
                 </div>
                 <div className={styles.mining_right}>
                     <div>
-                        <div>채굴 가능한 블록의 정보</div>
-                        <div>블록 넘버: 0번</div>
-                        <div>채굴 보상: 40,000 G</div>
-                        <div>타겟 해쉬값: testingtesting</div>
-                        <div>난이도: 8</div>
+                        <div>채굴 대상 블록의 정보</div>
+                        <div>블록 인덱스: {block_index}</div>
+                        <div>타겟 해쉬값: {hex_hash}</div>
+                        <div>난이도: {block_difficulty}</div>
+                        <div>채굴 보상: {(block_difficulty * 8000) + 4000} G</div>
                     </div>
                     <div>
                         <div>현재 시도 중인 논스값: 0</div>
