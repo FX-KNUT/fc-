@@ -12,6 +12,9 @@ import (
 
 const INTERVAL_GENERATE_BLOCK time.Duration = (time.Minute * 5)
 
+// below is for testing
+// const INTERVAL_GENERATE_BLOCK time.Duration = (time.Second * 2)
+
 const ERR_GETTING_BLOCK__LATEST_BLOCK string = "Error occured while getting the latest block"
 const ERR_SAVING_BLOCK string = "Error occured while saving a block"
 
@@ -20,18 +23,17 @@ const LOGGER_BLOCK_BEING_GENERATED string = "block is being generated now!"
 var block_service service.Block_service = service.New__Block()
 
 // not to be used yet since there's no tx_id yet in our logic flow
-func initialize_block() (entity.Block, error) {
+func initialize_block() (entity.Block_as_entity, error) {
 
 	var (
-		new_block entity.Block
+		new_block entity.Block_as_entity
 		prev_block entity.Block_as_entity
 	)
 
 	prev_block, err := block_service.GetLatestBlock()
 	
 	if err != nil {
-		fmt.Println("error here: 1")
-		return entity.Block{}, err
+		return entity.Block_as_entity{}, err
 	}
 
 	block_index := prev_block.Block_index + 1
@@ -43,17 +45,13 @@ func initialize_block() (entity.Block, error) {
 	block_txs, err := block_service.GetTxsOfBlock(block_index)
 	
 	if err != nil {
-		fmt.Println("error here: 2")
-		fmt.Println(err)
-		return entity.Block{}, err
+		return entity.Block_as_entity{}, err
 	}
 
 	block_txs__marshaled, err := fx_framework.Stringify(block_txs)
 
 	if err != nil {
-		fmt.Println("error here: 3")
-		fmt.Println(err)
-		return entity.Block{}, err
+		return entity.Block_as_entity{}, err
 	}
 
 	block_hash := Block_get_hash(block_index, block_prev_hash, block_timestamp, block_txs__marshaled)
@@ -61,18 +59,16 @@ func initialize_block() (entity.Block, error) {
 	Block_difficulty, err := Block_get_difficulty(block_txs)
 
 	if err != nil {
-		fmt.Println("error here: 4")
-		fmt.Println(err)
-		return entity.Block{}, err
+		return entity.Block_as_entity{}, err
 	}
 
-	new_block = entity.Block{
+	new_block = entity.Block_as_entity{
 		/* int */ 			Block_index: block_index,
-		/* varchar(256) */ 	Block_hash: block_hash,
+		/* int */ 			Block_hash: block_hash,
 		/* varchar(256) */	Block_previous_hash: block_prev_hash,
 		/* varchar(18) */	Block_owner: "", // gonna be inserted as the block get mined
-		/* int unsigned	*/	Block_difficulty: Block_difficulty,
 		/* varchar(36) */	Block_created_at: block_timestamp,
+		/* int unsigned	*/	Block_difficulty: Block_difficulty,
 	}
 
 	return new_block, nil
@@ -85,7 +81,6 @@ func generate_block() error {
 	block, err := initialize_block()
 
 	if err != nil {
-		fmt.Println(err)
 		log.Fatalln(ERR_GETTING_BLOCK__LATEST_BLOCK)
 		return err
 	}
@@ -93,7 +88,6 @@ func generate_block() error {
 	err = block_service.SaveBlock(block)
 
 	if err != nil {
-		fmt.Println(err)
 		log.Fatalln(ERR_SAVING_BLOCK)
 		return err
 	}

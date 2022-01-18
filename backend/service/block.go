@@ -20,7 +20,7 @@ type Block_service interface {
 	GetFullBlockInfo(entity.Block) (entity.Block, error)
 	GetTxsOfBlock(int) ([]entity.Tx, error)
 	UpdateBlock(entity.Block) error
-	SaveBlock(entity.Block) error
+	SaveBlock(entity.Block_as_entity) error
 }
 
 func New__Block() Block_service {
@@ -33,7 +33,7 @@ func (s *struct_block_service) GetBlock(Idx int) (entity.Block, error) {
 	
 	db := db.Fn_open__db()
 
-	query := fmt.Sprintf("SELECT * FROM BLOCK WHERE Block_index == %d", Idx)
+	query := fmt.Sprintf("SELECT * FROM BLOCK WHERE Block_index == %d;", Idx)
 
 	err := db.QueryRow(query).Scan(&block)
 
@@ -53,7 +53,7 @@ func (s *struct_block_service) GetAllBlocks() ([]entity.Block, error) {
 
 	db := db.Fn_open__db()
 
-	query := "SELECT * FROM BLOCK"
+	query := "SELECT * FROM BLOCK;"
 
 	rows, err := db.Query(query)
 
@@ -98,7 +98,7 @@ func (s *struct_block_service) GetLatestUnminedBlock() (entity.Block, error) {
 
 	db := db.Fn_open__db()
 
-	query := "SELECT * FROM block WHERE block_owner LIKE ('% %') ORDER BY Block_index limit 1"
+	query := "SELECT * FROM block WHERE block_owner LIKE ('') ORDER BY Block_index limit 1;"
 
 	err := db.QueryRow(query).Scan(&block)
 
@@ -115,7 +115,7 @@ func (s *struct_block_service) GetLatestIndex() (int, error) {
 
 	db := db.Fn_open__db()
 
-	query := "SELECT MAX(Block_index) FROM BLOCK"
+	query := "SELECT MAX(Block_index) FROM BLOCK;"
 
 	err := db.QueryRow(query).Scan(&Idx)
 
@@ -184,11 +184,11 @@ func (s *struct_block_service) UpdateBlock(block entity.Block) error {
 	return err
 }
 
-func (s *struct_block_service) SaveBlock(block entity.Block) error {
+func (s *struct_block_service) SaveBlock(block entity.Block_as_entity) error {
 
 	db := db.Fn_open__db()
 
-	query := fmt.Sprintf("INSERT INTO BLOCK VALUES (%d, '%s', '%s', '%s', '%s', %d,)",
+	query := fmt.Sprintf("INSERT INTO BLOCK VALUES (%d, '%s', '%s', '%s', '%s', %d);",
 		block.Block_index, block.Block_hash, block.Block_previous_hash, block.Block_owner,
 		block.Block_created_at, block.Block_difficulty)
 

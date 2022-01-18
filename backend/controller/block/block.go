@@ -34,7 +34,7 @@ type Block_controller interface {
 	GetLatestUnminedBlock(*gin.Context) (entity.Block_as_entity, error)
 	GetLatestIndex() (int, error)
 	UpdateBlock(entity.Block) error
-	SaveBlock(entity.Block) error
+	SaveBlock(entity.Block_as_entity) error
 	UpdateOwnerAndNonce(*gin.Context) error
 }
 
@@ -66,31 +66,29 @@ func (c *controller) GetAllBlocks() ([]entity.Block, error) {
 	return blocks, nil
 }
 
-func (c *controller) GetLatestBlock() (entity.Block_as_entity, error) {
-	block := entity.Block_as_entity{}
-	block, err := c.service.GetLatestBlock()
-	if err != nil {
-		return block, errors.New(ERR_GET__LATEST__BLOCK)
-	}
-
-	return block, nil
-}
-
 // Disconnected. Check out the controller
 func getLatestUnminedBlock() (entity.Block_as_entity, error) {
 	var block entity.Block_as_entity
 
 	db := db.Fn_open__db()
 
-	query := "SELECT * FROM block WHERE block_owner LIKE ('% %') ORDER BY Block_index limit 1"
+	query := "SELECT * FROM block WHERE block_owner LIKE ('') ORDER BY Block_index limit 1"
 
 	err := db.QueryRow(query).Scan(&block.Block_index, &block.Block_hash, &block.Block_previous_hash, &block.Block_owner, &block.Block_created_at, &block.Block_difficulty)
-
-	fmt.Println(block)
 
 	if err != nil {
 		fmt.Println(err)
 		return entity.Block_as_entity{}, err
+	}
+
+	return block, nil
+}
+
+func (c *controller) GetLatestBlock() (entity.Block_as_entity, error) {
+	block := entity.Block_as_entity{}
+	block, err := c.service.GetLatestBlock()
+	if err != nil {
+		return block, errors.New(ERR_GET__LATEST__BLOCK)
 	}
 
 	return block, nil
@@ -135,7 +133,7 @@ func (c *controller) UpdateBlock(block entity.Block) error {
 	
 }
 
-func (c *controller) SaveBlock(block entity.Block) error {
+func (c *controller) SaveBlock(block entity.Block_as_entity) error {
 	err := c.service.SaveBlock(block)
 
 	if err != nil {
