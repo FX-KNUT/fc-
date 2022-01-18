@@ -9,7 +9,11 @@ import SignUp from "../signUp";
 import FindId from "../findId.tsx";
 import FindPw from "../findPw.tsx";
 import { useSetRecoilState } from "recoil";
-import { user_state, user_my_wallet } from "../../../../../../recoil/atoms/atoms";
+import {
+  user_state,
+  user_my_wallet,
+} from "../../../../../../recoil/atoms/atoms";
+import T_fx__alert from "../../../../../Reusable/t_fx__alert";
 
 const login_header_components = [
   {
@@ -22,7 +26,7 @@ const login_header_components = [
 const IP = process.env.NEXT_PUBLIC_IP;
 const ENDPOINT = process.env.NEXT_PUBLIC_URL__SIGNIN;
 
-const Login_form = () => {
+const Login_form = ({ fn_on_close }) => {
   const [obj_user_info, set_obj_user_info] = useState({
     user_id: "",
     user_pw: "",
@@ -90,14 +94,18 @@ const Login_form = () => {
         set_user__my_wallet(JSON.stringify(data.wallet));
 
         // location.replace("/");
-
+        fn_on_close();
         return;
       }
 
+      console.log(222222222);
+      fn_on_close();
       /* 여기서 부턴 예기치 못한 status에 대한 로직 */
       return window.alert("알 수 없는 에러가 발생하였습니다.");
     } catch (err) {
       console.error(`login.jsx.fn_on_submit:\n${err}`);
+      window.alert("에러 발생");
+      fn_on_close();
     }
   };
 

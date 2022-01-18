@@ -47,7 +47,7 @@ const Login = () => {
         {login_logout_text()}
       </div>
       <Modal is_show__modal={is_show__modal} fn_on_close={fn_on_close}>
-        <Login_form></Login_form>
+        <Login_form fn_on_close={fn_on_close}></Login_form>
       </Modal>
     </div>
   );
