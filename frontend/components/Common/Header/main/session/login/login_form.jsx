@@ -13,7 +13,6 @@ import {
   user_state,
   user_my_wallet,
 } from "../../../../../../recoil/atoms/atoms";
-import T_fx__alert from "../../../../../Reusable/t_fx__alert";
 
 const login_header_components = [
   {

@@ -23,11 +23,7 @@
   }
 
   &:hover {
-    background-color: hsl(0, 0%, 98%);
-  }
-
-  &:hover > .guide_article_content_wrapper {
-    display: block;
+    background-color: hsl(10, 21%, 79%);
   }
 
   .guide_article_post {
@@ -70,5 +66,10 @@
     display: none;
     margin: 20px 0 10px 0;
     font-size: 1.5rem;
+
+    &.s_active {
+      background-color: #fff;
+      display: block;
+    }
   }
 }
