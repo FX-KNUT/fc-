@@ -74,13 +74,18 @@ const Coin = () => {
 
   const fetch = async () => {
     try {
-      const res = await axios.get(URL + `?coin_name=${coin_name}&user_id=`);
+      const res = await axios.get(
+        URL + `?coin_name=${coin_name}&user_id=sljdev`
+      );
+      console.log(res.data);
     } catch (e) {
       console.error(e);
     }
   };
 
-  useEffect(() => {});
+  useEffect(() => {
+    fetch();
+  }, []);
 
   useEffect(() => {
     set_order_price(dummy_coin.price);

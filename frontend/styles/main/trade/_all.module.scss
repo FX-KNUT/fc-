@@ -1,13 +1,4 @@
 .ranking_items {
-  .item_nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    border-bottom: 1px solid #d5d6dc;
-    font-size: 0.75rem;
-    padding: 0 0 0.5rem 0;
-  }
-
   .ranking_item_container {
     display: grid;
     overflow-y: scroll;

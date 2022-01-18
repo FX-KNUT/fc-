@@ -16,7 +16,7 @@ const korea = [
     span: "투자정보",
   },
   {
-    href: "/trade/CHA",
+    href: "/trade/bannyangjun",
     span: "거래소",
   },
   {
@@ -45,7 +45,7 @@ const english = [
     span: "Info",
   },
   {
-    href: "/trade/CHA",
+    href: "/trade/bannyangjun",
     span: "Trade",
   },
   {
