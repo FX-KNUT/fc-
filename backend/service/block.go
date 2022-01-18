@@ -92,6 +92,7 @@ func (s *struct_block_service) GetLatestBlock() (entity.Block_as_entity, error) 
 	return block, nil
 }
 
+// Disconnected. Check out the controller
 func (s *struct_block_service) GetLatestUnminedBlock() (entity.Block, error) {
 	var block entity.Block
 

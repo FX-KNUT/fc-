@@ -2,10 +2,12 @@ package ctrl_block
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"strconv"
 
 	ctrl_user "github.com/FX-KNUT/fc-/backend/controller/user"
+	db "github.com/FX-KNUT/fc-/backend/database"
 	"github.com/FX-KNUT/fc-/backend/entity"
 	logic_server "github.com/FX-KNUT/fc-/backend/server/logic"
 	"github.com/FX-KNUT/fc-/backend/service"
@@ -29,7 +31,7 @@ type Block_controller interface {
 	GetBlock(int) (entity.Block, error)
 	GetAllBlocks() ([]entity.Block, error)
 	GetLatestBlock() (entity.Block_as_entity, error)
-	GetLatestUnminedBlock(*gin.Context) (entity.Block, error)
+	GetLatestUnminedBlock(*gin.Context) (entity.Block_as_entity, error)
 	GetLatestIndex() (int, error)
 	UpdateBlock(entity.Block) error
 	SaveBlock(entity.Block) error
@@ -74,9 +76,29 @@ func (c *controller) GetLatestBlock() (entity.Block_as_entity, error) {
 	return block, nil
 }
 
-func (c *controller) GetLatestUnminedBlock(ctx *gin.Context) (entity.Block, error) {
-	block := entity.Block{}
-	block, err := c.service.GetLatestUnminedBlock()
+// Disconnected. Check out the controller
+func getLatestUnminedBlock() (entity.Block_as_entity, error) {
+	var block entity.Block_as_entity
+
+	db := db.Fn_open__db()
+
+	query := "SELECT * FROM block WHERE block_owner LIKE ('% %') ORDER BY Block_index limit 1"
+
+	err := db.QueryRow(query).Scan(&block.Block_index, &block.Block_hash, &block.Block_previous_hash, &block.Block_owner, &block.Block_created_at, &block.Block_difficulty)
+
+	fmt.Println(block)
+
+	if err != nil {
+		fmt.Println(err)
+		return entity.Block_as_entity{}, err
+	}
+
+	return block, nil
+}
+
+func (c *controller) GetLatestUnminedBlock(ctx *gin.Context) (entity.Block_as_entity, error) {
+	block := entity.Block_as_entity{}
+	block, err := getLatestUnminedBlock()
 
 	if err != nil {
 		ctx.String(http.StatusInternalServerError, "error while getting latest unmined block")
