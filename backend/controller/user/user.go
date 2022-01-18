@@ -105,10 +105,11 @@ func (c *controller) SignIn(ctx *gin.Context) error {
 		return err_getting_balance
 	}
 
+	user.User_balance = user_balance
+
 	ctx.JSON(http.StatusOK, gin.H{
 		"user": user,
 		"wallet": user_wallet,
-		"balance": user_balance,
 	})
 
 	// path :=  fmt.Sprintf("/asset/user/profile_picture/%s", f.id)

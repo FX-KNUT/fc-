@@ -29,8 +29,3 @@ export const user_my_wallet = atom({
   key: "my_wallet",
   default: null,
 })
-
-export const user_balance = atom({
-  key: "user_balance",
-  default: 0,
-})

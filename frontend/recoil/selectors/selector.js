@@ -27,6 +27,10 @@ const korea = [
     href: "/help",
     span: "고객센터",
   },
+  {
+    href: "/mining",
+    span: "채굴"
+  },
 ];
 
 //
@@ -55,6 +59,10 @@ const english = [
   {
     href: "/help",
     span: "Customer",
+  },
+  {
+    href: "/mining",
+    span: "Mining"
   },
 ];
 

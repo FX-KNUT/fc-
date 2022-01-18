@@ -40,6 +40,7 @@ func (s *struct_coin_service) GetCoin(name string) (entity.Coin, error) {
 	return coin, nil
 }
 
+// Disconnected. Check out the controller
 func (s *struct_coin_service) GetAllCoin() ([]entity.Coin, error) {
 
 	var coins []entity.Coin
@@ -84,6 +85,7 @@ func (s *struct_coin_service) GetCoinPrice(name string) (int, error) {
 
 }
 
+// Disconnected. Check out the controller
 func (s *struct_coin_service) GetCoinDetail(coin_name string, user_id string) (entity.Coin_Detail, error) {
 
 	var detail entity.Coin_Detail
