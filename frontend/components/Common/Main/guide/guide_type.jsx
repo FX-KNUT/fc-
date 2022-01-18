@@ -10,7 +10,7 @@ import img_karina from "../../../../public/dummy_img/dummy_img_karina.jpg";
 import img_moonbyul from "../../../../public/dummy_img/dummy_img_moonbyul.jpg";
 
 const IP = process.env.NEXT_PUBLIC_IP;
-const ENDPOINT = process.env.NEXT_PUBLIC_URL__SIGNIN;
+const ENDPOINT = process.env.NEXT_PUBLIC_URL__GUIDE_TYPE || "/guide";
 
 const tmp_dummy_data = [
   {
@@ -47,7 +47,19 @@ const Guide_type = ({ g_type }) => {
 
   // api
   const fn_GET__guide_articles = () => {
-    const url = `${IP}${ENDPOINT}`;
+    let ENDPOINT2;
+    switch (g_type) {
+      case "buying":
+        ENDPOINT2 = "/buying";
+        break;
+      case "selling":
+        ENDPOINT2 = "/selling";
+        break;
+      case "coin_info":
+        ENDPOINT2 = "/coin_info";
+        break;
+    }
+    const url = `${IP}${ENDPOINT}${ENDPOINT2}`;
     axios
       .get(url)
       .then((res) => {
@@ -105,7 +117,7 @@ const Guide_type = ({ g_type }) => {
             </div>
             <div
               className={`${styles.guide_article_content_wrapper} ${
-                state__is_active__article[guide_data.alt] && "s_active"
+                styles[state__is_active__article[guide_data.alt] && "active"]
               }`}
             >
               {guide_data.guide_content}
@@ -131,7 +143,7 @@ const Guide_type = ({ g_type }) => {
             </div>
             <div
               className={`${styles.guide_article_content_wrapper} ${
-                state__is_active__article[guide_data.alt] && "active"
+                styles[state__is_active__article[guide_data.alt] && "active"]
               }`}
             >
               {guide_data.guide_content}
