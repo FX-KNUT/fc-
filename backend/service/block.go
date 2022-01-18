@@ -81,7 +81,7 @@ func (s *struct_block_service) GetLatestBlock() (entity.Block_as_entity, error) 
 
 	db := db.Fn_open__db()
 
-	query := "SELECT * FROM BLOCK ORDER BY Block_index desc limit 1"
+	query := "SELECT * FROM BLOCK ORDER BY Block_index desc limit 1;"
 
 	err := db.QueryRow(query).Scan(&block.Block_index, &block.Block_hash, &block.Block_previous_hash, &block.Block_owner, &block.Block_created_at, &block.Block_difficulty)
 
@@ -149,7 +149,7 @@ func (s *struct_block_service) GetTxsOfBlock(index int) ([]entity.Tx, error) {
 	
 	db := db.Fn_open__db()
 
-	query := fmt.Sprintf("SELECT * FROM TXS WHERE block_index == %d", index)
+	query := fmt.Sprintf("SELECT * FROM TXS WHERE block_index = %d;", index)
 
 	rows, err := db.Query(query)
 
@@ -160,7 +160,7 @@ func (s *struct_block_service) GetTxsOfBlock(index int) ([]entity.Tx, error) {
 	defer rows.Close()
 
 	for rows.Next() {
-		err = rows.Scan(&tx.Block_index, &tx.From, &tx.To, &tx.Amount)
+		err = rows.Scan(&tx.Block_index, &tx.From, &tx.To, &tx.Amount, &tx.Quantity, &tx.Coin_name)
 		if err != nil {
 			return txs, err
 		}

@@ -29,7 +29,7 @@ type Block_controller interface {
 	GetBlock(int) (entity.Block, error)
 	GetAllBlocks() ([]entity.Block, error)
 	GetLatestBlock() (entity.Block_as_entity, error)
-	GetLatestUnminedBlock() (entity.Block, error)
+	GetLatestUnminedBlock(*gin.Context) (entity.Block, error)
 	GetLatestIndex() (int, error)
 	UpdateBlock(entity.Block) error
 	SaveBlock(entity.Block) error
@@ -74,12 +74,19 @@ func (c *controller) GetLatestBlock() (entity.Block_as_entity, error) {
 	return block, nil
 }
 
-func (c *controller) GetLatestUnminedBlock() (entity.Block, error) {
+func (c *controller) GetLatestUnminedBlock(ctx *gin.Context) (entity.Block, error) {
 	block := entity.Block{}
 	block, err := c.service.GetLatestUnminedBlock()
+
 	if err != nil {
+		ctx.String(http.StatusInternalServerError, "error while getting latest unmined block")
 		return block, errors.New(ERR_GET__LATEST__UNMINED_BLOCK)
 	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "OK",
+		"data": block,
+	})
 
 	return block, nil
 }

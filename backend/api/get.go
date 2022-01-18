@@ -77,6 +77,20 @@ func fn_REST_get_coin_detail(c *gin.Context) {
 	}
 }
 
+func fn_REST_get__block_to_mine(c *gin.Context) {
+	_, err := GET_block_controller.GetLatestUnminedBlock(c)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
+
+func fn_REST_get_coin_price_history(c *gin.Context) {
+	err := GET_coin_controller.GetCoinPriceHistory(c)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
+
 // core
 func Get(c chan<- bool, r *gin.Engine) {
 	go r.GET("/checkid", fn_REST_check_id)
@@ -84,5 +98,8 @@ func Get(c chan<- bool, r *gin.Engine) {
 	go r.GET("/coins", fn_REST_get_coins)
 	go r.GET("/wallet", fn_REST_get_wallet_info)
 	go r.GET("/trade", fn_REST_get_coin_detail)
+	go r.GET("/mineInfo", fn_REST_get__block_to_mine)
+	go r.GET("/coin_price_history", fn_REST_get_coin_price_history)
+
 	c <- true
 }

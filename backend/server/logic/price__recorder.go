@@ -8,7 +8,8 @@ import (
 	"github.com/FX-KNUT/fc-/backend/server/logic/fx_framework"
 )
 
-const INTERVAL_RECORD_PRICE time.Duration = time.Second * 2
+const INTERVAL_RECORD_PRICE__SECOND time.Duration = 10
+const INTERVAL_RECORD_PRICE time.Duration = time.Second * INTERVAL_RECORD_PRICE__SECOND
 
 func save_price_history() error {
 
@@ -73,7 +74,7 @@ func record_price() error {
 
 func Price_recorder(c chan<- bool) {
 
-	fmt.Println("Start Recording Price History To DB Per 2 Seconds...")
+	fmt.Printf("Start Recording Price History To DB Per %d Seconds...\n", INTERVAL_RECORD_PRICE__SECOND)
 
 	interval := INTERVAL_RECORD_PRICE
 	ticker := time.NewTicker(interval)
