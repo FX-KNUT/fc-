@@ -13,7 +13,12 @@ type Coin struct {
 	Coin_price__start   int    // int
 }
 
-type Coin_price__history []int
+type Coin_price_history struct {
+	Timestamp string
+	Price     int
+}
+
+type Coin_price__histories []Coin_price_history
 
 type Coin_Detail struct {
 	Is_favorite        bool   // bookmark

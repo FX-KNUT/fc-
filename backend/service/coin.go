@@ -16,6 +16,7 @@ type Coin_service interface {
 	GetAllCoin() ([]entity.Coin, error)
 	GetCoinPrice(string) (int, error)
 	GetCoinDetail(string, string) (entity.Coin_Detail, error)
+	GetCoinPriceHistories(string) (entity.Coin_price__histories, error)
 	LikeCoin(string, string) (bool, error)
 }
 
@@ -40,6 +41,7 @@ func (s *struct_coin_service) GetCoin(name string) (entity.Coin, error) {
 	return coin, nil
 }
 
+// Disconnected. Check out the controller
 func (s *struct_coin_service) GetAllCoin() ([]entity.Coin, error) {
 
 	var coins []entity.Coin
@@ -84,6 +86,7 @@ func (s *struct_coin_service) GetCoinPrice(name string) (int, error) {
 
 }
 
+// Disconnected. Check out the controller
 func (s *struct_coin_service) GetCoinDetail(coin_name string, user_id string) (entity.Coin_Detail, error) {
 
 	var detail entity.Coin_Detail
@@ -144,6 +147,43 @@ func (s *struct_coin_service) GetCoinDetail(coin_name string, user_id string) (e
 	detail.Coin_price_now = coin.Coin_price__now
 
 	return detail, nil
+}
+
+// Disconnected. Check out the controller
+func (s *struct_coin_service) GetCoinPriceHistories(coin_name string) (entity.Coin_price__histories, error) {
+
+	var coin_price_histories entity.Coin_price__histories // = []entity.Coin_price__history
+
+	db := db.Fn_open__db()
+
+	query := fmt.Sprintf("SELECT history_time, price_%s FROM price_history", coin_name)
+
+	result, err := db.Query(query)
+
+	if err != nil {
+		fmt.Println("error occured while getting coin price history on service of coin.go")
+		return entity.Coin_price__histories{}, err
+	}
+
+	for result.Next() {
+		var timestamp 	string
+		var price		int
+		var coin_price_history entity.Coin_price_history
+
+		err := result.Scan(&timestamp, &price)
+
+		if err != nil {
+			fmt.Println("error occured while getting coin price history on service of coin.go")
+			return entity.Coin_price__histories{}, err
+		}
+
+		coin_price_history.Timestamp = timestamp
+		coin_price_history.Price = price
+
+		coin_price_histories = append(coin_price_histories, coin_price_history)
+	}
+
+	return coin_price_histories, nil
 }
 
 func (s *struct_coin_service) LikeCoin(coin_name string, user_id string) (bool, error) {

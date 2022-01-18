@@ -35,6 +35,7 @@ type User_as_entity struct {
 type User_as_response struct {
 	User_id			string
 	User_nickname	string
+	User_balance	int
 	User_email		string
 	User_stars		Bookmark
 }

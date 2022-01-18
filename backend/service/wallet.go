@@ -47,7 +47,7 @@ func (s *struct_wallet_service) GetBalance(owner string) (int, error) {
 
 	db := db.Fn_open__db()
 
-	query := fmt.Sprintf("SELECT wallet_owner FROM wallet WHERE wallet_owner = '%s';", owner)
+	query := fmt.Sprintf("SELECT wallet_balance FROM wallet WHERE wallet_owner = '%s';", owner)
 
 	err := db.QueryRow(query).Scan(&balance)
 
