@@ -13,6 +13,7 @@ import (
 const ERR_GETTING_WALLET 		string = "error occurred while getting a coin"
 const ERR_GETTING_COIN_DETAIL 	string = "error occurred while getting a detail of coin"
 const ERR_UPDATING_COIN_LIKE	string = "error occurred while updating like request of coin"
+const ERR_GETTING_COIN_PRICE_HISTORY string = "error occured while getting coin price history"
 
 type Coin entity.Coin
 
@@ -24,6 +25,7 @@ type Coin_controller interface {
 	GetCoin(*gin.Context, string) error
 	GetAllCoin(*gin.Context) error
 	GetCoinDetail(*gin.Context) error
+	GetCoinPriceHistory(*gin.Context) error
 	LikeCoin(*gin.Context) error
 }
 
@@ -175,6 +177,61 @@ func (c *controller) GetCoinDetail(ctx *gin.Context) error {
 		"data": detail,
 	})
 	
+	return nil
+}
+
+// Disconnected. Check out the controller
+func getCoinPriceHistories(coin_name string) (entity.Coin_price__histories, error) {
+
+	var coin_price_histories entity.Coin_price__histories // = []entity.Coin_price__history
+
+	db := db.Fn_open__db()
+
+	query := fmt.Sprintf("SELECT history_time, price_%s FROM price_history", coin_name)
+
+	result, err := db.Query(query)
+
+	if err != nil {
+		fmt.Println("error occured while getting coin price history on service of coin.go")
+		return entity.Coin_price__histories{}, err
+	}
+
+	for result.Next() {
+		var timestamp 	string
+		var price		int
+		var coin_price_history entity.Coin_price_history
+
+		err := result.Scan(&timestamp, &price)
+
+		if err != nil {
+			fmt.Println("error occured while getting coin price history on service of coin.go")
+			return entity.Coin_price__histories{}, err
+		}
+
+		coin_price_history.Timestamp = timestamp
+		coin_price_history.Price = price
+
+		coin_price_histories = append(coin_price_histories, coin_price_history)
+	}
+
+	return coin_price_histories, nil
+}
+
+func (c *controller) GetCoinPriceHistory(ctx *gin.Context) error {
+
+	coin_name := ctx.Query("coin_name")
+
+	coin_price_histories, err := getCoinPriceHistories(coin_name)
+
+	if err != nil {
+		ctx.String(http.StatusBadGateway, ERR_GETTING_COIN_PRICE_HISTORY)
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "OK",
+		"data": coin_price_histories,
+	})
+
 	return nil
 }
 

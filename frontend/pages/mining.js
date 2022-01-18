@@ -1,6 +1,20 @@
+import axios from "axios";
 import styles from "../styles/main/mining/_mining.module.scss";
 
 const mining = () => {
+
+    let expired__time = 0;
+
+    const getBlock = async () => {
+        const endpoint = "mineInfo";
+        const URI = `${process.env.NEXT_PUBLIC_IP}/${endpoint}`;
+
+        const result = await axios.get(URI);
+
+        console.log(result);
+    }
+
+    getBlock();
 
     return (
         <div className={styles.mining_wrapper}>
@@ -33,7 +47,7 @@ const mining = () => {
                     <div>
                         <div>현재 시도 중인 논스값: 0</div>
                         <div></div>
-                        <div>채굴 진행 경과 시간: </div>
+                        <div>채굴 진행 경과 시간: 0시간 0분 0초</div>
                     </div>
                 </div>
             </div>

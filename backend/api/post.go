@@ -47,6 +47,7 @@ func Post(c chan<- bool, r *gin.Engine) {
 	go r.POST("/change_profile_picture", fn_REST_post__profile_picture)
 	go r.POST("/contract_transaction", fn_REST_post__contract_transaction)
 	go r.PATCH("/like/:coin_name/:user_id", fn_REST_patch__like_coin)
+	go r.PATCH("/mine", fn_REST_patch__block_mined)
 
 	post := r.Group("/post")
 	{
@@ -68,12 +69,6 @@ func Post(c chan<- bool, r *gin.Engine) {
 	{
 		report.POST("/:message_target/create", fn_REST_post__create_report)
 		report.POST("/:message_target/get", fn_REST_post__get_reports)
-	}
-
-	mine := r.Group("/mine")
-	{
-		mine.GET("/mineInfo", fn_REST_get__block_to_mine)
-		mine.PATCH("/", fn_REST_patch__block_mined)
 	}
 
 	c <- true
@@ -200,13 +195,6 @@ func fn_REST_post__profile_picture(c *gin.Context) {
 func fn_REST_post__contract_transaction(c *gin.Context) {
 
 	err := POST_tx_controller.ContractTx(c)
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-}
-
-func fn_REST_get__block_to_mine(c *gin.Context) {
-	_, err := GET_block_controller.GetLatestUnminedBlock()
 	if err != nil {
 		fmt.Println(err.Error())
 	}

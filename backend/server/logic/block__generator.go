@@ -15,7 +15,7 @@ const INTERVAL_GENERATE_BLOCK time.Duration = (time.Minute * 5)
 const ERR_GETTING_BLOCK__LATEST_BLOCK string = "Error occured while getting the latest block"
 const ERR_SAVING_BLOCK string = "Error occured while saving a block"
 
-const LOGGER_BLOCK_BEING_GENERATED string = "block is being generated!"
+const LOGGER_BLOCK_BEING_GENERATED string = "block is being generated now!"
 
 var block_service service.Block_service = service.New__Block()
 
@@ -44,6 +44,7 @@ func initialize_block() (entity.Block, error) {
 	
 	if err != nil {
 		fmt.Println("error here: 2")
+		fmt.Println(err)
 		return entity.Block{}, err
 	}
 
@@ -51,15 +52,17 @@ func initialize_block() (entity.Block, error) {
 
 	if err != nil {
 		fmt.Println("error here: 3")
+		fmt.Println(err)
 		return entity.Block{}, err
 	}
 
 	block_hash := Block_get_hash(block_index, block_prev_hash, block_timestamp, block_txs__marshaled)
 
-	Block_difficulty, err := Block_get_difficulty(block_index)
+	Block_difficulty, err := Block_get_difficulty(block_txs)
 
 	if err != nil {
 		fmt.Println("error here: 4")
+		fmt.Println(err)
 		return entity.Block{}, err
 	}
 
@@ -82,6 +85,7 @@ func generate_block() error {
 	block, err := initialize_block()
 
 	if err != nil {
+		fmt.Println(err)
 		log.Fatalln(ERR_GETTING_BLOCK__LATEST_BLOCK)
 		return err
 	}
@@ -89,6 +93,7 @@ func generate_block() error {
 	err = block_service.SaveBlock(block)
 
 	if err != nil {
+		fmt.Println(err)
 		log.Fatalln(ERR_SAVING_BLOCK)
 		return err
 	}
