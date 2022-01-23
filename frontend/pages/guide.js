@@ -1,6 +1,3 @@
-import Card_pad from "../components/Reusable/t_fx__card_pad";
-import styles from "../styles/main/guide/_guide.module.scss";
-import Link from "next/link";
 import Guide_wrapper from "../components/Common/Main/guide/guide_wrapper";
 import Guide_all_types_wrapper from "../components/Common/Main/guide/guide_all_types_wrapper";
 import Guide_type_wrapper from "../components/Common/Main/guide/guide_type_wrapper";

@@ -7,7 +7,6 @@ import Guide_type from "../../components/Common/Main/guide/guide_type";
 const Type = () => {
   const router = useRouter();
   const { g_type } = router.query;
-  console.log(g_type);
 
   return (
     <Guide_wrapper>

@@ -1,9 +1,7 @@
+import Container from "../components/Common/Main/info/container";
+
 const info = () => {
-  return (
-    <div>
-      <span>info</span>
-    </div>
-  );
+  return <Container></Container>;
 };
 
 export default info;

@@ -1,0 +1,69 @@
+@import "../../variable";
+@import "../../mixin";
+
+.country_title {
+  font-size: 2rem;
+}
+
+.country_inner__top {
+  box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.4);
+  border-radius: 16px;
+  margin: 0 2rem;
+  margin-bottom: 2rem;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  .item_inner__top {
+    margin-right: 1rem;
+    p {
+      margin: 0;
+      font-size: 2rem;
+    }
+  }
+}
+
+.country_inner__bottom {
+  box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.4);
+  margin: 0 2rem;
+  margin-bottom: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  .item_inner__bottom {
+    // border: 1px solid black;
+    position: relative;
+
+    margin: 1rem;
+    p {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    p::before {
+      content: "";
+      display: block;
+      height: 2rem;
+      margin-top: -2rem;
+      visibility: hidden;
+    }
+
+    hr {
+      margin: 0 0.5rem;
+    }
+
+    blockquote {
+      font-size: 1.25rem;
+    }
+
+    cite {
+      right: 0;
+    }
+  }
+}

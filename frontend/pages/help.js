@@ -1,9 +1,7 @@
+import Wrapper from "../components/Common/Main/help/help_wrapper";
+
 const help = () => {
-  return (
-    <div>
-      <span>help</span>
-    </div>
-  );
+  return <Wrapper />;
 };
 
 export default help;

@@ -20,6 +20,8 @@
     margin-top: 20px;
 
     cursor: pointer;
+
+    transition-duration: 0.5s;
   }
 
   &:hover {
@@ -62,12 +64,19 @@
   }
 
   .guide_article_content_wrapper {
+    height: 0;
     display: none;
+    box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1);
     margin: 20px 0 10px 0;
     font-size: 1.5rem;
+    user-select: none;
+    transition-property: background-color, height;
+    transition-duration: 1s;
 
     &.active {
       display: block;
+      height: auto;
+      background-color: rgba(192, 174, 174, 0.1);
     }
   }
 }
